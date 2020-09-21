@@ -14,8 +14,9 @@ const userRouter = require('./routes/users');
 const authRouter = require('./routes/auth');
 
 // Routes
-app.use('/users', userRouter);
-app.use('/auth', authRouter);
+app.get('/', (res) => res.json({ message: 'Welcome to the API' }));
+app.use('/api/users', userRouter);
+app.use('/api/auth', authRouter);
 
 connect().then(
   app.listen(port, () => {
