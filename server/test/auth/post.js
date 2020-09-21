@@ -17,7 +17,7 @@ const userTemplate = {
   password: 'PASSWORD',
 };
 
-describe('POST /users', () => {
+describe('POST /auth/signup', () => {
   before((done) => {
     connect()
       .then(() => done())
@@ -42,6 +42,40 @@ describe('POST /users', () => {
           .then((res) => {
             console.log('res.body.length = ', res.body.length);
             expect(res.body.length).to.equal(1);
+            done();
+          })
+          .catch((err) => done(err));
+      })
+      .catch((err) => done(err));
+  });
+});
+
+describe('POST /auth/signup USER EXISTS', () => {
+  before((done) => {
+    connect()
+      .then(() => done())
+      .catch((err) => done(err));
+  });
+  after((done) => {
+    disconnect()
+      .then(() => done())
+      .catch((err) => done(err));
+  });
+  it('User Exists', (done) => {
+    request(authRoute)
+      .post('/signup')
+      .send(userTemplate)
+      .expect(201)
+      .then((res) => {
+        console.log(`Post OK = ${res.ok}`);
+      })
+      .then(() => {
+        request(authRoute)
+          .post('/signup')
+          .send(userTemplate)
+          .expect(422)
+          .then((res) => {
+            console.log(`${res.error}`);
             done();
           })
           .catch((err) => done(err));
