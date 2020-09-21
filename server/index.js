@@ -11,11 +11,11 @@ app.use(express.json());
 
 // Router
 const userRouter = require('./routes/users');
-// const authRouter = require('./routes/auth');
+const authRouter = require('./routes/auth');
 
 // Routes
 app.use('/users', userRouter);
-// app.use('/auth', authRouter);
+app.use('/auth', authRouter);
 
 connect().then(
   app.listen(port, () => {
