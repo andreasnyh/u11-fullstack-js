@@ -7,11 +7,10 @@ router.use(express.json());
 router.use(express.urlencoded({ extended: false }));
 
 router.get('/', userController.index);
-
 router.get('/find/:email', userController.detail);
-router.post('/find', userController.detail);
-router.post('/create', userController.create);
-
 router.get('/*', userController.notFound);
+
+router.post('/', userController.create);
+router.post('/find', userController.detail);
 
 module.exports = router;

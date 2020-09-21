@@ -37,7 +37,7 @@ const create = (req, res) => {
   User.create(user)
     .then(() => {
       console.log(`User saved: \n ${JSON.stringify(user, null, 2)}`);
-      res.json(user);
+      res.status(201).json(user);
     })
     .catch((err) => res.status(400).json(`Error: ${err}`));
 };
