@@ -1,6 +1,7 @@
 const express = require('express');
 
 const { validate } = require('../middleware/validate');
+const validateToken = require('../middleware/token');
 const {
   validateUserCreate,
   validateUserLogin,
@@ -12,7 +13,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 // check('what in req', 'message if error').typeOfCheck()
-app.post('/login', validate(validateUserLogin), authController.login);
+app.post(
+  '/login',
+  validateToken,
+  validate(validateUserLogin),
+  authController.login,
+);
 
 app.post('/signup', validate(validateUserCreate), authController.signup);
 
