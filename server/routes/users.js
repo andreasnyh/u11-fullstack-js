@@ -8,7 +8,7 @@ router.use(express.urlencoded({ extended: false }));
 
 router.get('/', userController.index);
 
-router.post('/find/:email', userController.detail);
+router.get('/find/:email', userController.detail);
 router.post('/find', userController.detail);
 router.post('/create', userController.create);
 
