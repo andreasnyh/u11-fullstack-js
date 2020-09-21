@@ -30,7 +30,7 @@ async function connect() {
     // else run live DB connection
     mongoose.connect(URI, {
       useNewUrlParser: true,
-      // useCreateIndex: true,
+      useCreateIndex: true,
       useUnifiedTopology: true,
     });
 

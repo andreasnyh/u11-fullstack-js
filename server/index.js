@@ -9,6 +9,14 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// Router
+const userRouter = require('./routes/users');
+// const authRouter = require('./routes/auth');
+
+// Routes
+app.use('/users', userRouter);
+// app.use('/auth', authRouter);
+
 connect().then(
   app.listen(port, () => {
     console.log(`Server is running on: http://localhost:${port}`);
