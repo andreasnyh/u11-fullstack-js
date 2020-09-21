@@ -4,9 +4,33 @@
   "description": "Backend for U11 - meeting room",
   "main": "index.js",
   "scripts": {
+    "start": "nodemon index.js",
+    "lint": "eslint . --ext .js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC"
+  "author": "Andréas Nyh <andreas.ny@chasacademy.se> (https://github.com/andreasnyh)",
+  "license": "ISC",
+  "nodemonConfig": {
+    "ignore": [
+      "test/*",
+      "docs/*"
+    ],
+    "delay": "2500"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-validator": "^6.6.1",
+    "mongodb": "^3.6.2",
+    "mongoose": "^5.10.6"
+  },
+  "devDependencies": {
+    "eslint": "^7.9.0",
+    "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-plugin-import": "^2.22.0",
+    "mongodb-memory-server": "^6.7.6",
+    "nodemon": "^2.0.4"
+  }
 }
