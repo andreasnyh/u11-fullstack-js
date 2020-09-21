@@ -4,7 +4,7 @@ const { validate } = require('../middleware/validate');
 const {
   validateUserCreate,
   validateUserLogin,
-} = require('../controllers/user.validate');
+} = require('../controllers/auth.validate');
 const authController = require('../controllers/auth');
 
 const app = express();
