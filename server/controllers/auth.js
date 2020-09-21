@@ -29,10 +29,7 @@ const login = (req, res) => {
 
 const signup = (req, res) => {
   const {
-    email,
-    password,
-    lastName,
-    firstName,
+    email, password, lastName, firstName,
   } = req.body;
 
   // Check if user already exists
@@ -61,7 +58,10 @@ const signup = (req, res) => {
         .then(() => {
           newUser
             .save()
-            .then(() => res.status(201).json(newUser))
+            .then(() => {
+              console.log('User created');
+              res.status(201).json(newUser);
+            })
             .catch((err) => {
               console.log(err.message);
               res.status(400).json('Error saving user!');
