@@ -3,26 +3,19 @@ const jwt = require('jsonwebtoken');
 
 const User = require('../models/user');
 
-const generateToken = (user) => {
-  // Gets expiration time
-  // const expiration = Math.floor(Date.now() / 1000) + 60 * process.env.JWT_EXPIRATION_IN_MINUTES;
-  const expiration = 30;
+const { JWT_SECRET } = process.env;
 
-  // returns signed and encrypted token
-  return jwt.sign(
-    {
-      data: {
-        _id: user,
-      },
-      exp: expiration,
-    },
-    process.env.JWT_SECRET,
-  );
-};
+// returns signed and encrypted token
+// const expiration = Math.floor(Date.now() / 1000) + 60 * process.env.JWT_EXPIRATION_IN_MINUTES;
+const generateToken = (user) => jwt.sign({ data: user }, process.env.JWT_SECRET, { expiresIn: '30s' });
+
+// Gets expiration time
+// const expiration = 30;
 
 const login = (req, res) => {
   const { email, password } = req.body;
-
+  const accessToken = jwt.sign(req.body, JWT_SECRET);
+  console.log(accessToken);
   User.findOne({ email })
     .then((user) => {
       if (!user) {
@@ -76,7 +69,7 @@ const signup = (req, res) => {
         })
         .then(() => {
           const token = generateToken(newUser.id);
-          console.log('Token created');
+          console.log('Token created :', token);
           newUser
             .save()
             .then(() => {
