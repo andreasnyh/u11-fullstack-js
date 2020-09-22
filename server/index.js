@@ -1,6 +1,6 @@
-// require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
+const notFound = require('./controllers/notFoundController');
 const { connect } = require('./server');
 
 const port = process.env.PORT || 5000;
@@ -14,9 +14,10 @@ const userRouter = require('./routes/users');
 const authRouter = require('./routes/auth');
 
 // Routes
-app.get('/', (res) => res.json({ message: 'Welcome to the API' }));
+app.get('/api/', (req, res) => res.send({ message: 'Welcome to the API' }));
 app.use('/api/users', userRouter);
 app.use('/api/auth', authRouter);
+app.get('/api/*', notFound);
 
 connect().then(
   app.listen(port, () => {

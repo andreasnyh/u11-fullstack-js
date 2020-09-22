@@ -1,7 +1,7 @@
 const express = require('express');
 const userController = require('../controllers/user');
 const notFound = require('../controllers/notFoundController');
-const verifyToken = require('../middleware/authJwt');
+const verifyToken = require('../middleware/auth.verify.token');
 
 const router = express();
 
