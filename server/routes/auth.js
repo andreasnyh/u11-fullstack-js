@@ -1,25 +1,32 @@
 const express = require('express');
 
+const authController = require('../controllers/auth');
 const { validate } = require('../middleware/validate');
-const validateToken = require('../middleware/token');
+const { checkEmailExists } = require('../middleware/verifySignUp');
 const {
   validateUserCreate,
   validateUserLogin,
-} = require('../controllers/auth.validate');
-const authController = require('../controllers/auth');
+} = require('../middleware/auth.validate');
 
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-// check('what in req', 'message if error').typeOfCheck()
-app.post(
-  '/login',
-  validateToken,
-  validate(validateUserLogin),
-  authController.login,
-);
+app.use((req, res, next) => {
+  res.header(
+    'Access-Control-Allow-Headers',
+    'x-access-token, Origin, Content-Type, Accept',
+  );
+  next();
+});
 
-app.post('/signup', validate(validateUserCreate), authController.signup);
+// check('what in req', 'message if error').typeOfCheck()
+app.post('/signin', validate(validateUserLogin), authController.signIn);
+
+app.post(
+  '/signup',
+  [validate(validateUserCreate), checkEmailExists],
+  authController.signUp,
+);
 
 module.exports = app;
