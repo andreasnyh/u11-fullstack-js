@@ -1,4 +1,4 @@
-const User = require('../models/user');
+const User = require('../models/user.model');
 
 // Check if user already exists
 const checkEmailExists = (req, res, next) => {

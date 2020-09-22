@@ -7,7 +7,7 @@ const {
 } = require('mocha');
 
 const { connect, disconnect } = require('../../server');
-const app = require('../../routes/users');
+const app = require('../../routes/users.routes');
 
 describe('GET /users', () => {
   before((done) => {
