@@ -1,7 +1,5 @@
 const User = require('../models/user');
 
-const notFound = (req, res) => res.status(404).json('Not found');
-
 const index = (req, res) => {
   User.find()
     .then((users) => res.json(users))
@@ -45,6 +43,5 @@ const create = (req, res) => {
 module.exports = {
   index,
   detail,
-  notFound,
   create,
 };
