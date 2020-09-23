@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 
-import Colors from '../config/Colors';
+import { Colors } from '../config/ColorsShadows';
 
 const Button = styled.button`
   /* Adapt the colors based on primary prop */
-  background: ${(props) => (props.lightMode ? Colors.DarkBlue : Colors.Pink)};
-  color: ${(props) => (props.lightMode ? Colors.Black : Colors.White)};
+  background: ${(props) => (props.lightMode ? Colors.Pink : Colors.Pink)};
+  color: ${(props) => (props.lightMode ? Colors.White : Colors.White)};
   font-size: 1rem;
   margin: 1em;
   padding: 0.6em 2em;

@@ -1,4 +1,4 @@
-const Colors = {
+export const Colors = {
   White: '#FFFFFF',
   Pink: '#E94774',
   Black: '#000000',
@@ -10,4 +10,6 @@ const Colors = {
   LightGray: '#E5E5E5'
 };
 
-export default Colors;
+export const Shadows = {
+  CardShadow: '0px 5px 15px rgba(0, 0, 0, 0.2)'
+};

@@ -4,7 +4,7 @@ import { Route, Router, Switch } from 'react-router-dom';
 import SignIn from './components/SignIn';
 import SignUp from './components/SignUp';
 import Welcome from './components/Welcome';
-import history from './history';
+import history from './config/history';
 
 function Routes() {
   return (
