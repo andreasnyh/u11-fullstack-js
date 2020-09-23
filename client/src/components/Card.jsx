@@ -1,7 +1,10 @@
-import React from 'react';
+import styled from 'styled-components';
 
-const Card = () => {
-  return <div className="card">This is a card</div>;
-};
+const Card = styled.div`
+  background-color: red;
+  margin: 0 auto;
+  width: 40%;
+  border-radius: 20px;
+`;
 
 export default Card;
