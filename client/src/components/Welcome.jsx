@@ -11,7 +11,7 @@ const StyledWelcome = styled.div`
   width: 100%;
   padding: 2em 1em;
   margin: 0 auto;
-  background-color: lightGray;
+  background-color: lightPink;
   border-radius: 20px 20px 0 0;
   position: absolute;
   display: flex;
@@ -21,7 +21,7 @@ const StyledWelcome = styled.div`
 const Welcome = () => {
   return (
     <>
-      <SplashImage imgUrl="https://via.placeholder.com/414x414" />
+      <SplashImage imgUrl="https://via.placeholder.com/414x414?text=Splash+image+placeholder" />
       <StyledWelcome>
         <h2>Welcome Component!</h2>
         {/* Margins to center buttons vertically */}
