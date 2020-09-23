@@ -12,7 +12,7 @@ const StyledWelcome = styled.div`
   padding: 2em 1em;
   margin: 0 auto;
   background-color: lightPink;
-  border-radius: 20px 20px 0 0;
+  border-radius: 30px 30px 0 0;
   position: absolute;
   display: flex;
   flex-direction: column;
