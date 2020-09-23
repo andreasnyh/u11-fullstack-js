@@ -12,8 +12,9 @@ const Button = styled.button`
   border: 0;
   border-radius: 8px;
   &&:hover {
-    background: ${Colors.White};
-    color: ${Colors.Black};
+    transform: scale(1.2);
+    // background: ${Colors.White};
+    // color: ${Colors.Black};
   }
 `;
 
