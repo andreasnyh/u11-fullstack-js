@@ -4,6 +4,7 @@ import React from 'react';
 import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom';
 
 import Card from './components/Card';
+import Welcome from './components/Welcome';
 
 // import logo from './logo.svg';
 
@@ -46,7 +47,7 @@ function App() {
             <Card />
           </Route>
           <Route path="/">
-            <div>Home</div>
+            <Welcome />
           </Route>
         </Switch>
       </div>
