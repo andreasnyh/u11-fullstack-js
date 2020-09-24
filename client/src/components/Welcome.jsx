@@ -25,10 +25,10 @@ const Welcome = () => {
       <StyledWelcome>
         <h2>Welcome Component!</h2>
         {/* Margins to center buttons vertically */}
-        <Link to="/signup" style={{ 'margin-top': 'auto' }}>
+        <Link to="/signup" style={{ marginTop: 'auto' }}>
           <Button>Register</Button>
         </Link>
-        <Link to="/signin" style={{ 'margin-bottom': 'auto' }}>
+        <Link to="/signin" style={{ marginBottom: 'auto' }}>
           <Button>Log in</Button>
         </Link>
       </StyledWelcome>
