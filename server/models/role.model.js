@@ -7,7 +7,6 @@ const RoleSchema = mongoose.Schema({
     index: {
       unique: true,
     },
-    default: 'user',
   },
   created: {
     type: Date,
