@@ -1,8 +1,29 @@
 require('dotenv').config();
 const mongoose = require('mongoose');
 const { MongoMemoryServer } = require('mongodb-memory-server');
+const { Role, roleList } = require('./models');
 
 const { URI } = process.env;
+
+function init() {
+  Role.estimatedDocumentCount((error, count) => {
+    if (error) return console.error('error', error);
+    console.error('error', error);
+    console.error('count', count);
+    if (!error && count === 0) {
+      for (let i = 0; i < roleList.length; i++) {
+        new Role({
+          name: roleList[i],
+        }).save((err) => {
+          if (err) return console.error('error', err);
+          return console.log(`Added role: ${roleList[i]} to database`);
+        });
+      }
+      return console.log('Added all roles.');
+    }
+    return console.log('End of init');
+  });
+}
 
 // Connection to MongoDB
 async function connect() {
@@ -38,6 +59,7 @@ async function connect() {
 
     db.on('error', console.error.bind(console, 'connection error:'));
     db.once('open', () => {
+      init();
       console.log('MongoDB database connection established successfully');
     });
   }

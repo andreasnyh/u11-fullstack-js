@@ -2,7 +2,7 @@ const express = require('express');
 
 const authController = require('../controllers/auth.controller');
 const { validate } = require('../middleware/validate');
-const { checkEmailExists } = require('../middleware/verifySignUp');
+const { checkEmailExists } = require('../middleware/verify.email.role');
 const {
   validateUserCreate,
   validateUserLogin,

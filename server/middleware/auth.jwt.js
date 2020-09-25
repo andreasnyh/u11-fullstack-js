@@ -3,8 +3,9 @@ const jwt = require('jsonwebtoken');
 // const User = require('../models/user');
 
 const verifyToken = (req, res, next) => {
-  const bearerHeader = req.headers.authorization;
-  const token = bearerHeader && bearerHeader.split(' ')[1];
+  // const bearerHeader = req.headers.authorization;
+  // const token = bearerHeader && bearerHeader.split(' ')[1];
+  const token = req.headers['x-access-token'];
 
   if (!token) return res.status(403).send({ message: 'No token provided' });
 

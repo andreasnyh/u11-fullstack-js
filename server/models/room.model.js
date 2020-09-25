@@ -1,37 +1,28 @@
 const mongoose = require('mongoose');
 
-const UserSchema = mongoose.Schema({
-  firstName: {
+const RoomSchema = mongoose.Schema({
+  room: {
     type: String,
     trim: true,
     minlength: 2,
     required: true,
   },
-  lastName: {
+  address: {
     type: String,
     trim: true,
     minlength: 2,
     required: true,
   },
-  email: {
-    type: String,
+  price: {
+    type: Number,
     trim: true,
-    index: {
-      unique: true,
-    },
-    required: true,
+    default: 0,
   },
   password: {
     type: String,
     trim: true,
     required: true,
   },
-  roles: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Role',
-    },
-  ],
   created: {
     type: Date,
     default: Date.now,
@@ -42,6 +33,6 @@ const UserSchema = mongoose.Schema({
   },
 });
 
-const User = mongoose.model('User', UserSchema, 'users');
+const User = mongoose.model('Room', RoomSchema, 'rooms');
 
 module.exports = User;
