@@ -8,8 +8,7 @@ const { URI } = process.env;
 function init() {
   Role.estimatedDocumentCount((error, count) => {
     if (error) return console.error('error', error);
-    console.error('error', error);
-    console.error('count', count);
+
     if (!error && count === 0) {
       for (let i = 0; i < roleList.length; i++) {
         new Role({
@@ -19,9 +18,8 @@ function init() {
           return console.log(`Added role: ${roleList[i]} to database`);
         });
       }
-      return console.log('Added all roles.');
     }
-    return console.log('End of init');
+    return console.log('Role init');
   });
 }
 
@@ -60,7 +58,7 @@ async function connect() {
     db.on('error', console.error.bind(console, 'connection error:'));
     db.once('open', () => {
       init();
-      console.log('MongoDB database connection established successfully');
+      console.log('MongoDB connection established successfully');
     });
   }
 }
