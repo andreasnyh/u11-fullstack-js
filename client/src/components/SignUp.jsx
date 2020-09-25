@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 import Button from './Button';
@@ -7,12 +6,23 @@ import Form from './Form';
 import Input from './Input';
 
 const StyledSignUp = styled.div`
+  bottom: 0;
   width: 100%;
-  height: 100vh;
-  padding: 2em 1em;
   margin: 0 auto;
+  padding: 2em 1em;
+  position: absolute;
+  height: calc(100% - 21px);
   background-color: lightPink;
   border-radius: 30px 30px 0 0;
+`;
+
+const StyledButtons = styled.div`
+  display: flex;
+`;
+
+const StyledWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
 `;
 
 class SignUp extends Component {
@@ -36,35 +46,53 @@ class SignUp extends Component {
   }
 
   render() {
+    const { history } = this.props;
     return (
-      <StyledSignUp>
-        <h2>Sign Up Component</h2>
-        <Form text="Register">
-          <Input
-            type="text"
-            name="firstName"
-            placeholder="First name"
-            onChange={this.handleChange}
-          />
-          <Input type="text" name="lastName" placeholder="Last name" onChange={this.handleChange} />
-          <Input type="email" name="email" placeholder="E-mail" onChange={this.handleChange} />
-          <Input type="text" name="password" placeholder="Password" onChange={this.handleChange} />
-          <Input
-            type="text"
-            name="passwordAgain"
-            placeholder="Repeat password"
-            onChange={this.handleChange}
-          />
-        </Form>
-        <Link to="/">
-          <Button lightMode>Back</Button>
-        </Link>
-        {/* <Link to="/"> */}
-        <Button type="submit" lightMode onClick={this.handleSubmit}>
-          Register
-        </Button>
-        {/* </Link> */}
-      </StyledSignUp>
+      <StyledWrapper>
+        <StyledSignUp>
+          <h2>Sign Up Component</h2>
+          <Form text="Register">
+            <Input
+              type="text"
+              name="firstName"
+              placeholder="First name"
+              onChange={this.handleChange}
+            />
+            <Input
+              type="text"
+              name="lastName"
+              placeholder="Last name"
+              onChange={this.handleChange}
+            />
+            <Input type="email" name="email" placeholder="E-mail" onChange={this.handleChange} />
+            <Input
+              type="text"
+              name="password"
+              placeholder="Password"
+              onChange={this.handleChange}
+            />
+            <Input
+              type="text"
+              name="passwordAgain"
+              placeholder="Repeat password"
+              onChange={this.handleChange}
+            />
+          </Form>
+          <StyledButtons>
+            <Button
+              style={{ marginTop: 'auto' }}
+              onClick={() => {
+                history.push('/');
+              }}
+            >
+              Back
+            </Button>
+            <Button type="submit" lightMode onClick={this.handleSubmit}>
+              Register
+            </Button>
+          </StyledButtons>
+        </StyledSignUp>
+      </StyledWrapper>
     );
   }
 }
