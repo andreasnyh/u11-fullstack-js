@@ -32,10 +32,11 @@ module.exports = {
     SharedArrayBuffer: 'readonly'
   },
   rules: {
-    'prettier/prettier': ['error', {}, { usePrettierrc: true }],
-    'react/react-in-jsx-scope': 'off',
+    'no-console': 'off',
     'react/prop-types': 'off',
+    'react/react-in-jsx-scope': 'off',
     'simple-import-sort/sort': 'error',
+    'prettier/prettier': ['error', {}, { usePrettierrc: true }],
     'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }]
   }
 };
