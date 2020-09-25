@@ -1,4 +1,4 @@
-const User = require('../models/user');
+const User = require('../models/user.model');
 
 const index = (req, res) => {
   User.find()
@@ -40,8 +40,27 @@ const create = (req, res) => {
     .catch((err) => res.status(400).json(`Error: ${err}`));
 };
 
+/* ***************** TESTS ***************** */
+
+const allAccess = (req, res) => {
+  res.status(200).send('Public Content.');
+};
+
+const userBoard = (req, res) => {
+  res.status(200).send('User Content.');
+};
+
+const adminBoard = (req, res) => {
+  res.status(200).send('Admin Content.');
+};
+
+/* *************** END TESTS *************** */
+
 module.exports = {
   index,
   detail,
   create,
+  allAccess,
+  userBoard,
+  adminBoard,
 };

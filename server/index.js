@@ -1,6 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-const notFound = require('./controllers/notFoundController');
+const notFound = require('./controllers/notfound.controller');
 const { connect } = require('./server');
 
 const port = process.env.PORT || 5000;
@@ -10,8 +10,8 @@ app.use(cors());
 app.use(express.json());
 
 // Router
-const userRouter = require('./routes/users');
-const authRouter = require('./routes/auth');
+const userRouter = require('./routes/users.routes');
+const authRouter = require('./routes/auth.routes');
 
 // Routes
 app.get('/api/', (req, res) => res.send({ message: 'Welcome to the API' }));
