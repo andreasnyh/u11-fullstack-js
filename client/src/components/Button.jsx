@@ -4,15 +4,16 @@ import { Colors } from '../config/ColorsShadows';
 
 const Button = styled.button`
   /* Adapt the colors based on primary prop */
-  background: ${(props) => (props.lightMode ? Colors.Pink : Colors.Pink)};
-  color: ${(props) => (props.lightMode ? Colors.White : Colors.White)};
-  font-size: 1rem;
+  border: 0;
   width: 50%;
   margin: 1em;
-  padding: 0.75em 2em;
-  border: 0;
+  font-size: 1rem;
+  font-weight: 600;
   border-radius: 8px;
+  padding: 0.75em 2em;
   transition: all 0.25s;
+  color: ${Colors.Text};
+  background: ${(props) => (props.confirm ? Colors.Important : Colors.Light)};
   &&:hover {
     transform: scale(1.1);
     // background: ${Colors.White};
