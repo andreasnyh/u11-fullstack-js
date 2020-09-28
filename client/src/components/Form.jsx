@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import { Colors, Shadows } from '../config/ColorsShadows';
+
 const StyledForm = styled.form`
   width: 100%;
   display: flex;
@@ -9,7 +11,9 @@ const StyledForm = styled.form`
   border-radius: 10px;
   align-items: center;
   flex-direction: column;
-  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+  color: ${Colors.lightText};
+  background-color: ${Colors.lightDark};
+  box-shadow: ${Shadows.CardShadow};
 `;
 
 const Form = ({ handleSubmit, id, children, text }) => {

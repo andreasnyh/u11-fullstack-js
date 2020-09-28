@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 
+import { Colors } from '../config/ColorsShadows';
 import Button from './Button';
 import Form from './Form';
 import Input from './Input';
@@ -12,7 +13,8 @@ const StyledSignIn = styled.div`
   padding: 2em 1em;
   position: absolute;
   height: calc(100% - 21px);
-  background-color: lightPink;
+  color: ${Colors.Text};
+  background-color: ${Colors.Dark};
   border-radius: 30px 30px 0 0;
 `;
 
@@ -69,7 +71,7 @@ class SignIn extends Component {
             >
               Back
             </Button>
-            <Button type="submit" lightMode onClick={this.handleSubmit}>
+            <Button type="submit" confirm onClick={this.handleSubmit}>
               Sign In
             </Button>
           </StyledButtons>

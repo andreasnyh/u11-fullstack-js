@@ -2,6 +2,7 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 
+import { Colors } from '../config/ColorsShadows';
 import Button from './Button';
 import SplashImage from './SplashImage';
 
@@ -11,7 +12,8 @@ const StyledWelcome = styled.div`
   width: 100%;
   padding: 2em;
   margin: 0 auto;
-  background-color: lightPink;
+  color: ${Colors.Text};
+  background-color: ${Colors.Dark};
   border-radius: 30px 30px 0 0;
   position: absolute;
   display: flex;
@@ -30,6 +32,7 @@ const Welcome = () => {
 
         <Button
           history
+          confirm
           style={{ marginTop: 'auto' }}
           onClick={() => {
             history.push('/signup');
@@ -38,6 +41,7 @@ const Welcome = () => {
           Register
         </Button>
         <Button
+          history
           style={{ marginBottom: 'auto' }}
           onClick={() => {
             history.push('/signin');

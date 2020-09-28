@@ -9,7 +9,7 @@ import Routes from './Routes';
 function App() {
   return (
     <div className="App">
-      <h1>This could be a {'<nav> component'}</h1>
+      <p>This could be a {'<nav> component'}</p>
       {/*  Renders the different routes */}
       <Routes />
     </div>

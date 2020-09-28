@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { Component } from 'react';
 import styled from 'styled-components';
 
+import { Colors } from '../config/ColorsShadows';
 import Button from './Button';
 import Form from './Form';
 import Input from './Input';
@@ -13,7 +14,8 @@ const StyledSignUp = styled.div`
   padding: 2em 1em;
   position: absolute;
   height: calc(100% - 21px);
-  background-color: lightPink;
+  color: ${Colors.Text};
+  background-color: ${Colors.Dark};
   border-radius: 30px 30px 0 0;
 `;
 
@@ -29,7 +31,14 @@ const StyledWrapper = styled.div`
 class SignUp extends Component {
   constructor(props) {
     super(props);
-    this.state = { firstName: '', lastName: '', password: '', passwordAgain: '', email: '' };
+    this.state = {
+      firstName: '',
+      lastName: '',
+      password: '',
+      passwordAgain: '',
+      email: '',
+      errors: []
+    };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -57,9 +66,10 @@ class SignUp extends Component {
       })
       .catch((error) => {
         if (error.response) {
+          const errorArray = [];
           // The request was made and the server responded with a status code
           // that falls out of the range of 2xx
-          error.response.data.errors.map((err) =>
+          error.response.data.errors.forEach((err) => {
             console.log(
               'status:',
               error.response.status,
@@ -67,8 +77,15 @@ class SignUp extends Component {
               err.param,
               '\nError:',
               err.msg
-            )
-          );
+            );
+            errorArray.push({ param: err.param, mgs: err.msg });
+          });
+
+          console.log(errorArray);
+          this.setState({
+            errors: errorArray
+          });
+
           // console.log(error.response.status);
           // console.log(error.response.data);
           // console.log(error.response.headers);
@@ -88,6 +105,7 @@ class SignUp extends Component {
   render() {
     const { history } = this.props;
     const { firstName, lastName, email, password, passwordAgain } = this.state;
+
     return (
       <StyledWrapper>
         <StyledSignUp>
@@ -101,6 +119,7 @@ class SignUp extends Component {
               required
               onChange={this.handleChange}
             />
+
             <Input
               type="text"
               name="lastName"
@@ -109,6 +128,7 @@ class SignUp extends Component {
               required
               onChange={this.handleChange}
             />
+
             <Input
               type="email"
               name="email"
@@ -117,6 +137,7 @@ class SignUp extends Component {
               onChange={this.handleChange}
               required
             />
+
             <Input
               type="text"
               name="password"
@@ -125,6 +146,7 @@ class SignUp extends Component {
               required
               onChange={this.handleChange}
             />
+
             <Input
               type="text"
               name="passwordAgain"
@@ -143,7 +165,8 @@ class SignUp extends Component {
               >
                 Back
               </Button>
-              <Button type="submit" lightMode>
+
+              <Button type="submit" confirm>
                 Register
               </Button>
             </StyledButtons>
