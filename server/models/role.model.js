@@ -1,22 +1,18 @@
 const mongoose = require('mongoose');
 
-const RoleSchema = mongoose.Schema({
-  name: {
-    type: String,
-    trim: true,
-    index: {
-      unique: true,
+const RoleSchema = mongoose.Schema(
+  {
+    name: {
+      type: String,
+      trim: true,
+      index: {
+        unique: true,
+      },
     },
   },
-  created: {
-    type: Date,
-    default: Date.now,
-  },
-  updated: {
-    type: Date,
-    default: Date.now,
-  },
-});
+  // Options
+  { timestamps: { createdAt: 'createdAt' } },
+);
 
 const User = mongoose.model('Role', RoleSchema, 'roles');
 

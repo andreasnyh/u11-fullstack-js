@@ -1,38 +1,50 @@
 const mongoose = require('mongoose');
 
-const RoomSchema = mongoose.Schema({
-  room: {
-    type: String,
-    trim: true,
-    minlength: 2,
-    required: true,
+const RoomSchema = mongoose.Schema(
+  {
+    name: {
+      type: String,
+      trim: true,
+      minlength: 2,
+      required: true,
+    },
+    floor: {
+      type: Number,
+      trim: true,
+      maxlength: 3,
+    },
+    street: {
+      type: String,
+      trim: true,
+      minlength: 2,
+      required: true,
+    },
+    postalNumber: {
+      type: Number,
+      trim: true,
+      minlength: 5,
+      maxlength: 5,
+    },
+    town: {
+      type: String,
+      trim: true,
+      minlength: 2,
+    },
+    price: {
+      type: Number,
+      trim: true,
+      default: 0,
+    },
+    password: {
+      type: String,
+      trim: true,
+      required: true,
+    },
   },
-  address: {
-    type: String,
-    trim: true,
-    minlength: 2,
-    required: true,
-  },
-  price: {
-    type: Number,
-    trim: true,
-    default: 0,
-  },
-  password: {
-    type: String,
-    trim: true,
-    required: true,
-  },
-  created: {
-    type: Date,
-    default: Date.now,
-  },
-  updated: {
-    type: Date,
-    default: Date.now,
-  },
-});
+  // Options
+  { timestamps: { createdAt: 'createdAt' } },
+);
 
-const User = mongoose.model('Room', RoomSchema, 'rooms');
+const Room = mongoose.model('Room', RoomSchema, 'rooms');
 
-module.exports = User;
+module.exports = Room;
