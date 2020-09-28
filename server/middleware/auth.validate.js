@@ -37,6 +37,15 @@ const validateUserCreate = [
       min: 5,
     })
     .withMessage('Password needs to be at least 5 characters long'),
+  check('passwordAgain').custom(async (passwordAgain, { req }) => {
+    const { password } = req.body;
+
+    // If password and confirm password not same
+    // don't allow to sign up and throw error
+    if (password !== passwordAgain) {
+      throw new Error('Passwords doesn\'t match!');
+    }
+  }),
 ];
 
 module.exports = { validateUserCreate, validateUserLogin };
