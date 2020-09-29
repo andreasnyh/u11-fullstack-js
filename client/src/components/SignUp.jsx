@@ -1,32 +1,7 @@
 import axios from 'axios';
 import React, { Component } from 'react';
-import styled from 'styled-components';
 
-import { Colors } from '../config/ColorsShadows';
-import Button from './Button';
-import Form from './Form';
-import Input from './Input';
-
-const StyledSignUp = styled.div`
-  bottom: 0;
-  width: 100%;
-  margin: 0 auto;
-  padding: 2em 1em;
-  position: absolute;
-  height: calc(100% - 21px);
-  color: ${Colors.Text};
-  background-color: ${Colors.Dark};
-  border-radius: 30px 30px 0 0;
-`;
-
-const StyledButtons = styled.div`
-  display: flex;
-`;
-
-const StyledWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
+import { Button, CardFull, FlexRow, Form, Input } from './elements';
 
 class SignUp extends Component {
   constructor(props) {
@@ -107,72 +82,70 @@ class SignUp extends Component {
     const { firstName, lastName, email, password, passwordAgain } = this.state;
 
     return (
-      <StyledWrapper>
-        <StyledSignUp>
-          <h2>Sign Up Component</h2>
-          <Form text="Register" handleSubmit={this.handleSubmit}>
-            <Input
-              type="text"
-              name="firstName"
-              value={firstName}
-              placeholder="First name"
-              required
-              onChange={this.handleChange}
-            />
+      <CardFull>
+        <h2>Sign Up Component</h2>
+        <Form text="Register" handleSubmit={this.handleSubmit}>
+          <Input
+            type="text"
+            name="firstName"
+            value={firstName}
+            placeholder="First name"
+            required
+            onChange={this.handleChange}
+          />
 
-            <Input
-              type="text"
-              name="lastName"
-              value={lastName}
-              placeholder="Last name"
-              required
-              onChange={this.handleChange}
-            />
+          <Input
+            type="text"
+            name="lastName"
+            value={lastName}
+            placeholder="Last name"
+            required
+            onChange={this.handleChange}
+          />
 
-            <Input
-              type="email"
-              name="email"
-              value={email}
-              placeholder="E-mail"
-              onChange={this.handleChange}
-              required
-            />
+          <Input
+            type="email"
+            name="email"
+            value={email}
+            placeholder="E-mail"
+            onChange={this.handleChange}
+            required
+          />
 
-            <Input
-              type="text"
-              name="password"
-              value={password}
-              placeholder="Password"
-              required
-              onChange={this.handleChange}
-            />
+          <Input
+            type="text"
+            name="password"
+            value={password}
+            placeholder="Password"
+            required
+            onChange={this.handleChange}
+          />
 
-            <Input
-              type="text"
-              name="passwordAgain"
-              value={passwordAgain}
-              placeholder="Repeat password"
-              required
-              onChange={this.handleChange}
-            />
+          <Input
+            type="text"
+            name="passwordAgain"
+            value={passwordAgain}
+            placeholder="Repeat password"
+            required
+            onChange={this.handleChange}
+          />
 
-            <StyledButtons>
-              <Button
-                style={{ marginTop: 'auto' }}
-                onClick={() => {
-                  history.push('/');
-                }}
-              >
-                Back
-              </Button>
+          <FlexRow>
+            <Button
+              style={{ marginTop: 'auto' }}
+              onClick={() => {
+                history.push('/');
+              }}
+            >
+              Back
+            </Button>
 
-              <Button type="submit" confirm>
-                Register
-              </Button>
-            </StyledButtons>
-          </Form>
-        </StyledSignUp>
-      </StyledWrapper>
+            <Button type="submit" confirm>
+              Register
+            </Button>
+          </FlexRow>
+        </Form>
+      </CardFull>
     );
   }
 }

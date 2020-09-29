@@ -3,8 +3,8 @@ import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { Colors } from '../config/ColorsShadows';
-import Button from './Button';
-import SplashImage from './SplashImage';
+import Button from './elements/Button';
+import SplashImage from './elements/SplashImage';
 
 const StyledWelcome = styled.div`
   top: 50%;

@@ -1,31 +1,6 @@
 import React, { Component } from 'react';
-import styled from 'styled-components';
 
-import { Colors } from '../config/ColorsShadows';
-import Button from './Button';
-import Form from './Form';
-import Input from './Input';
-
-const StyledSignIn = styled.div`
-  bottom: 0;
-  width: 100%;
-  margin: 0 auto;
-  padding: 2em 1em;
-  position: absolute;
-  height: calc(100% - 21px);
-  color: ${Colors.Text};
-  background-color: ${Colors.Dark};
-  border-radius: 30px 30px 0 0;
-`;
-
-const StyledButtons = styled.div`
-  display: flex;
-`;
-
-const StyledWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
+import { Button, CardFull, FlexCol, FlexRow, Form, Input } from './elements';
 
 class SignIn extends Component {
   constructor(props) {
@@ -50,8 +25,8 @@ class SignIn extends Component {
   render() {
     const { history } = this.props;
     return (
-      <StyledWrapper>
-        <StyledSignIn>
+      <FlexCol>
+        <CardFull>
           <h2>Sign In Component</h2>
           <Form text="Sign In">
             <Input type="email" name="email" placeholder="E-mail" onChange={this.handleChange} />
@@ -62,7 +37,7 @@ class SignIn extends Component {
               onChange={this.handleChange}
             />
           </Form>
-          <StyledButtons>
+          <FlexRow>
             <Button
               style={{ marginTop: 'auto' }}
               onClick={() => {
@@ -74,9 +49,9 @@ class SignIn extends Component {
             <Button type="submit" confirm onClick={this.handleSubmit}>
               Sign In
             </Button>
-          </StyledButtons>
-        </StyledSignIn>
-      </StyledWrapper>
+          </FlexRow>
+        </CardFull>
+      </FlexCol>
     );
   }
 }
