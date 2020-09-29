@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { Component } from 'react';
 
+import auth from '../config/auth';
 import { Button, Card, CardFull, FlexRow, Form, Input, Text } from './elements';
 
 class SignIn extends Component {
@@ -32,8 +33,10 @@ class SignIn extends Component {
       .post('http://localhost:5000/api/auth/signin', user)
       .then((res) => {
         const { history } = this.props;
-        localStorage.setItem('jwtToken', res.data.user.accessToken);
-        history.push('/home');
+        auth.login(() => {
+          localStorage.setItem('jwtToken', res.data.user.accessToken);
+          history.push('/home');
+        });
       })
       .catch((error) => {
         if (error.response) {
