@@ -36,8 +36,10 @@ class SignUp extends Component {
     axios
       .post('http://localhost:5000/api/auth/signup', user)
       .then((res) => {
+        const { history } = this.props;
         console.log(res);
         console.log(res.data);
+        history.push('/signup/thankyou');
       })
       .catch((error) => {
         if (error.response) {
@@ -114,7 +116,7 @@ class SignUp extends Component {
             />
 
             <Input
-              type="text"
+              type="password"
               name="password"
               value={password}
               placeholder="Password"
@@ -123,7 +125,7 @@ class SignUp extends Component {
             />
 
             <Input
-              type="text"
+              type="password"
               name="passwordAgain"
               value={passwordAgain}
               placeholder="Repeat password"
