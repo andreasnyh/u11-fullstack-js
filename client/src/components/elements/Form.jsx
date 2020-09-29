@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { Colors, Shadows } from '../config/ColorsShadows';
+import { Colors, Shadows } from '../../config/ColorsShadows';
 
 const StyledForm = styled.form`
   width: 100%;

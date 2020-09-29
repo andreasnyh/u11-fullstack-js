@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { Colors } from '../config/ColorsShadows';
+import { Colors } from '../../config/ColorsShadows';
 
 const Button = styled.button`
   /* Adapt the colors based on primary prop */
