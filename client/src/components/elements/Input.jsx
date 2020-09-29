@@ -9,6 +9,7 @@ const Input = styled.input`
   padding: 14px;
   outline: none;
   border-radius: 20px;
+  font-size: 0.9rem;
   &&:focus {
     box-shadow: 0 0 2pt 2pt ${Colors.Important};
   }

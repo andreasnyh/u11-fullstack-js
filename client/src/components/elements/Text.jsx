@@ -1,26 +1,33 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { Colors } from '../../config/ColorsShadows';
+// import { Colors } from '../../config/ColorsShadows';
 
-const StyledText = styled.div`
-  width: 100%;
-  padding: 2em;
-  margin: 0 auto;
-  color: ${Colors.Text};
-  background-color: ${Colors.Dark};
-  border-radius: 30px 30px 0 0;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
+const StyledWrapper = styled.div`
+  margin: 1rem;
+  text-align: left;
 `;
 
+const StyledHeadline = styled.h2`
+  font-weight: 700;
+  text-align: center;
+`;
+
+const StyledHeadlineSub = styled.h3`
+  margin: 1em 0 1em;
+  font-weight: 600;
+`;
+
+const StyledText = styled.p``;
+
 const Text = (props) => {
-  const { headline } = props;
+  const { headline, headlineSub, text } = props;
   return (
-    <StyledText>
-      <h2>{headline}</h2>
-    </StyledText>
+    <StyledWrapper>
+      <StyledHeadline>{headline}</StyledHeadline>
+      {headlineSub ? <StyledHeadlineSub>{headlineSub}</StyledHeadlineSub> : ''}
+      <StyledText>{text}</StyledText>
+    </StyledWrapper>
   );
 };
 

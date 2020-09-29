@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { Component } from 'react';
 
-import { Button, CardFull, FlexRow, Form, Input } from './elements';
+import { Button, Card, CardFull, FlexRow, Form, Input, Text } from './elements';
 
 class SignUp extends Component {
   constructor(props) {
@@ -83,68 +83,69 @@ class SignUp extends Component {
 
     return (
       <CardFull>
-        <h2>Sign Up Component</h2>
-        <Form text="Register" handleSubmit={this.handleSubmit}>
-          <Input
-            type="text"
-            name="firstName"
-            value={firstName}
-            placeholder="First name"
-            required
-            onChange={this.handleChange}
-          />
+        <Text headline="Sign Up Component" />
+        <Card>
+          <Form text="Register" handleSubmit={this.handleSubmit}>
+            <Input
+              type="text"
+              name="firstName"
+              value={firstName}
+              placeholder="First name"
+              required
+              onChange={this.handleChange}
+            />
 
-          <Input
-            type="text"
-            name="lastName"
-            value={lastName}
-            placeholder="Last name"
-            required
-            onChange={this.handleChange}
-          />
+            <Input
+              type="text"
+              name="lastName"
+              value={lastName}
+              placeholder="Last name"
+              required
+              onChange={this.handleChange}
+            />
 
-          <Input
-            type="email"
-            name="email"
-            value={email}
-            placeholder="E-mail"
-            onChange={this.handleChange}
-            required
-          />
+            <Input
+              type="email"
+              name="email"
+              value={email}
+              placeholder="E-mail"
+              onChange={this.handleChange}
+              required
+            />
 
-          <Input
-            type="text"
-            name="password"
-            value={password}
-            placeholder="Password"
-            required
-            onChange={this.handleChange}
-          />
+            <Input
+              type="text"
+              name="password"
+              value={password}
+              placeholder="Password"
+              required
+              onChange={this.handleChange}
+            />
 
-          <Input
-            type="text"
-            name="passwordAgain"
-            value={passwordAgain}
-            placeholder="Repeat password"
-            required
-            onChange={this.handleChange}
-          />
+            <Input
+              type="text"
+              name="passwordAgain"
+              value={passwordAgain}
+              placeholder="Repeat password"
+              required
+              onChange={this.handleChange}
+            />
 
-          <FlexRow>
-            <Button
-              style={{ marginTop: 'auto' }}
-              onClick={() => {
-                history.push('/');
-              }}
-            >
-              Back
-            </Button>
+            <FlexRow>
+              <Button
+                onClick={() => {
+                  history.push('/');
+                }}
+              >
+                Back
+              </Button>
 
-            <Button type="submit" confirm>
-              Register
-            </Button>
-          </FlexRow>
-        </Form>
+              <Button type="submit" confirm>
+                Register
+              </Button>
+            </FlexRow>
+          </Form>
+        </Card>
       </CardFull>
     );
   }

@@ -1,14 +1,20 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 
-import { Button, CardFull, Text } from './elements';
+import { Button, Card, CardFull, Text } from './elements';
 
 const SignUpThankYou = () => {
   const history = useHistory();
   return (
     <>
       <CardFull>
-        <Text headline="Thank You!" text="What happens now?" />
+        <Card>
+          <Text
+            headline="Thank You!"
+            headlineSub="What happens now?"
+            text="Wait for your confirmation e-mail. In the meantime..."
+          />
+        </Card>
 
         {/* Margins to center buttons vertically */}
         <Button
@@ -20,7 +26,7 @@ const SignUpThankYou = () => {
         >
           Home
         </Button>
-        {/*         <Button
+        <Button
           history
           style={{ marginBottom: 'auto' }}
           onClick={() => {
@@ -28,7 +34,7 @@ const SignUpThankYou = () => {
           }}
         >
           Log in
-        </Button> */}
+        </Button>
       </CardFull>
     </>
   );

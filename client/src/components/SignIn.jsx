@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { Button, CardFull, FlexCol, FlexRow, Form, Input } from './elements';
+import { Button, Card, CardFull, FlexRow, Form, Input, Text } from './elements';
 
 class SignIn extends Component {
   constructor(props) {
@@ -25,9 +25,9 @@ class SignIn extends Component {
   render() {
     const { history } = this.props;
     return (
-      <FlexCol>
-        <CardFull>
-          <h2>Sign In Component</h2>
+      <CardFull>
+        <Text headline="Sign In Component" />
+        <Card>
           <Form text="Sign In">
             <Input type="email" name="email" placeholder="E-mail" onChange={this.handleChange} />
             <Input
@@ -36,22 +36,21 @@ class SignIn extends Component {
               placeholder="Password"
               onChange={this.handleChange}
             />
+            <FlexRow>
+              <Button
+                onClick={() => {
+                  history.push('/');
+                }}
+              >
+                Back
+              </Button>
+              <Button type="submit" confirm onClick={this.handleSubmit}>
+                Sign In
+              </Button>
+            </FlexRow>
           </Form>
-          <FlexRow>
-            <Button
-              style={{ marginTop: 'auto' }}
-              onClick={() => {
-                history.push('/');
-              }}
-            >
-              Back
-            </Button>
-            <Button type="submit" confirm onClick={this.handleSubmit}>
-              Sign In
-            </Button>
-          </FlexRow>
-        </CardFull>
-      </FlexCol>
+        </Card>
+      </CardFull>
     );
   }
 }
