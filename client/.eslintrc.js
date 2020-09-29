@@ -37,6 +37,15 @@ module.exports = {
     'react/react-in-jsx-scope': 'off',
     'simple-import-sort/sort': 'error',
     'prettier/prettier': ['error', {}, { usePrettierrc: true }],
-    'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }]
+    'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
+    'jsx-a11y/label-has-associated-control': [
+      2,
+      {
+        labelComponents: ['InputLabel'],
+        labelAttributes: ['label'],
+        controlComponents: ['Input'],
+        depth: 3
+      }
+    ]
   }
 };

@@ -1,15 +1,13 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
-import SignIn from './components/SignIn';
-import SignUp from './components/SignUp';
-import SignUpThankYou from './components/SignUpThankYou';
-import Welcome from './components/Welcome';
+import { Home, SignIn, SignUp, SignUpThankYou, Welcome } from './components';
 
 function Routes() {
   return (
     <Router>
       <Switch>
+        <Route exact path="/home" component={Home} />
         <Route exact path="/signin" component={SignIn} />
         <Route exact path="/signup" component={SignUp} />
         <Route exact path="/signup/thankyou" component={SignUpThankYou} />
