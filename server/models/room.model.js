@@ -35,6 +35,22 @@ const RoomSchema = mongoose.Schema(
       trim: true,
       default: 0,
     },
+    people: {},
+    image: {
+      url: {
+        type: String,
+        trim: true,
+        default: 'https://via.placeholder.com/300x200?text=No+image+of+room',
+      },
+      height: {
+        type: Number,
+        trim: true,
+      },
+      width: {
+        type: Number,
+        trim: true,
+      },
+    },
     password: {
       type: String,
       trim: true,

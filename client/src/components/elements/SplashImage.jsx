@@ -7,6 +7,7 @@ const splashImage = styled.img`
   width: 100%;
   height: 100%;
   position: absolute;
+  background-position: top;
   background-repeat: no-repeat;
   background-image: url(${(props) => props.imgUrl});
 `;
