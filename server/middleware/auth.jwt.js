@@ -5,13 +5,19 @@ const { User, Role } = require('../models');
 const verifyToken = (req, res, next) => {
   const token = req.headers['x-access-token'];
 
-  if (!token) return res.status(403).send({ message: 'No token provided' });
+  if (!token) {
+    return res.status(403).send({ errors: [{ msg: 'No token provided' }] });
+  }
 
   return jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
     if (err) {
       return res.status(401).send({
-        message: 'Unauthorized!',
-        reason: err.message,
+        errors: [
+          {
+            msg: 'Unauthorized!',
+            reason: err.message,
+          },
+        ],
       });
     }
     req.userId = decoded.id;
@@ -32,7 +38,11 @@ const isAdmin = (req, res, next) => {
       }
 
       res.status(403).send({
-        message: 'Requires Admin Role!',
+        errors: [
+          {
+            msg: 'Requires Admin Role!',
+          },
+        ],
       });
     });
   });
