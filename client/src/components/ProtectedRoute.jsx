@@ -2,14 +2,18 @@
 import React from 'react';
 import { Redirect, Route } from 'react-router-dom';
 
-import auth from './config/auth';
+import { AuthService } from '../services';
 
+/*
+  Renders component if user is logged in
+  Else Redirect to landing page
+*/
 const ProtectedRoute = ({ component: Component, ...rest }) => {
   return (
     <Route
       {...rest}
       render={(props) => {
-        if (auth.isAuthenticated()) {
+        if (AuthService.isAuthenticated()) {
           return <Component {...props} />;
         }
         return (
