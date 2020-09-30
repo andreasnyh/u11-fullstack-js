@@ -4,11 +4,10 @@ const { Role } = require('../models');
 
 const User = require('../models/user.model');
 
-const { JWT_SECRET } = process.env;
+const { JWT_SECRET, JWT_EXPIRATION } = process.env;
 
 const signIn = (req, res) => {
   const { email, password } = req.body;
-  const jwtExpirationTime = 240;
 
   User.findOne({ email })
     .populate('roles', '-__v')
@@ -18,10 +17,10 @@ const signIn = (req, res) => {
           .status(400)
           .json({ errors: [{ msg: 'Check e-mail or password!' }] });
       }
+      // Validate password
       return bcrypt
         .compare(password, user.password)
         .then((isMatch) => {
-          console.log('isMatch: ', isMatch);
           if (!isMatch) {
             return res.status(400).json({
               errors: [{ msg: 'Check e-mail or password!' }],
@@ -29,22 +28,22 @@ const signIn = (req, res) => {
           }
           const perms = [];
           const accessToken = jwt.sign({ id: user.id }, JWT_SECRET, {
-            expiresIn: jwtExpirationTime,
+            expiresIn: Number(JWT_EXPIRATION),
           });
           for (let i = 0; i < user.roles.length; i++) {
             perms.push(`ROLE_${user.roles[i].name.toUpperCase()}`);
           }
 
           return res.status(200).send({
-            msg: 'Welcome',
+            msg: `Welcome ${user.firstName}!`,
+            token: accessToken,
+            tokenExpiration: JWT_EXPIRATION,
             user: {
               id: user.id,
               roles: perms,
               firstName: user.firstName,
               lastName: user.lastName,
               created: user.created,
-              accessToken,
-              jwtExpirationTime,
             },
           });
         })
@@ -79,7 +78,9 @@ const signUp = (req, res) => {
             newUser
               .save()
               .then(() => {
-                console.log(`User "${newUser.firstName} ${newUser.lastName}" created.`);
+                console.log(
+                  `User "${newUser.firstName} ${newUser.lastName}" created.`,
+                );
                 res.status(201).json({ newUser });
               })
               .catch((err) => res.status(400).json('Error saving user!', err));
@@ -88,7 +89,9 @@ const signUp = (req, res) => {
           Role.findOne({ name: 'user' }, (err, role) => {
             newUser.roles = [role.id];
             newUser.save().then(() => {
-              console.log(`User "${newUser.firstName} ${newUser.lastName}" created.`);
+              console.log(
+                `User "${newUser.firstName} ${newUser.lastName}" created.`,
+              );
               res.status(201).json({ newUser });
             });
           }).catch((err) => res.status(400).json('Error saving user!', err));
