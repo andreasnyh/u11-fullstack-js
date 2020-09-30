@@ -6,6 +6,13 @@ const index = (req, res) => {
     .catch((err) => res.status(400).json(`Error: ${err}`));
 };
 
+const currentUser = (req, res) => {
+  User.findById(req.userId)
+    .select('-password')
+    .then((user) => res.json(user))
+    .catch((err) => res.status(404).json(`Error: ${err}`));
+};
+
 const detail = (req, res) => {
   if (req.params.email) {
     User.findOne({ email: req.params.email }, { password: 0 })
@@ -63,4 +70,5 @@ module.exports = {
   allAccess,
   userBoard,
   adminBoard,
+  currentUser,
 };
