@@ -1,18 +1,24 @@
 import React, { Component } from 'react';
 
+import { authService } from '../services';
 import { Button, Card, CardFull, FlexRow, Image, Text } from './elements';
 
 class Home extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {};
+    this.state = {
+      currentUser: authService.currentUserValue
+    };
   }
 
   render() {
+    let { currentUser } = this.state;
+    currentUser = JSON.parse(currentUser);
     return (
       <CardFull>
         <Text headline="Need a meeting room?" />
+        {currentUser.user && <Text text={currentUser.user.firstName} />}
         <Card>
           <Image
             imgUrl="https://via.placeholder.com/600x400?text=No+image+of+room"

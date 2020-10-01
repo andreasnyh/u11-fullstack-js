@@ -1,7 +1,6 @@
-import axios from 'axios';
 import React, { Component } from 'react';
 
-import auth from '../config/auth';
+import { authService } from '../services';
 import { Button, Card, CardFull, FlexRow, Form, Input, Text } from './elements';
 
 class SignIn extends Component {
@@ -22,19 +21,22 @@ class SignIn extends Component {
   async handleSubmit(event) {
     event.preventDefault();
     const { email, password } = this.state;
+    const { history } = this.props;
     // console.log('handleSubmit state', JSON.stringify(this.state, null, 2));
     const user = { email, password };
-    await this.signInUser(user);
+    await authService.signin(user);
+    history.push('/home');
   }
 
   // eslint-disable-next-line class-methods-use-this
-  async signInUser(user) {
-    axios
+  /*
+async signInUser(user) {
+     axios
       .post('http://localhost:5000/api/auth/signin', user)
       .then((res) => {
         const { history } = this.props;
         auth.login(() => {
-          localStorage.setItem('jwtToken', res.data.user.accessToken);
+          localStorage.setItem('currentUser', res.data.user);
           history.push('/home');
         });
       })
@@ -54,11 +56,11 @@ class SignIn extends Component {
             );
             errorArray.push({ param: err.param, mgs: err.msg });
           });
-          /*
-          this.setState({
-            errors: errorArray
-          });
- */
+
+          // this.setState({
+          //   errors: errorArray
+          // });
+
           // console.log(error.response.status);
           // console.log(error.response.data);
           // console.log(error.response.headers);
@@ -74,6 +76,7 @@ class SignIn extends Component {
         // console.log(error.config);
       });
   }
+   */
 
   render() {
     const { history } = this.props;

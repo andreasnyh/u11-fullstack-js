@@ -1,8 +1,9 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
-import { Redirect, Route } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 
-import { AuthService } from '../services';
+import { authService } from '../services';
+import AccessRestricted from './AccessRestricted';
 
 /*
   Renders component if user is logged in
@@ -13,22 +14,10 @@ const ProtectedRoute = ({ component: Component, ...rest }) => {
     <Route
       {...rest}
       render={(props) => {
-        if (AuthService.isAuthenticated()) {
+        if (authService.currentUserValue) {
           return <Component {...props} />;
         }
-        return (
-          console.log('Need to be logged in'),
-          (
-            <Redirect
-              to={{
-                pathname: '/',
-                state: {
-                  from: props.location
-                }
-              }}
-            />
-          )
-        );
+        return <AccessRestricted />;
       }}
     />
   );
