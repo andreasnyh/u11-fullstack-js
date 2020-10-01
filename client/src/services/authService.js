@@ -22,7 +22,7 @@ function signin(input) {
         // that falls out of the range of 2xx
         error.response.data.errors.forEach((err) => {
           console.log('status:', error.response.status, '\nparam:', err.param, '\nError:', err.msg);
-          errorArray.push({ param: err.param, mgs: err.msg });
+          errorArray.push({ param: err.param, msg: err.msg });
         });
       } else if (error.request) {
         // The request was made but no response was received
@@ -40,6 +40,7 @@ function signin(input) {
 function logout() {
   // remove user from local storage to log user out
   localStorage.removeItem('currentUser');
+  window.location = `${window.location.origin}/signout`;
   currentUserSubject.next(null);
 }
 
