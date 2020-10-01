@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 
 import MainNav from './components/MainNav';
 import Routes from './Routes';
-import { authService } from './services';
+// import { authService } from './services';
 
 class App extends Component {
   constructor(props) {
@@ -12,21 +12,22 @@ class App extends Component {
     this.state = {};
   }
 
-  componentDidMount() {
+  /*
+   componentDidMount() {
     if (authService.currentUser) {
       authService.currentUser.subscribe((user) =>
         user ? this.setState({ currentUser: user }) : this.setState({ currentUser: null })
       );
     }
-  }
+  } */
 
   render() {
-    const { currentUser } = this.state;
+    // const { currentUser } = this.state;
     return (
       <div className="App">
         <MainNav />
         {/*  Renders the different routes */}
-        <Routes currentUser={currentUser} />
+        <Routes /* currentUser={currentUser} */ />
       </div>
     );
   }
