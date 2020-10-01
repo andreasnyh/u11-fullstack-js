@@ -24,9 +24,9 @@ const Text = (props) => {
   const { headline, headlineSub, text } = props;
   return (
     <StyledWrapper>
-      <StyledHeadline>{headline}</StyledHeadline>
+      {headline ? <StyledHeadline>{headline}</StyledHeadline> : ''}
       {headlineSub ? <StyledHeadlineSub>{headlineSub}</StyledHeadlineSub> : ''}
-      <StyledText>{text}</StyledText>
+      {text ? <StyledText>{text}</StyledText> : ''}
     </StyledWrapper>
   );
 };
