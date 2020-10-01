@@ -20,7 +20,8 @@ class AccessRestricted extends Component {
   }
 
   render() {
-    return <Text headline="Access Denied" />;
+    const { msg } = this.props;
+    return <Text headline="Access Denied" text={msg} />;
   }
 }
 
