@@ -5,7 +5,6 @@ import { authService } from '../services';
 
 const logOut = () => {
   authService.logout();
-  window.location = `${window.location.origin}/signout`;
 };
 
 const MainNav = () => {

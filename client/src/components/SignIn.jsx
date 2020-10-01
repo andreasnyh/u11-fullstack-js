@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 
 import { authService } from '../services';
 import { Button, Card, CardFull, FlexRow, Form, Input, Text } from './elements';
@@ -6,7 +7,9 @@ import { Button, Card, CardFull, FlexRow, Form, Input, Text } from './elements';
 class SignIn extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      currentUser: authService.currentUserValue
+    };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -18,14 +21,19 @@ class SignIn extends Component {
     });
   }
 
-  async handleSubmit(event) {
+  handleSubmit(event) {
     event.preventDefault();
-    const { email, password } = this.state;
     const { history } = this.props;
+    this.signIn().then(() => {
+      history.push('/home');
+    });
+  }
+
+  async signIn() {
+    const { email, password } = this.state;
     // console.log('handleSubmit state', JSON.stringify(this.state, null, 2));
     const user = { email, password };
-    await authService.signin(user);
-    history.push('/home');
+    authService.signin(user);
   }
 
   // eslint-disable-next-line class-methods-use-this
@@ -79,7 +87,19 @@ async signInUser(user) {
    */
 
   render() {
-    const { history } = this.props;
+    const { currentUser } = this.state;
+    const { history, location } = this.props;
+
+    if (currentUser) {
+      return (
+        <Redirect
+          to={{
+            pathname: '/home',
+            state: { from: location }
+          }}
+        />
+      );
+    }
     return (
       <CardFull>
         <Text headline="Sign In Component" />
