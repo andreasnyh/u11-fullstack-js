@@ -8,6 +8,7 @@ const router = express();
 router.use((req, res, next) => {
   res.header(
     'Access-Control-Allow-Headers',
+    'Access-Control-Allow-Origin, *',
     'x-access-token, Origin, Content-Type, Accept',
   );
   next();
@@ -17,6 +18,11 @@ router.use(express.json());
 router.use(express.urlencoded({ extended: false }));
 
 router.get('/user', authJwt.verifyToken, userController.currentUser);
+router.get(
+  '/allusers',
+  [authJwt.verifyToken, authJwt.isAdmin],
+  userController.allUsers,
+);
 router.get('/find/:email', authJwt.verifyToken, userController.detail);
 
 router.post('/find', authJwt.verifyToken, userController.detail);
@@ -27,10 +33,7 @@ router.get('/test/user', authJwt.verifyToken, userController.userBoard);
 
 router.get(
   '/test/admin',
-  [
-    authJwt.verifyToken,
-    authJwt.isAdmin,
-  ],
+  [authJwt.verifyToken, authJwt.isAdmin],
   userController.adminBoard,
 );
 
