@@ -1,9 +1,10 @@
 const User = require('../models/user.model');
 
-const index = (req, res) => {
+const allUsers = (req, res) => {
   User.find()
+    .select('-password')
     .then((users) => res.json(users))
-    .catch((err) => res.status(400).json(`Error: ${err}`));
+    .catch((err) => res.status(403).json(`Error: ${err}`));
 };
 
 const currentUser = (req, res) => {
@@ -64,9 +65,9 @@ const adminBoard = (req, res) => {
 /* *************** END TESTS *************** */
 
 module.exports = {
-  index,
   detail,
   create,
+  allUsers,
   allAccess,
   userBoard,
   adminBoard,
