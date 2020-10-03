@@ -8,7 +8,7 @@ class Home extends Component {
     super(props);
 
     this.state = {
-      currentUser: authService.currentUserValue().then((user) => user)
+      currentUser: authService.currentUserValue
     };
   }
 

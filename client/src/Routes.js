@@ -15,6 +15,7 @@ function Routes() {
         <Route exact path="/signup/thankyou" component={SignUpThankYou} />
         <Route exact path="/signout" component={SignOut} />
         <Route exact path="/" component={Welcome} />
+        <Route path="*" component={Welcome} />
       </Switch>
     </Router>
   );
