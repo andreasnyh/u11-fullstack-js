@@ -26,10 +26,11 @@ class Users extends Component {
 
   render() {
     const { users } = this.state;
+    const { history } = this.props;
     console.log(users);
     if (users !== null && users[0].status) {
       console.log(users[0]);
-      return <AccessRestricted msg={users[0].msg} />;
+      return <AccessRestricted history={history} msg={users[0].msg} />;
     }
 
     return users ? (

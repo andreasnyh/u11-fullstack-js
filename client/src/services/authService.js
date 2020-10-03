@@ -33,7 +33,7 @@ function signin(input) {
         // Something happened in setting up the request that triggered an Error
         console.log('Error', error.message);
       }
-      // console.log(error.config);
+      console.log(error.config);
     });
 }
 
@@ -44,13 +44,18 @@ function logout() {
   currentUserSubject.next(null);
 }
 
+async function currentUserValueAsync() {
+  return currentUserSubject.value;
+}
+
 const authService = {
   signin,
   logout,
-  currentUser: currentUserSubject.asObservable(),
+  currentUserValueAsync,
   get currentUserValue() {
     return currentUserSubject.value;
-  }
+  },
+  currentUser: currentUserSubject.asObservable()
 };
 
 export default authService;

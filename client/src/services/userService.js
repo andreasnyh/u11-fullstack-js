@@ -4,9 +4,10 @@ import axios from 'axios';
 import config from '../config/config.json';
 import { authHeader, handleResponse } from '../helpers';
 
-function getAll() {
+async function getAll() {
+  const header = await authHeader();
   return axios
-    .get(`${config.apiUrl}/users/allusers`, { headers: authHeader() })
+    .get(`${config.apiUrl}/users/allusers`, { headers: header })
     .then(handleResponse)
     .then((res) => {
       return res;
