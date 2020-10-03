@@ -8,13 +8,12 @@ class Home extends Component {
     super(props);
 
     this.state = {
-      currentUser: authService.currentUserValue
+      currentUser: authService.currentUserValue().then((user) => user)
     };
   }
 
   render() {
-    let { currentUser } = this.state;
-    currentUser = JSON.parse(currentUser);
+    const { currentUser } = this.state;
     return (
       <CardFull>
         <Text headline="Need a meeting room?" />
