@@ -15,7 +15,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use((req, res, next) => {
   res.header(
     'Access-Control-Allow-Headers',
-    'Access-Control-Allow-Origin, *',
     'x-access-token, Origin, Content-Type, Accept',
   );
   next();
