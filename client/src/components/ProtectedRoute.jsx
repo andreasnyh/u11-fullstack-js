@@ -14,10 +14,13 @@ const ProtectedRoute = ({ component: Component, ...rest }) => {
     <Route
       {...rest}
       render={(props) => {
-        if (authService.currentUserValue) {
-          return <Component {...props} />;
-        }
-        return <AccessRestricted />;
+        // eslint-disable-next-line consistent-return
+        authService.currentUserValue().then((user) => {
+          if (user !== (null || undefined)) {
+            return <Component {...props} currentUser={user} />;
+          }
+        });
+        return <AccessRestricted {...props} msg="You need to log in to access this page" />;
       }}
     />
   );
