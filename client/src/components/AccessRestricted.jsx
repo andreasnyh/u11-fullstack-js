@@ -9,10 +9,11 @@ class AccessRestricted extends Component {
   }
 
   componentDidMount() {
+    const { history } = this.props;
     // Use of <Redirect /> not working
     this.timeout = setTimeout(() => {
-      window.location = `${window.location.origin}/signin`;
-    }, 2000);
+      history.goBack();
+    }, 3000);
   }
 
   componentWillUnmount() {
@@ -21,7 +22,7 @@ class AccessRestricted extends Component {
 
   render() {
     const { msg } = this.props;
-    return <Text headline="Access Denied" text={msg} />;
+    return <Text headline="Access Denied" headlineSub={msg} />;
   }
 }
 
