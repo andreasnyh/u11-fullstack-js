@@ -14,6 +14,7 @@ function signin(input) {
     .then((user) => {
       localStorage.setItem('currentUser', JSON.stringify(user));
       currentUserSubject.next(user);
+      window.location = `${window.location.origin}/home`;
     })
     .catch((error) => {
       if (error.response) {

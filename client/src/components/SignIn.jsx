@@ -21,9 +21,7 @@ class SignIn extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    const { history } = this.props;
     this.signIn();
-    history.push('/home');
   }
 
   signIn() {
