@@ -1,11 +1,18 @@
-const Room = require('../models/room.model'); /*
-const currentUser = (req, res) => {
-  User.findById(req.userId)
+const Room = require('../models/room.model');
+
+const roomDetail = (req, res) => {
+  Room.findById(req.body.id)
     .select('-password')
-    .then((user) => res.json(user))
+    .then((room) => res.json(room))
     .catch((err) => res.status(404).json(`Error: ${err}`));
 };
- */ /*
+
+const roomDetailBooked = (req, res) => {
+  Room.findById(req.body.id)
+    .then((room) => res.json(room))
+    .catch((err) => res.status(404).json(`Error: ${err}`));
+};
+/*
 const detail = (req, res) => {
   if (req.params.email) {
     User.findOne({ email: req.params.email }, { password: 0 })
@@ -65,10 +72,11 @@ const adminBoard = (req, res) => {
 /* *************** END TESTS *************** */
 
 module.exports = {
-  // detail,
-  allRooms,
-  // currentUser,
   create,
+  allRooms,
+  roomDetail,
+  roomDetailBooked,
+  // TESTS
   allAccess,
   userBoard,
   adminBoard,
