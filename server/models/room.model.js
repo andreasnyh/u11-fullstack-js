@@ -36,7 +36,7 @@ const RoomSchema = mongoose.Schema(
       trim: true,
       default: 0,
     },
-    people: {},
+    size: {},
     image: {
       url: {
         type: String,

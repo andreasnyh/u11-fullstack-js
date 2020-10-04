@@ -30,14 +30,13 @@ const detail = (req, res) => {
   }
 };
  */
-/*
-const allUsers = (req, res) => {
-  User.find()
+
+const allRooms = (req, res) => {
+  Room.find()
     .select('-password')
-    .then((users) => res.json(users))
+    .then((rooms) => res.json(rooms))
     .catch((err) => res.status(403).json(`Error: ${err}`));
 };
- */
 
 const create = (req, res) => {
   const room = req.body;
@@ -67,7 +66,7 @@ const adminBoard = (req, res) => {
 
 module.exports = {
   // detail,
-  // allUsers,
+  allRooms,
   // currentUser,
   create,
   allAccess,

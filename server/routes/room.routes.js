@@ -18,6 +18,8 @@ router.use(express.urlencoded({ extended: false }));
 
 // router.get('/user', authJwt.verifyToken, roomController.currentUser);
 
+router.get('/allrooms', authJwt.verifyToken, roomController.allRooms);
+
 router.post(
   '/',
   [authJwt.verifyToken, authJwt.isAdmin],
@@ -28,6 +30,7 @@ router.post(
 
 router.post('/find', authJwt.verifyToken, roomController.detail);
 
+*/
 router.get('/test/all', roomController.allAccess);
 
 router.get('/test/user', authJwt.verifyToken, roomController.userBoard);
@@ -37,7 +40,7 @@ router.get(
   [authJwt.verifyToken, authJwt.isAdmin],
   roomController.adminBoard,
 );
- */
+
 router.get('/*', notFound); // This has to be last route
 
 module.exports = router;
