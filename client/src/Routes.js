@@ -1,7 +1,15 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
-import { Home, SignIn, SignOut, SignUp, SignUpThankYou, Users, Welcome } from './components';
+import {
+  Home,
+  SignIn,
+  SignOut,
+  SignUp,
+  SignUpThankYou,
+  Users,
+  Welcome
+} from './components';
 import ProtectedRoute from './components/ProtectedRoute';
 
 function Routes() {

@@ -1,6 +1,5 @@
 import AccessRestricted from './AccessRestricted';
 import Home from './Home';
-import Loading from './Loading';
 import MainNav from './MainNav';
 import SignIn from './SignIn';
 import SignOut from './SignOut';
@@ -12,7 +11,6 @@ import Welcome from './Welcome';
 export {
   AccessRestricted,
   Home,
-  Loading,
   MainNav,
   SignIn,
   SignOut,
