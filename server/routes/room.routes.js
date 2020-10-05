@@ -16,7 +16,7 @@ router.use((req, res, next) => {
 router.use(express.json());
 router.use(express.urlencoded({ extended: false }));
 
-router.get('/room', authJwt.verifyToken, roomController.roomDetail);
+router.get('/room/:id', authJwt.verifyToken, roomController.roomDetail);
 
 router.get('/allrooms', authJwt.verifyToken, roomController.allRooms);
 

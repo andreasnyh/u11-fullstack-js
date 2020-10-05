@@ -1,14 +1,16 @@
 const Room = require('../models/room.model');
 
 const roomDetail = (req, res) => {
-  Room.findById(req.body.id)
+  const { id } = req.params;
+  Room.findById(id)
     .select('-password')
     .then((room) => res.json(room))
     .catch((err) => res.status(404).json(`Error: ${err}`));
 };
 
 const roomDetailBooked = (req, res) => {
-  Room.findById(req.body.id)
+  const { id } = req.params;
+  Room.findById(id)
     .then((room) => res.json(room))
     .catch((err) => res.status(404).json(`Error: ${err}`));
 };
