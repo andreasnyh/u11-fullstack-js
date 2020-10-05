@@ -1,4 +1,5 @@
 import AccessRestricted from './AccessRestricted';
+import AddRoom from './AddRoom';
 import Home from './Home';
 import MainNav from './MainNav';
 import SignIn from './SignIn';
@@ -10,6 +11,7 @@ import Welcome from './Welcome';
 
 export {
   AccessRestricted,
+  AddRoom,
   Home,
   MainNav,
   SignIn,
