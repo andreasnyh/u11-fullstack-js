@@ -6,9 +6,12 @@ import FlexRow from './FlexRow';
 import Form from './Form';
 import Image from './Image';
 import Input from './Input';
+import Label from './Label';
 import Loading from './Loading';
+import Select from './Select';
 import SplashImage from './SplashImage';
 import Text from './Text';
+import Textarea from './Textarea';
 
 export {
   Button,
@@ -19,7 +22,10 @@ export {
   Form,
   Image,
   Input,
+  Label,
   Loading,
+  Select,
   SplashImage,
-  Text
+  Text,
+  Textarea
 };
