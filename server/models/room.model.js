@@ -29,13 +29,14 @@ const RoomSchema = mongoose.Schema(
       type: String,
       trim: true,
       minlength: 2,
+      required: true,
     },
     price: {
       type: Number,
       trim: true,
       default: 0,
     },
-    people: {},
+    size: {},
     image: {
       url: {
         type: String,
@@ -54,7 +55,6 @@ const RoomSchema = mongoose.Schema(
     password: {
       type: String,
       trim: true,
-      required: true,
     },
   },
   // Options

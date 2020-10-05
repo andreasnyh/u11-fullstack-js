@@ -10,13 +10,13 @@ app.use(cors());
 app.use(express.json());
 
 // Router
-const userRouter = require('./routes/users.routes');
-const authRouter = require('./routes/auth.routes');
+const { authRouter, userRouter, roomRouter } = require('./routes');
 
 // Routes
 app.get('/api/', (req, res) => res.send({ message: 'Welcome to the API' }));
 app.use('/api/users', userRouter);
 app.use('/api/auth', authRouter);
+app.use('/api/rooms', roomRouter);
 app.get('/api/*', notFound);
 
 connect().then(
