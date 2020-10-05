@@ -1,17 +1,21 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
-import SignIn from './components/SignIn';
-import SignUp from './components/SignUp';
-import Welcome from './components/Welcome';
+import { Home, SignIn, SignOut, SignUp, SignUpThankYou, Users, Welcome } from './components';
+import ProtectedRoute from './components/ProtectedRoute';
 
 function Routes() {
   return (
     <Router>
       <Switch>
-        <Route path="/signin" component={SignIn} />
-        <Route path="/signup" component={SignUp} />
-        <Route path="/" exact component={Welcome} />
+        <ProtectedRoute exact path="/home" component={Home} />
+        <ProtectedRoute exact path="/users" component={Users} />
+        <Route exact path="/signin" component={SignIn} />
+        <Route exact path="/signup" component={SignUp} />
+        <Route exact path="/signup/thankyou" component={SignUpThankYou} />
+        <Route exact path="/signout" component={SignOut} />
+        <Route exact path="/" component={Welcome} />
+        <Route path="*" component={Welcome} />
       </Switch>
     </Router>
   );

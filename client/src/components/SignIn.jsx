@@ -1,34 +1,13 @@
 import React, { Component } from 'react';
-import styled from 'styled-components';
+import { Redirect } from 'react-router-dom';
 
-import Button from './Button';
-import Form from './Form';
-import Input from './Input';
-
-const StyledSignIn = styled.div`
-  bottom: 0;
-  width: 100%;
-  margin: 0 auto;
-  padding: 2em 1em;
-  position: absolute;
-  height: calc(100% - 21px);
-  background-color: lightPink;
-  border-radius: 30px 30px 0 0;
-`;
-
-const StyledButtons = styled.div`
-  display: flex;
-`;
-
-const StyledWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
+import { authService } from '../services';
+import { Button, Card, CardFull, FlexRow, Form, Input, Text } from './elements';
 
 class SignIn extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = { currentUser: authService.currentUserValue };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -42,39 +21,66 @@ class SignIn extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    console.log(JSON.stringify(this.state, null, 2));
+    this.signIn();
+  }
+
+  signIn() {
+    const { email, password } = this.state;
+    const user = { email, password };
+    authService.signin(user);
   }
 
   render() {
-    const { history } = this.props;
+    const { currentUser } = this.state;
+    const { history, location } = this.props;
+
+    if (currentUser !== null) {
+      return (
+        <Redirect
+          push
+          to={{
+            pathname: '/home',
+            state: { from: location }
+          }}
+        />
+      );
+    }
     return (
-      <StyledWrapper>
-        <StyledSignIn>
-          <h2>Sign In Component</h2>
-          <Form text="Sign In">
-            <Input type="email" name="email" placeholder="E-mail" onChange={this.handleChange} />
+      <CardFull>
+        <Text headline="Sign In Component" />
+        <Card>
+          <Form text="Sign In" handleSubmit={this.handleSubmit}>
             <Input
-              type="text"
+              required
+              type="email"
+              name="email"
+              placeholder="E-mail"
+              onChange={this.handleChange}
+            />
+            <Input
+              required
+              autoComplete="currentpassword"
+              type="password"
               name="password"
               placeholder="Password"
               onChange={this.handleChange}
             />
+            <FlexRow>
+              <Button
+                type="button"
+                onClick={() => {
+                  history.push('/');
+                }}
+              >
+                Back
+              </Button>
+              <Button type="submit" confirm>
+                Sign In
+              </Button>
+            </FlexRow>
           </Form>
-          <StyledButtons>
-            <Button
-              style={{ marginTop: 'auto' }}
-              onClick={() => {
-                history.push('/');
-              }}
-            >
-              Back
-            </Button>
-            <Button type="submit" lightMode onClick={this.handleSubmit}>
-              Sign In
-            </Button>
-          </StyledButtons>
-        </StyledSignIn>
-      </StyledWrapper>
+        </Card>
+      </CardFull>
     );
   }
 }
