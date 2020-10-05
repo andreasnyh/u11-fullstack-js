@@ -7,8 +7,7 @@ const {
 } = require('mocha');
 
 const { connect, disconnect } = require('../../server');
-const authRoute = require('../../routes/auth.routes');
-const userRoute = require('../../routes/users.routes');
+const { authRoute, userRoute } = require('../../routes');
 
 const userTemplate = {
   firstName: 'USER FIRST',

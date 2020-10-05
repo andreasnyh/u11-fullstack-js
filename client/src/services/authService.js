@@ -5,7 +5,9 @@ import { BehaviorSubject } from 'rxjs';
 import config from '../config/config.json';
 import { handleResponse } from '../helpers';
 
-const currentUserSubject = new BehaviorSubject(localStorage.getItem('currentUser'));
+const currentUserSubject = new BehaviorSubject(
+  localStorage.getItem('currentUser')
+);
 
 function signin(input) {
   axios
@@ -22,7 +24,14 @@ function signin(input) {
         // The request was made and the server responded with a status code
         // that falls out of the range of 2xx
         error.response.data.errors.forEach((err) => {
-          console.log('status:', error.response.status, '\nparam:', err.param, '\nError:', err.msg);
+          console.log(
+            'status:',
+            error.response.status,
+            '\nparam:',
+            err.param,
+            '\nError:',
+            err.msg
+          );
           errorArray.push({ param: err.param, msg: err.msg });
         });
       } else if (error.request) {

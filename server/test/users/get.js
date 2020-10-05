@@ -7,7 +7,7 @@ const {
 } = require('mocha');
 
 const { connect, disconnect } = require('../../server');
-const app = require('../../routes/users.routes');
+const { userRoutes } = require('../../routes');
 
 describe('GET /users', () => {
   before((done) => {
@@ -22,7 +22,7 @@ describe('GET /users', () => {
       .catch((err) => done(err));
   });
   it('No users in database', (done) => {
-    request(app)
+    request(userRoutes)
       .get('/')
       .expect(200)
       .then((res) => {

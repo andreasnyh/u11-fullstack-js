@@ -6,7 +6,20 @@ import FlexRow from './FlexRow';
 import Form from './Form';
 import Image from './Image';
 import Input from './Input';
+import Loading from './Loading';
 import SplashImage from './SplashImage';
 import Text from './Text';
 
-export { Button, Card, CardFull, FlexCol, FlexRow, Form, Image, Input, SplashImage, Text };
+export {
+  Button,
+  Card,
+  CardFull,
+  FlexCol,
+  FlexRow,
+  Form,
+  Image,
+  Input,
+  Loading,
+  SplashImage,
+  Text
+};
