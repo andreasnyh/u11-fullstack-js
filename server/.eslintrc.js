@@ -12,6 +12,7 @@ module.exports = {
   rules: {
     'no-console': 'off',
     'linebreak-style': ['error', 'windows'],
+    'no-underscore-dangle': ['error', { allow: ['_id'] }],
     'no-plusplus': ['error', { allowForLoopAfterthoughts: true }],
     'import/no-extraneous-dependencies': [
       'error',
