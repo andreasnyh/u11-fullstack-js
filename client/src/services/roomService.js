@@ -43,7 +43,6 @@ async function getAll() {
 
 async function getOne(id) {
   const header = await authHeader();
-  console.log('getOne id:', id);
   return axios
     .get(`${config.apiUrl}/rooms/room/${id}`, { headers: header })
     .then(handleResponse)
