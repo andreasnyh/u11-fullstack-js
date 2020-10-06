@@ -3,7 +3,9 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import {
   AddRoom,
+  AdminRoute,
   Home,
+  ProtectedRoute,
   SignIn,
   SignOut,
   SignUp,
@@ -11,15 +13,14 @@ import {
   Users,
   Welcome
 } from './components';
-import ProtectedRoute from './components/ProtectedRoute';
 
 function Routes() {
   return (
     <Router>
       <Switch>
+        <AdminRoute exact path="/admin/addroom" component={AddRoom} />
         <ProtectedRoute exact path="/home" component={Home} />
         <ProtectedRoute exact path="/users" component={Users} />
-        <ProtectedRoute exact path="/admin/addroom" component={AddRoom} />
         <Route exact path="/signin" component={SignIn} />
         <Route exact path="/signup" component={SignUp} />
         <Route exact path="/signup/thankyou" component={SignUpThankYou} />
