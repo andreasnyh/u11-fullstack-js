@@ -1,7 +1,16 @@
 import axios from 'axios';
 import React, { Component } from 'react';
 
-import { Button, Card, CardFull, FlexRow, Form, Input, Text } from './elements';
+import {
+  Button,
+  Card,
+  CardFull,
+  FlexRow,
+  Form,
+  Input,
+  Label,
+  Text
+} from './elements';
 
 class SignUp extends Component {
   constructor(props) {
@@ -84,54 +93,72 @@ class SignUp extends Component {
     const { firstName, lastName, email, password, passwordAgain } = this.state;
 
     return (
-      <CardFull>
-        <Text headline="Sign Up Component" />
+      <CardFull static>
+        <Text headline="Register" />
         <Card>
-          <Form text="Register" handleSubmit={this.handleSubmit}>
-            <Input
-              type="text"
-              name="firstName"
-              value={firstName}
-              placeholder="First name"
-              required
-              onChange={this.handleChange}
-            />
+          <Form handleSubmit={this.handleSubmit}>
+            <Label>
+              First name
+              <Input
+                type="text"
+                name="firstName"
+                value={firstName}
+                placeholder="First name"
+                required
+                onChange={this.handleChange}
+              />
+            </Label>
 
-            <Input
-              type="text"
-              name="lastName"
-              value={lastName}
-              placeholder="Last name"
-              required
-              onChange={this.handleChange}
-            />
+            <Label>
+              Last name
+              <Input
+                type="text"
+                name="lastName"
+                value={lastName}
+                placeholder="Last name"
+                required
+                onChange={this.handleChange}
+              />
+            </Label>
 
-            <Input
-              type="email"
-              name="email"
-              value={email}
-              placeholder="E-mail"
-              onChange={this.handleChange}
-              required
-            />
+            <Label>
+              Email
+              <Input
+                required
+                type="email"
+                name="email"
+                value={email}
+                placeholder="E-mail"
+                autoComplete="email"
+                onChange={this.handleChange}
+              />
+            </Label>
 
-            <Input
-              type="password"
-              name="password"
-              value={password}
-              placeholder="Password"
-              required
-              onChange={this.handleChange}
-            />
+            <Label>
+              Password
+              <Input
+                required
+                type="password"
+                name="password"
+                value={password}
+                placeholder="Password"
+                autoComplete="new-password"
+                onChange={this.handleChange}
+              />
+            </Label>
 
-            <Input
-              type="password"
-              name="passwordAgain"
-              value={passwordAgain}
-              placeholder="Repeat password"
-              required
-              onChange={this.handleChange}
-            />
+            <Label>
+              Repeat password
+              <Input
+                required
+                type="password"
+                name="passwordAgain"
+                value={passwordAgain}
+                autoComplete="new-password"
+                placeholder="Repeat password"
+                onChange={this.handleChange}
+              />
+            </Label>
 
             <FlexRow>
               <Button
