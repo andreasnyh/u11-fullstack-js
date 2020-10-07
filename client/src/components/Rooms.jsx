@@ -41,8 +41,13 @@ const Rooms = (props) => {
             💰 {room.price}kr/h
           </span>
         </FlexRow>
-        <Text text={`${room.street}\n${room.town}`} />
+        <Text headlineSub="Location:" text={`${room.street}\n${room.town}`} />
         {room.floor ? <Text text={`Floor: ${room.floor}`} /> : ''}
+        {room.description ? (
+          <Text headlineSub="Description:" text={room.description} />
+        ) : (
+          ''
+        )}
         <FlexRow>
           <Button type="button" onClick={() => moreInfo(room._id)}>
             More Info

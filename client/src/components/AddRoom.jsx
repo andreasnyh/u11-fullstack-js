@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 
+import { roomService } from '../services';
 import {
   Button,
   Card,
@@ -25,21 +26,7 @@ class AddRoom extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      room: {
-        /* name: '',
-        description: '',
-        floor: '',
-        from: '',
-        to: '',
-        street: '',
-        postalNumber: '',
-        town: '',
-        password: '',
-        price: '',
-        priceType: '',
-        imageUrl: '' */
-      },
-      errors: []
+      room: {}
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -54,13 +41,13 @@ class AddRoom extends Component {
     });
   }
 
-  async handleSubmit(event) {
+  handleSubmit(event) {
+    const { room } = this.state;
     event.preventDefault();
-    console.log(
-      'handleSubmit state AddRoom',
-      JSON.stringify(this.state, null, 2)
-    );
-    // await this.newRoom(this.state);
+    console.log('handleSubmit state AddRoom', JSON.stringify(room, null, 2));
+    roomService.create(room);
+    const { history } = this.props;
+    history.push('/home');
   }
 
   render() {
@@ -98,6 +85,17 @@ class AddRoom extends Component {
               />
             </Label>
 
+            <Label>
+              Password to room
+              <Input
+                type="text"
+                name="password"
+                value={password || ''}
+                placeholder="Password"
+                onChange={this.handleChange}
+              />
+            </Label>
+
             <StyledSplitInput>
               <Label style={{ width: '48%' }}>
                 Room size from *
@@ -130,11 +128,25 @@ class AddRoom extends Component {
             </StyledSplitInput>
 
             <Label>
-              Description
-              <Textarea
-                name="description"
-                value={description || ''}
-                placeholder="Description"
+              Street *
+              <Input
+                required
+                type="text"
+                name="street"
+                value={street || ''}
+                placeholder="Street"
+                onChange={this.handleChange}
+              />
+            </Label>
+
+            <Label>
+              Town *
+              <Input
+                required
+                type="text"
+                name="town"
+                value={town || ''}
+                placeholder="Town"
                 onChange={this.handleChange}
               />
             </Label>
@@ -151,18 +163,6 @@ class AddRoom extends Component {
             </Label>
 
             <Label>
-              Street *
-              <Input
-                required
-                type="text"
-                name="street"
-                value={street || ''}
-                placeholder="Street"
-                onChange={this.handleChange}
-              />
-            </Label>
-
-            <Label>
               Postal Number
               <Input
                 type="number"
@@ -172,18 +172,6 @@ class AddRoom extends Component {
                 name="postalNumber"
                 value={postalNumber || ''}
                 placeholder="Postal Number"
-                onChange={this.handleChange}
-              />
-            </Label>
-
-            <Label>
-              Town *
-              <Input
-                required
-                type="text"
-                name="town"
-                value={town || ''}
-                placeholder="Town"
                 onChange={this.handleChange}
               />
             </Label>
@@ -227,12 +215,11 @@ class AddRoom extends Component {
             </Label>
 
             <Label>
-              Password to room
-              <Input
-                type="text"
-                name="password"
-                value={password || ''}
-                placeholder="Password"
+              Description
+              <Textarea
+                name="description"
+                value={description || ''}
+                placeholder="Description"
                 onChange={this.handleChange}
               />
             </Label>
