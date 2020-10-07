@@ -3,13 +3,13 @@ import styled from 'styled-components';
 import { Colors } from '../../config/ColorsShadows';
 
 const Input = styled.input`
-  width: 100%;
   border: 0;
-  margin: 10px 0;
-  padding: 14px;
+  width: 100%;
   outline: none;
-  border-radius: 20px;
+  padding: 14px;
+  margin: 10px 0;
   font-size: 0.9rem;
+  border-radius: 20px;
   &&:focus {
     box-shadow: 0 0 2pt 2pt ${Colors.Important};
   }
