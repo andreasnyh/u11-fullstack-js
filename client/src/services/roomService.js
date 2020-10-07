@@ -33,7 +33,8 @@ async function create(room) {
           errorArray.push({
             status: error.response.status,
             param: err.param,
-            msg: err.msg
+            msg: err.msg,
+            reason: err.reason
           });
         });
         return errorArray;
@@ -72,7 +73,8 @@ async function getAll() {
           errorArray.push({
             status: error.response.status,
             param: err.param,
-            msg: err.msg
+            msg: err.msg,
+            reason: err.reason
           });
         });
         return errorArray;
@@ -111,7 +113,8 @@ async function getOne(id) {
           errorArray.push({
             status: error.response.status,
             param: err.param,
-            msg: err.msg
+            msg: err.msg,
+            reason: err.reason
           });
         });
         return errorArray;
