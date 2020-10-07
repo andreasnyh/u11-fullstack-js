@@ -1,4 +1,5 @@
 import Button from './Button';
+import Calendar from './Calendar';
 import Card from './Card';
 import CardFull from './CardFull';
 import FlexCol from './FlexCol';
@@ -15,6 +16,7 @@ import Textarea from './Textarea';
 
 export {
   Button,
+  Calendar,
   Card,
   CardFull,
   FlexCol,
