@@ -10,13 +10,14 @@ import {
   Form,
   Input,
   Label,
+  Loading,
   Text
 } from './elements';
 
 class SignIn extends Component {
   constructor(props) {
     super(props);
-    this.state = { currentUser: authService.currentUserValue };
+    this.state = { currentUser: authService.currentUserValue, loading: false };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -30,6 +31,7 @@ class SignIn extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
+    this.setState({ loading: true });
     this.signIn();
   }
 
@@ -37,10 +39,11 @@ class SignIn extends Component {
     const { email, password } = this.state;
     const user = { email, password };
     authService.signin(user);
+    this.setState({ loading: false });
   }
 
   render() {
-    const { currentUser } = this.state;
+    const { currentUser, loading } = this.state;
     const { history, location } = this.props;
 
     if (currentUser !== null) {
@@ -54,7 +57,9 @@ class SignIn extends Component {
         />
       );
     }
-    return (
+    return loading ? (
+      <Loading />
+    ) : (
       <CardFull>
         <Text headline="Sign In" />
         <Card>

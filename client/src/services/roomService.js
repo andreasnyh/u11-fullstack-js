@@ -16,6 +16,10 @@ async function create(room) {
       return res;
     })
     .catch((error) => {
+      handleResponse(error);
+    });
+  /*
+    .catch((error) => {
       console.log(error);
       if (error.response) {
         const errorArray = [];
@@ -45,18 +49,23 @@ async function create(room) {
       return error.message;
 
       // console.log(error.config);
-    });
+    }); */
 }
 
 async function getAll() {
   const header = await authHeader();
   return axios
     .get(`${config.apiUrl}/rooms/allrooms`, { headers: header })
-    .then(handleResponse)
+    .then((res) => handleResponse(res))
     .then((res) => {
       return res;
     })
     .catch((error) => {
+      handleResponse(error);
+    });
+  /*
+    .catch((error) => {
+
       if (error.response) {
         const errorArray = [];
         error.response.data.errors.forEach((err) => {
@@ -86,6 +95,7 @@ async function getAll() {
 
       // console.log(error.config);
     });
+     */
 }
 
 async function getOne(id) {
