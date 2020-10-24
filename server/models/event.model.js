@@ -70,6 +70,9 @@ const EventSchema = mongoose.Schema(
     textColor: {
       type: String,
     },
+    description: {
+      type: String,
+    },
   },
   // Options
   { timestamps: { createdAt: 'createdAt' } },

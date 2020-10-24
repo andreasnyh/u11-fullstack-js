@@ -9,13 +9,14 @@ const handleDateSelect = (selectInfo) => {
   const calendarApi = selectInfo.view.calendar;
   console.log(calendarApi.addEvent);
   calendarApi.unselect(); // clear date selection
+  console.log(selectInfo);
 
   if (title) {
     calendarApi.addEvent({
       id: Date.now(),
       title,
       start: selectInfo.dateStr,
-      // end: selectInfo.endStr,
+      end: selectInfo.endStr,
       allDay: selectInfo.allDay
     });
   }
