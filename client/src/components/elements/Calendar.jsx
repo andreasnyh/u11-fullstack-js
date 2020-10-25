@@ -4,8 +4,10 @@ import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction'; // needed for dayClick
+// import moment from 'moment';
 // eslint-disable-next-line import/no-cycle
 import { Form, Input, Label } from '.';
+import { eventService } from '../../services';
 
 Modal.setAppElement('#root');
 
@@ -13,18 +15,26 @@ export default class Calendar extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      events: [],
       modalIsOpen: false
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.handleEvents = this.handleEvents.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleDateSelect = this.handleDateSelect.bind(this);
     // this.openModal = this.openModal.bind(this);
+    this.closeModal = this.closeModal.bind(this);
+  }
+
+  componentDidMount() {
+    eventService.getAll().then((events) => {
+      console.log('fetch', events);
+      this.setState({ events });
+    });
   }
 
   handleChange(event) {
-    // const { room } = this.state;
-    // room[event.target.name] = event.target.value;
     this.setState({
       [event.target.name]: event.target.value
     });
@@ -41,15 +51,15 @@ export default class Calendar extends Component {
   } */
 
   closeModal() {
-    this.setState({ modalIsOpen: false });
+    this.setState({ modalIsOpen: false, selectInfo: null });
   }
 
   handleDateSelect(selectInfo) {
     const calendarApi = selectInfo.view.calendar;
-    console.log(calendarApi.addEvent);
     calendarApi.unselect(); // clear date selection
     console.log('open MOdal');
-    this.setState({ modalIsOpen: true });
+    this.setState({ modalIsOpen: true, selectInfo });
+    // console.log(calendarApi);
 
     /*     if (title) {
           calendarApi.addEvent({
@@ -60,7 +70,6 @@ export default class Calendar extends Component {
             allDay: selectInfo.allDay
           });
         } */
-    console.log(calendarApi);
   }
 
   // eslint-disable-next-line class-methods-use-this
@@ -78,7 +87,10 @@ export default class Calendar extends Component {
 
   // eslint-disable-next-line class-methods-use-this
   handleEvents(events) {
-    console.log(events);
+    console.log('handleEvents', events);
+    this.setState({
+      currentEvents: events
+    });
   }
 
   // eslint-disable-next-line class-methods-use-this
@@ -91,13 +103,16 @@ export default class Calendar extends Component {
     );
   }
 
-  render() {
+  renderModal() {
+    const { modalIsOpen, title, selectInfo } = this.state;
+    // const calendarApi = selectInfo.view.calendar;
+
     const customStyles = {
       content: {
         top: '50%',
-        left: '50%',
-        right: 'auto',
+        right: '10%',
         bottom: 'auto',
+        left: '50%',
         marginRight: '-50%',
         transform: 'translate(-50%, -50%)',
         zIndex: 10
@@ -106,19 +121,52 @@ export default class Calendar extends Component {
         zIndex: 10
       }
     };
+    console.log(selectInfo);
+    return (
+      <Modal
+        isOpen={modalIsOpen}
+        onAfterOpen={this.afterOpenModal}
+        onRequestClose={this.closeModal}
+        style={customStyles}
+        contentLabel="Example Modal"
+      >
+        <h2>{selectInfo.dateStr}</h2>
+        <button type="button" onClick={this.closeModal}>
+          close
+        </button>
+        <div>I am a modal</div>
+        <Form handleSubmit={this.handleSubmit}>
+          <Label>
+            Title
+            <Input
+              required
+              type="text"
+              name="title"
+              value={title || ''}
+              placeholder="Event title"
+              onChange={this.handleChange}
+            />
+          </Label>
+          <button type="submit">submit</button>
+        </Form>
+      </Modal>
+    );
+  }
 
-    const { modalIsOpen, title } = this.state;
+  render() {
+    const { events, modalIsOpen } = this.state;
+
     return (
       <>
         <FullCalendar
-          /*       locale="sv"
-        weekends
-        plugins={[dayGridPlugin, interactionPlugin, timeGridPlugin]}
-        initialView="dayGridWeek"
-        // initialView="timeGridWeek"
-        dateClick={handleDateClick} */
-          id="calendar"
           firstDay="1"
+          businessHours={{
+            daysOfWeek: [0, 1, 2, 3, 4, 5, 6],
+            startTime: '08:00', // a start time (10am in this example)
+            endTime: '21:00'
+          }}
+          slotMinTime="06:00"
+          slotMaxTime="23:00"
           plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
           headerToolbar={{
             start: 'title',
@@ -133,47 +181,20 @@ export default class Calendar extends Component {
           weekends
           contentHeight="auto"
           locale={document.querySelector('html').getAttribute('lang')}
-          // initialEvents={INITIAL_EVENTS} // alternatively, use the `events` setting to fetch from a feed
           dateClick={this.handleDateSelect}
-          // dateClick={openModal}
+          // dateClick={this.openModal}
+          events={events}
           eventContent={this.renderEventContent} // custom render function
           eventClick={this.handleEventClick}
           eventsSet={this.handleEvents} // called after events are initialized/added/changed/removed
           /*
-          // you can update a remote database when these fire:
-          eventAdd={function(){}}
-          eventChange={function(){}}
-          eventRemove={function(){}}
-          */
+        // you can update a remote database when these fire:
+        eventAdd={function(){}}
+        eventRemove={function(){}}
+        eventChange={function(){}}
+        */
         />
-
-        <Modal
-          isOpen={modalIsOpen}
-          onAfterOpen={this.afterOpenModal}
-          onRequestClose={this.closeModal}
-          style={customStyles}
-          contentLabel="Example Modal"
-        >
-          <h2>Hello</h2>
-          <button type="button" onClick={this.closeModal}>
-            close
-          </button>
-          <div>I am a modal</div>
-          <Form handleSubmit={this.handleSubmit}>
-            <Label>
-              Title
-              <Input
-                required
-                type="text"
-                name="title"
-                value={title || ''}
-                placeholder="Event title"
-                onChange={this.handleChange}
-              />
-            </Label>
-            <button type="submit">submit</button>
-          </Form>
-        </Modal>
+        {modalIsOpen ? this.renderModal() : null}
       </>
     );
   }
