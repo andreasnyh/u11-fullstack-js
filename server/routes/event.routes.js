@@ -16,6 +16,7 @@ router.use((req, res, next) => {
 router.use(express.json());
 router.use(express.urlencoded({ extended: false }));
 
+router.get('/', eventController.getAll);
 router.post('/', eventController.create);
 
 router.get('/*', notFound); // This has to be last route
