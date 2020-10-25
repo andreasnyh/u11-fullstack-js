@@ -22,7 +22,8 @@ const EventSchema = mongoose.Schema(
     endTime: {
       type: Date,
     },
-    startRecur: {
+    // Implement recurring events
+    /* startRecur: {
       type: Date,
     },
     endRecur: {
@@ -30,7 +31,7 @@ const EventSchema = mongoose.Schema(
     },
     daysOfWeek: {
       type: Array,
-    },
+    }, */
     title: {
       type: String,
       required: true,
@@ -73,10 +74,25 @@ const EventSchema = mongoose.Schema(
     description: {
       type: String,
     },
+    rooms: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Room',
+      },
+    ],
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+    },
   },
   // Options
   { timestamps: { createdAt: 'createdAt' } },
 );
+
+// Ensure virtual fields are serialised.
+EventSchema.set('toJSON', {
+  virtuals: true,
+});
 
 const Event = mongoose.model('Event', EventSchema, 'events');
 
