@@ -12,7 +12,6 @@ async function create(event) {
     .then(handleResponse)
     .then((res) => {
       console.log(res);
-      console.log(res.data);
       return res;
     })
     .catch((error) => {

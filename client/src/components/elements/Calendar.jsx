@@ -5,6 +5,7 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction'; // needed for dayClick
 // import moment from 'moment';
+import { Colors } from '../../config/ColorsShadows';
 // eslint-disable-next-line import/no-cycle
 import { Form, Input, Label } from '.';
 import { eventService } from '../../services';
@@ -15,15 +16,18 @@ export default class Calendar extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      allDay: false,
       events: [],
-      modalIsOpen: false
+      modalIsOpen: false,
+      title: '',
+      selectInfo: null
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.handleAllDayChange = this.handleAllDayChange.bind(this);
     this.handleEvents = this.handleEvents.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleDateSelect = this.handleDateSelect.bind(this);
-    // this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
   }
 
@@ -40,10 +44,34 @@ export default class Calendar extends Component {
     });
   }
 
+  handleAllDayChange() {
+    this.setState((prevState) => ({
+      allDay: !prevState.allDay
+    }));
+  }
+
   handleSubmit(event) {
     event.preventDefault();
+    const { allDay, title, selectInfo /* , startTime, endTime */ } = this.state;
+    const calendarApi = selectInfo.view.calendar;
     console.log('handleSubmit Calendar', this.state);
-    this.setState({ modalIsOpen: false, title: '' });
+    calendarApi.unselect(); // clear date selection
+
+    console.log(selectInfo);
+    // console.log(moment(this.state.startTime).format('LT'));
+
+    const newEvent = {
+      allDay,
+      title,
+      start: selectInfo.dateStr,
+      end: selectInfo.endStr || selectInfo.dateStr
+      // startTime: startTime.format('LT'),
+      // endTime
+    };
+    calendarApi.addEvent(newEvent);
+    eventService.create(newEvent);
+
+    this.setState({ modalIsOpen: false, title: '', selectInfo: null });
   }
 
   /* afterOpenModal() {
@@ -76,7 +104,6 @@ export default class Calendar extends Component {
   // eslint-disable-next-line class-methods-use-this
   handleEventClick(clickInfo) {
     if (
-      // eslint-disable-next-line no-alert
       // eslint-disable-next-line no-restricted-globals
       confirm(
         `Are you sure you want to delete the event '${clickInfo.event.title}'`
@@ -87,7 +114,7 @@ export default class Calendar extends Component {
   }
 
   handleEvents(events) {
-    // console.log('handleEvents', events);
+    console.log('handleEvents', events);
     this.setState({
       currentEvents: events
     });
@@ -104,8 +131,9 @@ export default class Calendar extends Component {
   }
 
   renderModal() {
-    const { modalIsOpen, title, selectInfo } = this.state;
+    const { allDay, modalIsOpen, title, selectInfo } = this.state;
     // const calendarApi = selectInfo.view.calendar;
+    console.log('Select Info: ', selectInfo);
 
     const customStyles = {
       content: {
@@ -114,6 +142,7 @@ export default class Calendar extends Component {
         bottom: 'auto',
         left: '50%',
         marginRight: '-50%',
+        backgroundColor: `${Colors.Light}`,
         transform: 'translate(-50%, -50%)',
         zIndex: 10
       },
@@ -121,7 +150,7 @@ export default class Calendar extends Component {
         zIndex: 10
       }
     };
-    console.log('Select Info: ', selectInfo);
+
     return (
       <Modal
         isOpen={modalIsOpen}
@@ -137,6 +166,14 @@ export default class Calendar extends Component {
         <div>I am a modal</div>
         <Form handleSubmit={this.handleSubmit}>
           <Label>
+            All day event
+            <Input
+              name="allDay"
+              type="checkbox"
+              onChange={this.handleAllDayChange}
+            />
+          </Label>
+          <Label>
             Title
             <Input
               required
@@ -146,6 +183,24 @@ export default class Calendar extends Component {
               placeholder="Event title"
               onChange={this.handleChange}
             />
+            <Label>
+              Start Time
+              <Input
+                name="startTime"
+                type="time"
+                disabled={allDay}
+                onChange={this.handleChange}
+              />
+            </Label>
+            <Label>
+              End Time
+              <Input
+                name="endTime"
+                type="time"
+                disabled={allDay}
+                onChange={this.handleChange}
+              />
+            </Label>
           </Label>
           <button type="submit">submit</button>
         </Form>
@@ -182,17 +237,16 @@ export default class Calendar extends Component {
           contentHeight="auto"
           locale={document.querySelector('html').getAttribute('lang')}
           dateClick={this.handleDateSelect}
-          // dateClick={this.openModal}
           events={events}
           eventContent={this.renderEventContent} // custom render function
           eventClick={this.handleEventClick}
           eventsSet={this.handleEvents} // called after events are initialized/added/changed/removed
           /*
-      // you can update a remote database when these fire:
-      eventAdd={function(){}}
-      eventRemove={function(){}}
-      eventChange={function(){}}
-      */
+    // you can update a remote database when these fire:
+    eventAdd={function(){}}
+    eventRemove={function(){}}
+    eventChange={function(){}}
+    */
         />
         {modalIsOpen ? this.renderModal() : null}
       </>
