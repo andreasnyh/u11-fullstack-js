@@ -1,42 +1,38 @@
 import React, { Component } from 'react';
 
-import { authService } from '../services';
-import { Button, Card, CardFull, FlexRow, Image, Text } from './elements';
+import { authService, roomService } from '../services';
+import { CardFull, Loading, Text } from './elements';
+import Rooms from './Rooms';
 
 class Home extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      currentUser: authService.currentUserValue
+      currentUser: JSON.parse(authService.currentUserValue)
     };
   }
 
+  componentDidMount() {
+    roomService.getAll().then((rooms) => {
+      this.setState({ rooms });
+    });
+  }
+
   render() {
-    const { currentUser } = this.state;
-    return (
-      <CardFull>
-        <Text headline="Need a meeting room?" />
-        {currentUser.user && <Text text={currentUser.user.firstName} />}
-        <Card>
-          <Image
-            imgUrl="https://via.placeholder.com/600x400?text=No+image+of+room"
-            width="300px"
-            height="200px"
-          />
-          <FlexRow style={{ justifyContent: 'space-around' }}>
-            <span role="img" aria-label="Room for number of people">
-              👥 5-10
-            </span>
-            <span role="img" aria-label="Cost of room">
-              💰 100kr/h
-            </span>
-          </FlexRow>
-          <FlexRow>
-            <Button type="button">More Info</Button>
-            <Button type="button">Book</Button>
-          </FlexRow>
-        </Card>
+    const { currentUser, rooms } = this.state;
+    return rooms === undefined || currentUser === undefined ? (
+      <Loading />
+    ) : (
+      <CardFull static>
+        <Text
+          headline={
+            currentUser.user
+              ? `Need a meeting room ${currentUser.user.firstName}?`
+              : 'Need a meeting room?'
+          }
+        />
+        <Rooms rooms={rooms} />
       </CardFull>
     );
   }

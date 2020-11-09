@@ -16,8 +16,19 @@ async function getAll() {
       if (error.response) {
         const errorArray = [];
         error.response.data.errors.forEach((err) => {
-          console.log('status:', error.response.status, '\nparam:', err.param, '\nError:', err.msg);
-          errorArray.push({ status: error.response.status, param: err.param, msg: err.msg });
+          console.log(
+            'status:',
+            error.response.status,
+            '\nparam:',
+            err.param,
+            '\nError:',
+            err.msg
+          );
+          errorArray.push({
+            status: error.response.status,
+            param: err.param,
+            msg: err.msg
+          });
         });
         return errorArray;
       }

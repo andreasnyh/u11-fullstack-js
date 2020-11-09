@@ -1,13 +1,24 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
-import { Home, SignIn, SignOut, SignUp, SignUpThankYou, Users, Welcome } from './components';
-import ProtectedRoute from './components/ProtectedRoute';
+import {
+  AddRoom,
+  AdminRoute,
+  Home,
+  ProtectedRoute,
+  SignIn,
+  SignOut,
+  SignUp,
+  SignUpThankYou,
+  Users,
+  Welcome
+} from './components';
 
 function Routes() {
   return (
     <Router>
       <Switch>
+        <AdminRoute exact path="/admin/addroom" component={AddRoom} />
         <ProtectedRoute exact path="/home" component={Home} />
         <ProtectedRoute exact path="/users" component={Users} />
         <Route exact path="/signin" component={SignIn} />

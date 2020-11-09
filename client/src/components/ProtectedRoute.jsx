@@ -15,9 +15,13 @@ const ProtectedRoute = ({ component: Component, ...rest }) => {
       {...rest}
       render={(props) => {
         const user = authService.currentUserValue;
-        console.log(user);
         if (user === null) {
-          return <AccessRestricted {...props} msg="You need to log in to access this page" />;
+          return (
+            <AccessRestricted
+              {...props}
+              msg="You need to log in to access this page"
+            />
+          );
         }
         return <Component {...props} currentUser={user} />;
       }}

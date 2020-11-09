@@ -1,5 +1,5 @@
 const express = require('express');
-const roomController = require('../controllers/room.controller');
+const { userController, roomController } = require('../controllers');
 const notFound = require('../controllers/notfound.controller');
 const { authJwt } = require('../middleware');
 
@@ -16,29 +16,21 @@ router.use((req, res, next) => {
 router.use(express.json());
 router.use(express.urlencoded({ extended: false }));
 
-router.get('/room/:id', authJwt.verifyToken, roomController.roomDetail);
+router.get(
+  '/allusers',
+  [authJwt.verifyToken, authJwt.isAdmin],
+  userController.allUsers,
+);
+router.get(
+  '/find/:email',
+  [authJwt.verifyToken, authJwt.isAdmin],
+  userController.detail,
+);
 
-router.get('/allrooms', authJwt.verifyToken, roomController.allRooms);
-
-/* router.post(
-  '/',
+router.post(
+  '/addroom',
   [authJwt.verifyToken, authJwt.isAdmin],
   roomController.create,
-); */
-
-/* router.get('/find/:email', authJwt.verifyToken, roomController.detail);
-
-router.post('/find', authJwt.verifyToken, roomController.detail);
-
-*/
-router.get('/test/all', roomController.allAccess);
-
-router.get('/test/user', authJwt.verifyToken, roomController.userBoard);
-
-router.get(
-  '/test/admin',
-  [authJwt.verifyToken, authJwt.isAdmin],
-  roomController.adminBoard,
 );
 
 router.get('/*', notFound); // This has to be last route

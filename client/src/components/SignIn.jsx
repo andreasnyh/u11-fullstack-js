@@ -2,7 +2,16 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 
 import { authService } from '../services';
-import { Button, Card, CardFull, FlexRow, Form, Input, Text } from './elements';
+import {
+  Button,
+  Card,
+  CardFull,
+  FlexRow,
+  Form,
+  Input,
+  Label,
+  Text
+} from './elements';
 
 class SignIn extends Component {
   constructor(props) {
@@ -47,24 +56,31 @@ class SignIn extends Component {
     }
     return (
       <CardFull>
-        <Text headline="Sign In Component" />
+        <Text headline="Sign In" />
         <Card>
-          <Form text="Sign In" handleSubmit={this.handleSubmit}>
-            <Input
-              required
-              type="email"
-              name="email"
-              placeholder="E-mail"
-              onChange={this.handleChange}
-            />
-            <Input
-              required
-              autoComplete="currentpassword"
-              type="password"
-              name="password"
-              placeholder="Password"
-              onChange={this.handleChange}
-            />
+          <Form handleSubmit={this.handleSubmit}>
+            <Label>
+              Email
+              <Input
+                required
+                type="email"
+                name="email"
+                placeholder="E-mail"
+                onChange={this.handleChange}
+              />
+            </Label>
+
+            <Label>
+              Password
+              <Input
+                required
+                autoComplete="currentpassword"
+                type="password"
+                name="password"
+                placeholder="Password"
+                onChange={this.handleChange}
+              />
+            </Label>
             <FlexRow>
               <Button
                 type="button"

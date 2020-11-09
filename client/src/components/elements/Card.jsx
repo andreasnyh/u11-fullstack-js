@@ -5,12 +5,13 @@ import { Colors, Shadows } from '../../config/ColorsShadows';
 const Card = styled.div`
   width: 100%;
   padding: 1em;
-  margin: 0 auto;
   position: relative;
   border-radius: 20px;
+  text-align: left;
+  margin: 1rem auto 2rem;
   color: ${Colors.lightText};
-  background-color: ${Colors.lightDark};
   box-shadow: ${Shadows.CardShadow};
+  background-color: ${Colors.lightDark};
 `;
 
 export default Card;

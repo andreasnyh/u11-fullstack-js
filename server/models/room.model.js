@@ -8,6 +8,10 @@ const RoomSchema = mongoose.Schema(
       minlength: 2,
       required: true,
     },
+    description: {
+      type: String,
+      trim: true,
+    },
     floor: {
       type: Number,
       trim: true,
@@ -36,7 +40,16 @@ const RoomSchema = mongoose.Schema(
       trim: true,
       default: 0,
     },
-    size: {},
+    size: {
+      from: {
+        type: Number,
+        required: true,
+      },
+      to: {
+        type: Number,
+        required: true,
+      },
+    },
     image: {
       url: {
         type: String,

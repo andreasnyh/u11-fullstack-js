@@ -6,6 +6,9 @@ import styled from 'styled-components';
 const StyledWrapper = styled.div`
   margin: 1rem;
   text-align: left;
+  white-space: pre-line;
+  /* Need this? */
+  /* vertical-align: bottom; */
 `;
 
 const StyledHeadline = styled.h2`
