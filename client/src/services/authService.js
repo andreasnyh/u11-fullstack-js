@@ -12,7 +12,7 @@ const currentUserSubject = new BehaviorSubject(
 function signin(input) {
   axios
     .post(`${config.apiUrl}/auth/signin`, input)
-    .then(handleResponse)
+    .then((res) => handleResponse(res))
     .then((user) => {
       localStorage.setItem('currentUser', JSON.stringify(user));
       currentUserSubject.next(user);
@@ -34,14 +34,17 @@ function signin(input) {
           );
           errorArray.push({ param: err.param, msg: err.msg });
         });
+        handleResponse(error.response);
       } else if (error.request) {
         // The request was made but no response was received
         // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
         // http.ClientRequest in node.js
         console.log(error.request);
+        handleResponse(error.request);
       } else {
         // Something happened in setting up the request that triggered an Error
         console.log('Error', error.message);
+        handleResponse(error);
       }
       console.log(error.config);
     });

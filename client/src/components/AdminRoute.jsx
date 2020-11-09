@@ -16,9 +16,11 @@ const AdminRoute = ({ component: Component, ...rest }) => {
       render={(props) => {
         const user = authService.currentUserValue;
         const jsonUser = JSON.parse(user);
-        const { roles } = jsonUser.user;
-        if (jsonUser && roles.includes('ROLE_ADMIN')) {
-          return <Component {...props} currentUser={user} />;
+        if (jsonUser) {
+          const { roles } = jsonUser.user;
+          if (jsonUser && roles.includes('ROLE_ADMIN')) {
+            return <Component {...props} currentUser={user} />;
+          }
         }
         return (
           <AccessRestricted

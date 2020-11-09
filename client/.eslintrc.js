@@ -48,5 +48,14 @@ module.exports = {
         depth: 3
       }
     ]
-  }
+  },
+  overrides: [
+    {
+      // Disable simple-import-sort for Calendar file
+      files: './src/components/elements/Calendar.jsx',
+      rules: {
+        'simple-import-sort/sort': 'off'
+      }
+    }
+  ]
 };
