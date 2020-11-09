@@ -29,7 +29,7 @@ export default class Calendar extends Component {
 
   componentDidMount() {
     eventService.getAll().then((events) => {
-      console.log('fetch', events);
+      // console.log('fetch', events);
       this.setState({ events });
     });
   }
@@ -42,7 +42,8 @@ export default class Calendar extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    console.log('handleSubmit Calendar', JSON.stringify(this.state, null, 2));
+    console.log('handleSubmit Calendar', this.state);
+    this.setState({ modalIsOpen: false, title: '' });
   }
 
   /* afterOpenModal() {
@@ -85,9 +86,8 @@ export default class Calendar extends Component {
     }
   }
 
-  // eslint-disable-next-line class-methods-use-this
   handleEvents(events) {
-    console.log('handleEvents', events);
+    // console.log('handleEvents', events);
     this.setState({
       currentEvents: events
     });
@@ -121,7 +121,7 @@ export default class Calendar extends Component {
         zIndex: 10
       }
     };
-    console.log(selectInfo);
+    console.log('Select Info: ', selectInfo);
     return (
       <Modal
         isOpen={modalIsOpen}
@@ -188,11 +188,11 @@ export default class Calendar extends Component {
           eventClick={this.handleEventClick}
           eventsSet={this.handleEvents} // called after events are initialized/added/changed/removed
           /*
-        // you can update a remote database when these fire:
-        eventAdd={function(){}}
-        eventRemove={function(){}}
-        eventChange={function(){}}
-        */
+      // you can update a remote database when these fire:
+      eventAdd={function(){}}
+      eventRemove={function(){}}
+      eventChange={function(){}}
+      */
         />
         {modalIsOpen ? this.renderModal() : null}
       </>
