@@ -1,5 +1,16 @@
 const Event = require('../models/event.model');
 
+const getAll = (req, res) => {
+  Event.find()
+    // .select('-daysOfWeek')
+    .then((events) => {
+      // console.log(`Events found: \n ${JSON.stringify(events, null, 2)}`);
+      console.log(events);
+      res.send(events);
+    })
+    .catch((err) => res.status(400).json(`Error: ${err}`));
+};
+
 const create = (req, res) => {
   const event = req.body;
   Event.create(event)
@@ -28,6 +39,7 @@ const adminBoard = (req, res) => {
 
 module.exports = {
   create,
+  getAll,
   allAccess,
   yourEvent,
   adminBoard,

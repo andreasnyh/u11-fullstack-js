@@ -20,7 +20,7 @@ const Button = styled.button`
       ${(props) => (props.confirm ? Colors.Light : Colors.Important)};
   }
   &&:hover {
-    transform: scale(1.1);
+    transform: scale(1.025);
     // background: ${Colors.White};
     // color: ${Colors.Black};
   }
