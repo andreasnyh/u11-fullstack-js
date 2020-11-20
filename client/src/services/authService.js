@@ -9,9 +9,12 @@ const currentUserSubject = new BehaviorSubject(
   localStorage.getItem('currentUser')
 );
 
+const apiUrl =
+  process.env.NODE_ENV !== 'production' ? config.apiUrl : config.apiUrlProd;
+
 function signin(input) {
   axios
-    .post(`${config.apiUrl}/auth/signin`, input)
+    .post(`${apiUrl}/auth/signin`, input)
     .then((res) => handleResponse(res))
     .then((user) => {
       localStorage.setItem('currentUser', JSON.stringify(user));
