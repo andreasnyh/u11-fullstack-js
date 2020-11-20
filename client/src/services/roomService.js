@@ -4,11 +4,14 @@ import axios from 'axios';
 import config from '../config/config.json';
 import { authHeader, handleResponse } from '../helpers';
 
+const apiUrl =
+  process.env.NODE_ENV !== 'production' ? config.apiUrl : config.apiUrlProd;
+
 async function create(room) {
   const header = await authHeader();
   console.log(header);
   axios
-    .post(`${config.apiUrl}/admin/addroom`, room, { headers: header })
+    .post(`${apiUrl}/admin/addroom`, room, { headers: header })
     .then(handleResponse)
     .then((res) => {
       console.log(res);
@@ -55,7 +58,7 @@ async function create(room) {
 async function getAll() {
   const header = await authHeader();
   return axios
-    .get(`${config.apiUrl}/rooms/allrooms`, { headers: header })
+    .get(`${apiUrl}/rooms/allrooms`, { headers: header })
     .then((res) => handleResponse(res))
     .then((res) => {
       return res;
@@ -101,7 +104,7 @@ async function getAll() {
 async function getOne(id) {
   const header = await authHeader();
   return axios
-    .get(`${config.apiUrl}/rooms/room/${id}`, { headers: header })
+    .get(`${apiUrl}/rooms/room/${id}`, { headers: header })
     .then(handleResponse)
     .then((res) => {
       return res;

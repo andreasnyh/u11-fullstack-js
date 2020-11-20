@@ -4,10 +4,13 @@ import axios from 'axios';
 import config from '../config/config.json';
 import { authHeader, handleResponse } from '../helpers';
 
+const apiUrl =
+  process.env.NODE_ENV !== 'production' ? config.apiUrl : config.apiUrlProd;
+
 async function getAll() {
   const header = await authHeader();
   return axios
-    .get(`${config.apiUrl}/users/allusers`, { headers: header })
+    .get(`${apiUrl}/users/allusers`, { headers: header })
     .then(handleResponse)
     .then((res) => {
       return res;
