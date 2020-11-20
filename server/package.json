@@ -4,7 +4,8 @@
   "description": "Backend for U11 - meeting room",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js",
+    "start": "node index.js",
+    "start-dev": "nodemon index.js",
     "test": "mocha --recursive --exit",
     "lint": "eslint . --fix --ext .js"
   },
