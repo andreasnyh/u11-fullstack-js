@@ -163,7 +163,6 @@ export default class Calendar extends Component {
         <button type="button" onClick={this.closeModal}>
           close
         </button>
-        <div>I am a modal</div>
         <Form handleSubmit={this.handleSubmit}>
           <Label>
             All day event
