@@ -1,6 +1,6 @@
 require('dotenv').config();
 const mongoose = require('mongoose');
-const { MongoMemoryServer } = require('mongodb-memory-server');
+// const { MongoMemoryServer } = require('mongodb-memory-server');
 const { Role, roleList } = require('./models');
 
 const { URI } = process.env;
@@ -27,7 +27,7 @@ function init() {
 async function connect() {
   // Run MemoryServer if the environment is "test"
   if (process.env.NODE_ENV === 'test') {
-    const mongoServer = new MongoMemoryServer({ binary: { version: '4.2.0' } });
+    /* const mongoServer = new MongoMemoryServer({ binary: { version: '4.2.0' } });
     mongoServer.getUri().then((mongoUri) => {
       mongoose.connect(mongoUri, {
         useNewUrlParser: true,
@@ -44,7 +44,7 @@ async function connect() {
           mongoUri,
         );
       });
-    });
+    }); */
   } else {
     // else run live DB connection
     mongoose.connect(URI, {
