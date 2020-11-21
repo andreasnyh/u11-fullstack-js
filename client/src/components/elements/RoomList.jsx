@@ -10,7 +10,7 @@ const StyledImageContainer = styled.div`
   overflow: hidden;
 `;
 
-const Room = (props) => {
+const RoomList = (props) => {
   const { room, bookRoom, moreInfo } = props;
 
   return (
@@ -35,7 +35,12 @@ const Room = (props) => {
         ''
       )}
       <FlexRow>
-        <Button type="button" onClick={() => moreInfo(room._id)}>
+        <Button
+          type="button"
+          onClick={() => {
+            moreInfo(room._id);
+          }}
+        >
           More Info
         </Button>
         <Button type="button" onClick={() => bookRoom(room._id)}>
@@ -46,4 +51,4 @@ const Room = (props) => {
   );
 };
 
-export default Room;
+export default RoomList;

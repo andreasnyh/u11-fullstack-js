@@ -1,14 +1,7 @@
 import React from 'react';
 
-// import styled from 'styled-components';
 import { roomService } from '../services';
-import { Room } from './elements';
-
-/* const StyledImageContainer = styled.div`
-  width: 100%;
-  height: 200px;
-  overflow: hidden;
-`; */
+import { RoomList } from './elements';
 
 const moreInfo = async (id) => {
   console.log(id);
@@ -24,7 +17,7 @@ const Rooms = (props) => {
 
   return rooms.map((room) => {
     return (
-      <Room
+      <RoomList
         key={room._id}
         room={room}
         moreInfo={moreInfo}

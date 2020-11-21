@@ -10,7 +10,7 @@ import Image from './Image';
 import Input from './Input';
 import Label from './Label';
 import Loading from './Loading';
-import Room from './Room';
+import RoomList from './RoomList';
 import Select from './Select';
 import SplashImage from './SplashImage';
 import Text from './Text';
@@ -28,7 +28,7 @@ export {
   Input,
   Label,
   Loading,
-  Room,
+  RoomList,
   Select,
   SplashImage,
   Text,

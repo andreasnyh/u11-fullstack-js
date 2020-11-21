@@ -114,7 +114,7 @@ export default class Calendar extends Component {
   }
 
   handleEvents(events) {
-    console.log('handleEvents', events);
+    // console.log('handleEvents', events);
     this.setState({
       currentEvents: events
     });

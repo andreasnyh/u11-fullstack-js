@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import { authService, roomService } from '../services';
-import { Calendar, CardFull, Loading, Text } from './elements';
+import { /*  Calendar, */ CardFull, Loading, Text } from './elements';
 import Rooms from './Rooms';
 
 class Home extends Component {
@@ -32,7 +32,7 @@ class Home extends Component {
               : 'Need a meeting room?'
           }
         />
-        <Calendar />
+        {/* <Calendar /> */}
         <Rooms rooms={rooms} />
       </CardFull>
     );
