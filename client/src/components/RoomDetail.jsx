@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
+import { authService } from '../services';
 // eslint-disable-next-line import/no-cycle
-import { Button, Card, FlexRow, Image, Text } from './elements';
+import { Calendar, Card, FlexRow, Image, Text } from './elements';
 
 const StyledImageContainer = styled.div`
   width: 100%;
@@ -11,7 +12,13 @@ const StyledImageContainer = styled.div`
 `;
 
 const RoomDetail = (props) => {
-  const { room, moreInfo, bookRoom } = props;
+  const { room } = props;
+  const [userId, setUserId] = useState(null);
+
+  useEffect(() => {
+    const user = JSON.parse(authService.currentUserValue).user.id;
+    setUserId(user);
+  }, []);
 
   return (
     <Card key={room._id}>
@@ -35,12 +42,7 @@ const RoomDetail = (props) => {
         ''
       )}
       <FlexRow>
-        <Button type="button" onClick={() => moreInfo(room._id)}>
-          More Info
-        </Button>
-        <Button type="button" onClick={() => bookRoom(room._id)}>
-          Book
-        </Button>
+        <Calendar roomId={room._id} userId={userId} />
       </FlexRow>
     </Card>
   );
