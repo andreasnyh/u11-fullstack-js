@@ -1,4 +1,6 @@
 const Event = require('../models/event.model');
+const Room = require('../models/room.model');
+const User = require('../models/user.model');
 
 const getAll = (req, res) => {
   Event.find()
@@ -13,11 +15,16 @@ const getAll = (req, res) => {
 
 const create = (req, res) => {
   const event = req.body;
-  Event.create(event)
-    .then(() => {
-      console.log(`Event saved: \n ${JSON.stringify(event, null, 2)}`);
-      res.status(201).json(event);
-    })
+  console.log('req body', req.body);
+  User.findById(event.user).then(
+    Room.findById(event.room).then(
+      Event.create(event)
+        .then(() => {
+          console.log(`Event saved: \n ${JSON.stringify(event, null, 2)}`);
+          res.status(201).json(event);
+        }).catch((err) => res.status(400).json(`Error: ${err}`)),
+    ).catch((err) => res.status(400).json(`Error: ${err}`)),
+  )
     .catch((err) => res.status(400).json(`Error: ${err}`));
 };
 
