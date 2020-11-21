@@ -53,6 +53,7 @@ export default class Calendar extends Component {
   handleSubmit(event) {
     event.preventDefault();
     const { allDay, title, selectInfo /* , startTime, endTime */ } = this.state;
+    const { roomId, userId } = this.props;
     const calendarApi = selectInfo.view.calendar;
     console.log('handleSubmit Calendar', this.state);
     calendarApi.unselect(); // clear date selection
@@ -64,7 +65,9 @@ export default class Calendar extends Component {
       allDay,
       title,
       start: selectInfo.dateStr,
-      end: selectInfo.endStr || selectInfo.dateStr
+      end: selectInfo.endStr || selectInfo.dateStr,
+      room: roomId,
+      user: userId
       // startTime: startTime.format('LT'),
       // endTime
     };
