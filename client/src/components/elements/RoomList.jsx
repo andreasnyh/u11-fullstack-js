@@ -1,7 +1,10 @@
-import React from 'react';
+/* eslint-disable import/no-cycle */
+import React, { useState } from 'react';
+import Modal from 'react-modal';
 import styled from 'styled-components';
 
-// eslint-disable-next-line import/no-cycle
+import { RoomDetail } from '..';
+// import { Colors } from '../../config/ColorsShadows';
 import { Button, Card, FlexRow, Image, Text } from '.';
 
 const StyledImageContainer = styled.div`
@@ -10,8 +13,50 @@ const StyledImageContainer = styled.div`
   overflow: hidden;
 `;
 
+const CloseModalButton = styled(Button)`
+  position: absolute;
+  top: 2rem;
+  z-index: 11;
+  right: 2rem;
+  width: 2rem;
+  padding: 5px;
+`;
+
 const RoomList = (props) => {
-  const { room, bookRoom, moreInfo } = props;
+  const { room, bookRoom } = props;
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+
+  const handleInfoClick = (id) => {
+    setModalIsOpen(true);
+    console.log(id);
+  };
+
+  const closeModal = () => {
+    setModalIsOpen(false);
+  };
+
+  const modalStyles = {
+    content: {
+      top: '0',
+      right: '0',
+      bottom: '0',
+      left: '0',
+      border: 'none',
+      // // marginRight: '-50%',
+      // // backgroundColor: `${Colors.Light}`,
+      backgroundColor: 'transparent',
+      // transform: 'translate(-50%, -50%)',
+      // zIndex: 10,
+      // width: '50rem',
+      // maxWidth: 'calc(100vw - 2rem)',
+      // maxHeight: 'calc(100vh - 2rem)',
+      // overflowY: 'auto',
+      position: 'absolute'
+    },
+    overlay: {
+      zIndex: 10
+    }
+  };
 
   return (
     <Card key={room._id}>
@@ -38,7 +83,8 @@ const RoomList = (props) => {
         <Button
           type="button"
           onClick={() => {
-            moreInfo(room._id);
+            // moreInfo(room._id);
+            handleInfoClick(room._id);
           }}
         >
           More Info
@@ -47,6 +93,19 @@ const RoomList = (props) => {
           Book
         </Button>
       </FlexRow>
+
+      <Modal
+        isOpen={modalIsOpen}
+        // onAfterOpen={this.afterOpenModal}
+        onRequestClose={closeModal}
+        style={modalStyles}
+        contentLabel="Example Modal"
+      >
+        <CloseModalButton type="button" onClick={() => closeModal()}>
+          X
+        </CloseModalButton>
+        <RoomDetail room={room} />
+      </Modal>
     </Card>
   );
 };

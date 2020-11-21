@@ -1,12 +1,7 @@
 import React from 'react';
 
-import { roomService } from '../services';
+// eslint-disable-next-line import/no-cycle
 import { RoomList } from './elements';
-
-const moreInfo = async (id) => {
-  console.log(id);
-  roomService.getOne(id).then((roomInfo) => console.log(roomInfo));
-};
 
 const bookRoom = (id) => {
   console.log(id);
@@ -20,7 +15,7 @@ const Rooms = (props) => {
       <RoomList
         key={room._id}
         room={room}
-        moreInfo={moreInfo}
+        // moreInfo={moreInfo}
         bookRoom={bookRoom}
       />
     );
