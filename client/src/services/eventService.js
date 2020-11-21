@@ -16,7 +16,7 @@ async function create(event) {
       return res;
     })
     .catch((error) => {
-      handleResponse(error);
+      handleResponse(error.response);
     });
 }
 
@@ -29,7 +29,7 @@ async function getAll() {
       return res;
     })
     .catch((error) => {
-      handleResponse(error);
+      handleResponse(error.response);
     });
 }
 
@@ -42,34 +42,7 @@ async function getOne(id) {
       return res;
     })
     .catch((error) => {
-      if (error.response) {
-        const errorArray = [];
-        error.response.data.errors.forEach((err) => {
-          console.log(
-            'status:',
-            error.response.status,
-            '\nparam:',
-            err.param,
-            '\nError:',
-            err.msg,
-            '\nReason:',
-            err.reason
-          );
-          errorArray.push({
-            status: error.response.status,
-            param: err.param,
-            msg: err.msg,
-            reason: err.reason
-          });
-        });
-        return errorArray;
-      }
-      if (error.request) {
-        return error.request;
-      }
-      return error.message;
-
-      // console.log(error.config);
+      handleResponse(error.response);
     });
 }
 
