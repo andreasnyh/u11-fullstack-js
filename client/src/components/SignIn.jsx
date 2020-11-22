@@ -32,14 +32,21 @@ class SignIn extends Component {
   handleSubmit(event) {
     event.preventDefault();
     this.setState({ loading: true });
-    this.signIn();
+    this.signIn()
+      .then((res) => {
+        this.setState({ loading: false });
+        console.log(res);
+      })
+      .catch((err) => {
+        this.setState({ loading: false });
+        console.log(err);
+      });
   }
 
-  signIn() {
+  async signIn() {
     const { email, password } = this.state;
     const user = { email, password };
-    authService.signin(user);
-    this.setState({ loading: false });
+    return authService.signin(user);
   }
 
   render() {

@@ -16,7 +16,7 @@ async function create(event) {
       return res;
     })
     .catch((error) => {
-      handleResponse(error);
+      handleResponse(error.response);
     });
 }
 
@@ -29,53 +29,40 @@ async function getAll() {
       return res;
     })
     .catch((error) => {
-      handleResponse(error);
+      handleResponse(error.response);
+    });
+}
+
+async function getRoomEvents(id) {
+  const header = await authHeader();
+  return axios
+    .get(`${apiUrl}/event/room/${id}`, { headers: header })
+    .then((res) => handleResponse(res))
+    .then((res) => {
+      return res;
+    })
+    .catch((error) => {
+      handleResponse(error.response);
     });
 }
 
 async function getOne(id) {
   const header = await authHeader();
   return axios
-    .get(`${apiUrl}/events/event/${id}`, { headers: header })
+    .get(`${apiUrl}/event/${id}`, { headers: header })
     .then(handleResponse)
     .then((res) => {
       return res;
     })
     .catch((error) => {
-      if (error.response) {
-        const errorArray = [];
-        error.response.data.errors.forEach((err) => {
-          console.log(
-            'status:',
-            error.response.status,
-            '\nparam:',
-            err.param,
-            '\nError:',
-            err.msg,
-            '\nReason:',
-            err.reason
-          );
-          errorArray.push({
-            status: error.response.status,
-            param: err.param,
-            msg: err.msg,
-            reason: err.reason
-          });
-        });
-        return errorArray;
-      }
-      if (error.request) {
-        return error.request;
-      }
-      return error.message;
-
-      // console.log(error.config);
+      handleResponse(error.response);
     });
 }
 
 const eventService = {
   create,
   getAll,
+  getRoomEvents,
   getOne
 };
 

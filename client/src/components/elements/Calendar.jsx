@@ -32,7 +32,8 @@ export default class Calendar extends Component {
   }
 
   componentDidMount() {
-    eventService.getAll().then((events) => {
+    const { roomId } = this.props;
+    eventService.getRoomEvents(roomId).then((events) => {
       // console.log('fetch', events);
       this.setState({ events });
     });
@@ -53,6 +54,7 @@ export default class Calendar extends Component {
   handleSubmit(event) {
     event.preventDefault();
     const { allDay, title, selectInfo /* , startTime, endTime */ } = this.state;
+    const { roomId, userId } = this.props;
     const calendarApi = selectInfo.view.calendar;
     console.log('handleSubmit Calendar', this.state);
     calendarApi.unselect(); // clear date selection
@@ -64,7 +66,9 @@ export default class Calendar extends Component {
       allDay,
       title,
       start: selectInfo.dateStr,
-      end: selectInfo.endStr || selectInfo.dateStr
+      end: selectInfo.endStr || selectInfo.dateStr,
+      room: roomId,
+      user: userId
       // startTime: startTime.format('LT'),
       // endTime
     };
@@ -114,7 +118,7 @@ export default class Calendar extends Component {
   }
 
   handleEvents(events) {
-    console.log('handleEvents', events);
+    // console.log('handleEvents', events);
     this.setState({
       currentEvents: events
     });
@@ -163,7 +167,6 @@ export default class Calendar extends Component {
         <button type="button" onClick={this.closeModal}>
           close
         </button>
-        <div>I am a modal</div>
         <Form handleSubmit={this.handleSubmit}>
           <Label>
             All day event

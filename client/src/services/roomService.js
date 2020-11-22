@@ -21,38 +21,6 @@ async function create(room) {
     .catch((error) => {
       handleResponse(error);
     });
-  /*
-    .catch((error) => {
-      console.log(error);
-      if (error.response) {
-        const errorArray = [];
-        error.response.data.errors.forEach((err) => {
-          console.log(
-            'status:',
-            error.response.status,
-            '\nparam:',
-            err.param,
-            '\nError:',
-            err.msg,
-            '\nReason:',
-            err.reason
-          );
-          errorArray.push({
-            status: error.response.status,
-            param: err.param,
-            msg: err.msg,
-            reason: err.reason
-          });
-        });
-        return errorArray;
-      }
-      if (error.request) {
-        return error.request;
-      }
-      return error.message;
-
-      // console.log(error.config);
-    }); */
 }
 
 async function getAll() {
@@ -64,80 +32,20 @@ async function getAll() {
       return res;
     })
     .catch((error) => {
-      handleResponse(error);
+      handleResponse(error.response);
     });
-  /*
-    .catch((error) => {
-
-      if (error.response) {
-        const errorArray = [];
-        error.response.data.errors.forEach((err) => {
-          console.log(
-            'status:',
-            error.response.status,
-            '\nparam:',
-            err.param,
-            '\nError:',
-            err.msg,
-            '\nReason:',
-            err.reason
-          );
-          errorArray.push({
-            status: error.response.status,
-            param: err.param,
-            msg: err.msg,
-            reason: err.reason
-          });
-        });
-        return errorArray;
-      }
-      if (error.request) {
-        return error.request;
-      }
-      return error.message;
-
-      // console.log(error.config);
-    });
-     */
 }
 
 async function getOne(id) {
   const header = await authHeader();
   return axios
     .get(`${apiUrl}/rooms/room/${id}`, { headers: header })
-    .then(handleResponse)
+    .then((res) => handleResponse(res))
     .then((res) => {
       return res;
     })
     .catch((error) => {
-      if (error.response) {
-        const errorArray = [];
-        error.response.data.errors.forEach((err) => {
-          console.log(
-            'status:',
-            error.response.status,
-            '\nparam:',
-            err.param,
-            '\nError:',
-            err.msg,
-            '\nReason:',
-            err.reason
-          );
-          errorArray.push({
-            status: error.response.status,
-            param: err.param,
-            msg: err.msg,
-            reason: err.reason
-          });
-        });
-        return errorArray;
-      }
-      if (error.request) {
-        return error.request;
-      }
-      return error.message;
-
-      // console.log(error.config);
+      handleResponse(error.response);
     });
 }
 
