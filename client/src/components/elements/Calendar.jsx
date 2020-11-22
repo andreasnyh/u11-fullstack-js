@@ -32,7 +32,8 @@ export default class Calendar extends Component {
   }
 
   componentDidMount() {
-    eventService.getAll().then((events) => {
+    const { roomId } = this.props;
+    eventService.getRoomEvents(roomId).then((events) => {
       // console.log('fetch', events);
       this.setState({ events });
     });

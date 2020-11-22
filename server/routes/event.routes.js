@@ -16,6 +16,7 @@ router.use((req, res, next) => {
 router.use(express.json());
 router.use(express.urlencoded({ extended: false }));
 
+router.get('/room/:id', eventController.getRoomEvents);
 router.get('/', eventController.getAll);
 router.post('/', eventController.create);
 

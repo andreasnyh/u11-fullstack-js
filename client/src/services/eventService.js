@@ -33,10 +33,23 @@ async function getAll() {
     });
 }
 
+async function getRoomEvents(id) {
+  const header = await authHeader();
+  return axios
+    .get(`${apiUrl}/event/room/${id}`, { headers: header })
+    .then((res) => handleResponse(res))
+    .then((res) => {
+      return res;
+    })
+    .catch((error) => {
+      handleResponse(error.response);
+    });
+}
+
 async function getOne(id) {
   const header = await authHeader();
   return axios
-    .get(`${apiUrl}/events/event/${id}`, { headers: header })
+    .get(`${apiUrl}/event/${id}`, { headers: header })
     .then(handleResponse)
     .then((res) => {
       return res;
@@ -49,6 +62,7 @@ async function getOne(id) {
 const eventService = {
   create,
   getAll,
+  getRoomEvents,
   getOne
 };
 

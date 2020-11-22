@@ -7,7 +7,16 @@ const getAll = (req, res) => {
     // .select('-daysOfWeek')
     .then((events) => {
       // console.log(`Events found: \n ${JSON.stringify(events, null, 2)}`);
-      console.log(events);
+      // console.log(events);
+      res.send(events);
+    })
+    .catch((err) => res.status(400).json(`Error: ${err}`));
+};
+
+const getRoomEvents = (req, res) => {
+  const { id } = req.params;
+  Event.find({ room: id })
+    .then((events) => {
       res.send(events);
     })
     .catch((err) => res.status(400).json(`Error: ${err}`));
@@ -47,6 +56,7 @@ const adminBoard = (req, res) => {
 module.exports = {
   create,
   getAll,
+  getRoomEvents,
   allAccess,
   yourEvent,
   adminBoard,
