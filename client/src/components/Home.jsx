@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import { authService, roomService } from '../services';
-import { /*  Calendar, */ CardFull, Loading, Text } from './elements';
+import { CardFull, Loading, Text } from './elements';
 import Rooms from './Rooms';
 
 class Home extends Component {

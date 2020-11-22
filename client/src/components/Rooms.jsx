@@ -1,6 +1,5 @@
 import React from 'react';
 
-// eslint-disable-next-line import/no-cycle
 import { RoomList } from './elements';
 
 const bookRoom = (id) => {

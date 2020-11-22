@@ -1,4 +1,3 @@
-/* eslint-disable import/no-cycle */
 import { authService } from '../services';
 
 export default function handleResponse(res) {

@@ -1,8 +1,8 @@
-/* eslint-disable import/no-cycle */
 import Button from './Button';
 import Calendar from './Calendar';
 import Card from './Card';
 import CardFull from './CardFull';
+import CloseModalButton from './CloseModalButton';
 import FlexCol from './FlexCol';
 import FlexRow from './FlexRow';
 import Form from './Form';
@@ -21,6 +21,7 @@ export {
   Calendar,
   Card,
   CardFull,
+  CloseModalButton,
   FlexCol,
   FlexRow,
   Form,

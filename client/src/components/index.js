@@ -4,7 +4,6 @@ import AdminRoute from './AdminRoute';
 import Home from './Home';
 import MainNav from './MainNav';
 import ProtectedRoute from './ProtectedRoute';
-// eslint-disable-next-line import/no-cycle
 import RoomDetail from './RoomDetail';
 import SignIn from './SignIn';
 import SignOut from './SignOut';

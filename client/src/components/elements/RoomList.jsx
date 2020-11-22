@@ -1,4 +1,3 @@
-/* eslint-disable import/no-cycle */
 import React, { useState } from 'react';
 import Modal from 'react-modal';
 import styled from 'styled-components';
@@ -11,15 +10,6 @@ const StyledImageContainer = styled.div`
   width: 100%;
   height: 200px;
   overflow: hidden;
-`;
-
-const CloseModalButton = styled(Button)`
-  position: absolute;
-  top: 2rem;
-  z-index: 11;
-  right: 2rem;
-  width: 2rem;
-  padding: 5px;
 `;
 
 const RoomList = (props) => {
@@ -101,10 +91,7 @@ const RoomList = (props) => {
         style={modalStyles}
         contentLabel="Example Modal"
       >
-        <CloseModalButton type="button" onClick={() => closeModal()}>
-          X
-        </CloseModalButton>
-        <RoomDetail room={room} />
+        <RoomDetail room={room} closeModal={closeModal} />
       </Modal>
     </Card>
   );
