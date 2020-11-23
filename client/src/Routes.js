@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import {
   AddRoom,
+  AdminDashboard,
   AdminRoute,
   Home,
   ProtectedRoute,
@@ -10,6 +11,7 @@ import {
   SignOut,
   SignUp,
   SignUpThankYou,
+  UserDashboard,
   Users,
   Welcome
 } from './components';
@@ -19,8 +21,14 @@ function Routes() {
     <Router>
       <Switch>
         <AdminRoute exact path="/admin/addroom" component={AddRoom} />
+        <AdminRoute exact path="/admin/users" component={Users} />
+        <AdminRoute exact path="/admin" component={AdminDashboard} />
+        <ProtectedRoute
+          exact
+          path="/user/dashboard"
+          component={UserDashboard}
+        />
         <ProtectedRoute exact path="/home" component={Home} />
-        <ProtectedRoute exact path="/users" component={Users} />
         <Route exact path="/signin" component={SignIn} />
         <Route exact path="/signup" component={SignUp} />
         <Route exact path="/signup/thankyou" component={SignUpThankYou} />

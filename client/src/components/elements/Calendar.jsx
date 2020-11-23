@@ -28,7 +28,7 @@ export default class Calendar extends Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.handleAllDayChange = this.handleAllDayChange.bind(this);
-    this.handleEvents = this.handleEvents.bind(this);
+    // this.handleEvents = this.handleEvents.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleDateSelect = this.handleDateSelect.bind(this);
     this.closeModal = this.closeModal.bind(this);
@@ -261,7 +261,7 @@ export default class Calendar extends Component {
           firstDay="1"
           businessHours={{
             daysOfWeek: [0, 1, 2, 3, 4, 5, 6],
-            startTime: '08:00', // a start time (10am in this example)
+            startTime: '08:00',
             endTime: '21:00'
           }}
           slotMinTime="06:00"

@@ -31,17 +31,13 @@ const RoomList = (props) => {
       right: '0',
       bottom: '0',
       left: '0',
+      padding: '0',
       border: 'none',
-      // // marginRight: '-50%',
-      // // backgroundColor: `${Colors.Light}`,
-      backgroundColor: 'transparent',
-      // transform: 'translate(-50%, -50%)',
-      // zIndex: 10,
-      // width: '50rem',
-      // maxWidth: 'calc(100vw - 2rem)',
-      // maxHeight: 'calc(100vh - 2rem)',
-      // overflowY: 'auto',
-      position: 'absolute'
+      margin: '0 auto',
+      maxWidth: '710px',
+      position: 'absolute',
+      scrollbarWidth: 'thin',
+      backgroundColor: 'transparent'
     },
     overlay: {
       zIndex: 10
