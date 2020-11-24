@@ -51,9 +51,9 @@ const UserTableBody = styled.tbody`
       white-space: nowrap;
       padding: 0.5rem 1rem;
 
-      &:last-child {
+      /* &:last-child {
         padding: 0.5rem 0;
-      }
+      } */
     }
   }
 `;
