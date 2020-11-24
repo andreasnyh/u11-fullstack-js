@@ -22,6 +22,7 @@ function Routes() {
       <Switch>
         <AdminRoute exact path="/admin/addroom" component={AddRoom} />
         <AdminRoute exact path="/admin/users" component={Users} />
+        {/* <AdminRoute exact path="/admin/rooms" component={Rooms} /> */}
         <AdminRoute exact path="/admin" component={AdminDashboard} />
         <ProtectedRoute
           exact

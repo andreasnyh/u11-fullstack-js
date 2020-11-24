@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { Button, Card, CardFull, Text } from './elements';
@@ -23,9 +24,15 @@ const AdminDashboard = () => {
       <Card>
         <Text headline="AdminDashboard" />
         <Grid>
-          <DashButton>Users</DashButton>
-          <DashButton>Rooms</DashButton>
-          <DashButton>Add Room</DashButton>
+          <Link to="admin/users">
+            <DashButton>Users</DashButton>
+          </Link>
+          <Link to="admin/rooms">
+            <DashButton>Rooms</DashButton>
+          </Link>
+          <Link to="admin/addroom">
+            <DashButton>Add Room</DashButton>
+          </Link>
         </Grid>
       </Card>
     </CardFull>
