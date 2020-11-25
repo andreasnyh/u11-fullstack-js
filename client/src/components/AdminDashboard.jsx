@@ -5,34 +5,47 @@ import styled from 'styled-components';
 import { Button, Card, CardFull, Text } from './elements';
 
 const DashButton = styled(Button)`
-  width: 8rem;
-  height: 8rem;
+  width: 100%;
+  /* height: 8rem; */
   margin: 0;
 `;
 
 const Grid = styled.div`
   display: grid;
   grid-gap: 3rem;
-  margin: 4rem 0;
+  margin: 2rem 0;
   justify-items: center;
   grid-template-columns: 1fr 1fr;
+`;
+
+const StyledLink = styled(Link)`
+  width: 100%;
 `;
 
 const AdminDashboard = () => {
   return (
     <CardFull>
+      <Text headline="AdminDashboard" />
       <Card>
-        <Text headline="AdminDashboard" />
+        <Text headlineSub="Users" />
         <Grid>
-          <Link to="admin/users">
+          <StyledLink to="admin/users">
             <DashButton>Users</DashButton>
-          </Link>
-          <Link to="admin/rooms">
+          </StyledLink>
+          <StyledLink to="admin/">
+            <DashButton disabled>Add User*</DashButton>
+          </StyledLink>
+        </Grid>
+      </Card>
+      <Card>
+        <Text headlineSub="Rooms" />
+        <Grid>
+          <StyledLink to="admin/rooms">
             <DashButton>Rooms</DashButton>
-          </Link>
-          <Link to="admin/addroom">
+          </StyledLink>
+          <StyledLink to="admin/addroom">
             <DashButton>Add Room</DashButton>
-          </Link>
+          </StyledLink>
         </Grid>
       </Card>
     </CardFull>

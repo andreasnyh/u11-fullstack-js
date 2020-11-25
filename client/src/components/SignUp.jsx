@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { Component } from 'react';
 
+import config from '../config/config.json';
 import {
   Button,
   Card,
@@ -11,6 +12,9 @@ import {
   Label,
   Text
 } from './elements';
+
+const apiUrl =
+  process.env.NODE_ENV !== 'production' ? config.apiUrl : config.apiUrlProd;
 
 class SignUp extends Component {
   constructor(props) {
@@ -43,7 +47,7 @@ class SignUp extends Component {
   // eslint-disable-next-line class-methods-use-this
   async registerUser(user) {
     axios
-      .post('http://localhost:5000/api/auth/signup', user)
+      .post(`${apiUrl}/auth/signup`, user)
       .then((res) => {
         const { history } = this.props;
         console.log(res);

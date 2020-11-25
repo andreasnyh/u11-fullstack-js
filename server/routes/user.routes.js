@@ -16,6 +16,7 @@ router.use((req, res, next) => {
 router.use(express.json());
 router.use(express.urlencoded({ extended: false }));
 
+router.post('/', authJwt.verifyToken, userController.findById);
 router.get('/user', authJwt.verifyToken, userController.currentUser);
 router.get(
   '/allusers',
