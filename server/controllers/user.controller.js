@@ -61,9 +61,7 @@ const update = (req, res) => {
   User.findByIdAndUpdate(id, user)
     .select('-password')
     .then((updated) => {
-      console.log(updated);
-      // console.log(`User updated: \n ${JSON.stringify(user, null, 2)}`);
-      res.status(201).json(user);
+      res.status(200).json(updated);
     })
     .catch((err) => res.status(400).json(`Error: ${err}`));
 };

@@ -108,7 +108,6 @@ const Users = (props) => {
   }
 
   const selectUser = (id) => {
-    console.log(id);
     userService
       .findById(id)
       .then((res) => {
@@ -138,8 +137,7 @@ const Users = (props) => {
       return console.log('No changes');
     }
 
-    userService.update(id, user).then((res) => {
-      console.log('ok', res);
+    return userService.update(id, user).then(() => {
       closeModal().then(() =>
         userService
           .getAll()
@@ -147,7 +145,6 @@ const Users = (props) => {
           .catch((e) => setError(e))
       );
     });
-    return console.log('edit sent', user);
   };
 
   const modalStyles = {
