@@ -83,11 +83,15 @@ const Users = (props) => {
 
   const { history } = props;
 
-  useEffect(() => {
+  const fetchUsers = async () => {
     userService
       .getAll()
       .then((allUsers) => setUsers(allUsers))
       .catch((e) => setError(e));
+  };
+
+  useEffect(() => {
+    fetchUsers();
   }, []);
 
   const closeModal = async () => {
@@ -119,7 +123,7 @@ const Users = (props) => {
       .then(() => setShowModal(true));
   };
 
-  const submitEditUser = (event) => {
+  const updateUser = (event) => {
     event.preventDefault();
     const user = {};
     const id = editUser._id;
@@ -145,6 +149,19 @@ const Users = (props) => {
           .catch((e) => setError(e))
       );
     });
+  };
+
+  const deleteUser = (user) => {
+    // eslint-disable-next-line no-restricted-globals
+    const del = confirm(
+      `Are you sure you want to delete user: ${user.firstName} ${user.lastName}?`
+    );
+
+    if (del) {
+      userService.deleteUser(user._id).then(() => {
+        fetchUsers();
+      });
+    }
   };
 
   const modalStyles = {
@@ -193,7 +210,7 @@ const Users = (props) => {
                     </EditButton>
                   </td>
                   <td>
-                    <EditButton>
+                    <EditButton onClick={() => deleteUser(user)}>
                       <span role="img" aria-label="">
                         ❌
                       </span>
@@ -218,7 +235,7 @@ const Users = (props) => {
             <span>Editing user: </span>
             <h2>{`${editUser.firstName} ${editUser.lastName}`}</h2>
 
-            <ModalForm handleSubmit={submitEditUser}>
+            <ModalForm handleSubmit={updateUser}>
               <Label>
                 First Name
                 <Input

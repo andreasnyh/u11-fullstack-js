@@ -45,10 +45,24 @@ async function update(id, user) {
     });
 }
 
+async function deleteUser(id) {
+  const header = await authHeader();
+  return axios
+    .delete(`${apiUrl}/users/user/${id}`, { headers: header })
+    .then((res) => handleResponse(res))
+    .then((res) => {
+      return res;
+    })
+    .catch((error) => {
+      handleResponse(error.response);
+    });
+}
+
 const userService = {
+  update,
+  deleteUser,
   getAll,
-  findById,
-  update
+  findById
 };
 
 export default userService;

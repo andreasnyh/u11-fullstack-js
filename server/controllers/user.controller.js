@@ -66,6 +66,15 @@ const update = (req, res) => {
     .catch((err) => res.status(400).json(`Error: ${err}`));
 };
 
+const deleteUser = (req, res) => {
+  const { id } = req.params;
+  User.findByIdAndDelete(id)
+    .select('-password')
+    .then((deleted) => {
+      res.status(200).json(deleted);
+    })
+    .catch((err) => res.status(400).json(`Error: ${err}`));
+};
 /* ***************** TESTS ***************** */
 
 const allAccess = (req, res) => {
@@ -91,5 +100,6 @@ module.exports = {
   allAccess,
   userBoard,
   adminBoard,
+  deleteUser,
   currentUser,
 };
