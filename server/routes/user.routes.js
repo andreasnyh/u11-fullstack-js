@@ -18,6 +18,7 @@ router.use(express.urlencoded({ extended: false }));
 
 router.post('/', authJwt.verifyToken, userController.findById);
 router.get('/user', authJwt.verifyToken, userController.currentUser);
+router.put('/user', authJwt.verifyToken, userController.update);
 router.get(
   '/allusers',
   [authJwt.verifyToken, authJwt.isAdmin],
@@ -26,6 +27,8 @@ router.get(
 router.get('/find/:email', authJwt.verifyToken, userController.detail);
 
 router.post('/find', authJwt.verifyToken, userController.detail);
+
+/* --- TESTS --- */
 
 router.get('/test/all', userController.allAccess);
 

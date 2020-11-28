@@ -16,8 +16,6 @@ const currentUser = (req, res) => {
 
 const findById = (req, res) => {
   const { userId } = req.body;
-  console.log(req.body);
-  console.log(userId);
   User.findById(userId)
     .select('-password')
     .then((user) => res.json(user))
@@ -58,6 +56,18 @@ const create = (req, res) => {
     .catch((err) => res.status(400).json(`Error: ${err}`));
 };
 
+const update = (req, res) => {
+  const { user, id } = req.body;
+  User.findByIdAndUpdate(id, user)
+    .select('-password')
+    .then((updated) => {
+      console.log(updated);
+      // console.log(`User updated: \n ${JSON.stringify(user, null, 2)}`);
+      res.status(201).json(user);
+    })
+    .catch((err) => res.status(400).json(`Error: ${err}`));
+};
+
 /* ***************** TESTS ***************** */
 
 const allAccess = (req, res) => {
@@ -77,6 +87,7 @@ const adminBoard = (req, res) => {
 module.exports = {
   detail,
   create,
+  update,
   allUsers,
   findById,
   allAccess,

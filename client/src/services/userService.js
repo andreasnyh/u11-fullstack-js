@@ -10,7 +10,7 @@ async function getAll() {
   const header = await authHeader();
   return axios
     .get(`${apiUrl}/users/allusers`, { headers: header })
-    .then(handleResponse)
+    .then((res) => handleResponse(res))
     .then((res) => {
       return res;
     })
@@ -25,7 +25,19 @@ async function findById(id) {
     .post(`${apiUrl}/users/`, { userId: id }, { headers: header })
     .then((res) => handleResponse(res))
     .then((res) => {
-      console.log(res);
+      return res;
+    })
+    .catch((error) => {
+      handleResponse(error.response);
+    });
+}
+
+async function update(id, user) {
+  const header = await authHeader();
+  return axios
+    .put(`${apiUrl}/users/user`, { id, user }, { headers: header })
+    .then((res) => handleResponse(res))
+    .then((res) => {
       return res;
     })
     .catch((error) => {
@@ -35,7 +47,8 @@ async function findById(id) {
 
 const userService = {
   getAll,
-  findById
+  findById,
+  update
 };
 
 export default userService;

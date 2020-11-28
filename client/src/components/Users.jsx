@@ -36,20 +36,17 @@ const UserTable = styled.table`
 
   > thead {
     > tr {
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
-      padding: 0.5rem 1.5rem 0.5rem 1rem;
-    }
-    > th {
-      padding: 0.25rem;
+      > th {
+        padding: 0.25rem 1rem;
+      }
     }
   }
 `;
 
 const UserTableBody = styled.tbody`
-  display: block;
+  /* display: block; */
   overflow: auto;
+  /* width: max-content; */
   margin-right: 1rem;
   background-color: ${Colors.lightLight};
 
@@ -70,11 +67,20 @@ const UserTableBody = styled.tbody`
   }
 `;
 
+const ModalForm = styled(Form)`
+  margin: 10rem 0;
+  color: red !important;
+`;
+
 const Users = (props) => {
   const [users, setUsers] = useState(null);
   const [editUser, setEditUser] = useState(null);
+  const [newFirstName, setNewFirstName] = useState(null);
+  const [newLastName, setNewLastName] = useState(null);
+  const [newEmail, setNewEmail] = useState(null);
   const [error, setError] = useState(null);
   const [showModal, setShowModal] = useState(false);
+
   const { history } = props;
 
   useEffect(() => {
@@ -83,6 +89,14 @@ const Users = (props) => {
       .then((allUsers) => setUsers(allUsers))
       .catch((e) => setError(e));
   }, []);
+
+  const closeModal = async () => {
+    setShowModal(false);
+    setEditUser(null);
+    setNewFirstName(null);
+    setNewLastName(null);
+    setNewEmail(null);
+  };
 
   if (error) {
     return error;
@@ -98,14 +112,61 @@ const Users = (props) => {
     userService
       .findById(id)
       .then((res) => {
-        console.log(res);
         setEditUser(res);
+        setNewFirstName(res.firstName);
+        setNewLastName(res.lastName);
+        setNewEmail(res.email);
       })
       .then(() => setShowModal(true));
   };
 
-  const submitEditUser = () => {
-    console.log('edit sent');
+  const submitEditUser = (event) => {
+    event.preventDefault();
+    const user = {};
+    const id = editUser._id;
+    if (editUser.firstName !== newFirstName) {
+      user.firstName = newFirstName;
+    }
+    if (editUser.lastName !== newLastName) {
+      user.lastName = newLastName;
+    }
+    if (editUser.email !== newEmail) {
+      user.email = newEmail;
+    }
+
+    if (!user.firstName && !user.lastName && !user.email) {
+      return console.log('No changes');
+    }
+
+    userService.update(id, user).then((res) => {
+      console.log('ok', res);
+      closeModal().then(() =>
+        userService
+          .getAll()
+          .then((allUsers) => setUsers(allUsers))
+          .catch((e) => setError(e))
+      );
+    });
+    return console.log('edit sent', user);
+  };
+
+  const modalStyles = {
+    content: {
+      top: '5rem',
+      right: '0',
+      bottom: '0',
+      left: '0',
+      padding: '0',
+      border: 'none',
+      margin: '0 0.5rem',
+      maxWidth: '710px',
+      position: 'absolute',
+      scrollbarWidth: 'thin',
+      backgroundColor: 'transparent'
+    },
+    overlay: {
+      zIndex: 9999999999 // fix table scrollbar showing over modal
+    }
   };
 
   return users ? (
@@ -117,7 +178,8 @@ const Users = (props) => {
             <tr>
               <th>User</th>
               <th>Email</th>
-              <th>Edit / Delete</th>
+              <th>Edit</th>
+              <th>Delete</th>
             </tr>
           </thead>
           <UserTableBody>
@@ -152,63 +214,52 @@ const Users = (props) => {
           isOpen={showModal}
           // onAfterOpen={this.afterOpenModal}
           // onRequestClose={this.closeModal}
-          // style={customStyles}
+          style={modalStyles}
           contentLabel="Edit User"
         >
-          <h2>{`${editUser.firstName} ${editUser.lastName}`}</h2>
+          <Card>
+            <span>Editing user: </span>
+            <h2>{`${editUser.firstName} ${editUser.lastName}`}</h2>
 
-          <Form handleSubmit={submitEditUser}>
-            <Label>
-              First name
-              <Input
-                name="firstName"
-                type="text"
-                value={editUser.firstName}
-                // onChange={handleChange}
-              />
-            </Label>
-            <Label>
-              Title
-              <Input
-                required
-                type="text"
-                name="title"
-                // value={title || ''}
-                placeholder="Event title"
-                // onChange={this.handleChange}
-              />
+            <ModalForm handleSubmit={submitEditUser}>
               <Label>
-                Start Time
+                First Name
                 <Input
-                  name="startTime"
-                  type="time"
-                  // value={startTime || moment(date).format('HH:mm')}
-                  // disabled={allDay}
-                  // onChange={this.handleChange}
+                  name="firstName"
+                  type="text"
+                  value={newFirstName}
+                  onChange={(event) => setNewFirstName(event.target.value)}
                 />
               </Label>
               <Label>
-                End Time
+                Last Name
                 <Input
-                  name="endTime"
-                  type="time"
-                  // value={endTime || moment(date).format('HH:mm')}
-                  // disabled={allDay}
-                  // onChange={this.handleChange}
+                  name="lastName"
+                  type="text"
+                  value={newLastName}
+                  onChange={(event) => setNewLastName(event.target.value)}
                 />
               </Label>
-            </Label>
-            <button type="submit">submit</button>
-          </Form>
-          <CloseModalButton
-            type="button"
-            onClick={() => {
-              setShowModal(false);
-              setEditUser(null);
-            }}
-          >
-            X
-          </CloseModalButton>
+              <Label>
+                Email
+                <Input
+                  name="email"
+                  type="text"
+                  value={newEmail}
+                  onChange={(event) => setNewEmail(event.target.value)}
+                />
+              </Label>
+              <Button type="submit">Submit</Button>
+            </ModalForm>
+            <CloseModalButton
+              type="button"
+              onClick={() => {
+                closeModal();
+              }}
+            >
+              X
+            </CloseModalButton>
+          </Card>
         </Modal>
       )}
     </CardFull>
