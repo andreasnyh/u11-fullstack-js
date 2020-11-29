@@ -30,14 +30,14 @@ const EditButton = styled(Button)`
 
 const UserTable = styled.table`
   text-align: left;
-  margin: 2rem auto;
+  margin: 0 auto 2rem;
   border-collapse: collapse;
   width: 100%;
 
   > thead {
     > tr {
       > th {
-        padding: 0.25rem 1rem;
+        padding: 1rem;
       }
     }
   }
@@ -74,25 +74,48 @@ const ModalForm = styled(Form)`
 
 const Users = (props) => {
   const [users, setUsers] = useState(null);
+  const [filteredUsers, setFilteredUsers] = useState(null);
   const [editUser, setEditUser] = useState(null);
   const [newFirstName, setNewFirstName] = useState(null);
   const [newLastName, setNewLastName] = useState(null);
   const [newEmail, setNewEmail] = useState(null);
   const [error, setError] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const [query, setQuery] = useState('');
 
   const { history } = props;
 
   const fetchUsers = async () => {
     userService
       .getAll()
-      .then((allUsers) => setUsers(allUsers))
+      .then((allUsers) => {
+        setUsers(allUsers);
+        setFilteredUsers(allUsers);
+      })
       .catch((e) => setError(e));
   };
 
   useEffect(() => {
     fetchUsers();
   }, []);
+
+  // Filter users
+  useEffect(() => {
+    if (!users) return;
+    if (!query) setFilteredUsers(users);
+    const oldUsers = users.map((user) => user);
+
+    const regexp = new RegExp(query.toLowerCase(), 'g');
+    const newUsers = oldUsers.filter((user) => {
+      // return user if match on firstName, lastName or email
+      return user.firstName.toLowerCase().match(regexp) ||
+        user.lastName.toLowerCase().match(regexp) ||
+        user.email.toLowerCase().match(regexp)
+        ? user
+        : null;
+    });
+    setFilteredUsers(newUsers);
+  }, [query]);
 
   const closeModal = async () => {
     setShowModal(false);
@@ -107,7 +130,6 @@ const Users = (props) => {
   }
 
   if (users !== null && users[0].status) {
-    console.log(users[0]);
     return <AccessRestricted history={history} msg={users[0].msg} />;
   }
 
@@ -187,38 +209,48 @@ const Users = (props) => {
     <CardFull>
       <Text headline="Users" />
       <UserCard>
+        <Form>
+          <Label>Filter Users</Label>
+          <Input
+            type="text"
+            onChange={(event) => setQuery(event.target.value)}
+          />
+        </Form>
         <UserTable>
           <thead>
             <tr>
-              <th>User</th>
+              <th>Name</th>
+              <th>Surname</th>
               <th>Email</th>
               <th>Edit</th>
               <th>Delete</th>
             </tr>
           </thead>
           <UserTableBody>
-            {users.map((user) => {
-              return (
-                <tr key={user._id}>
-                  <td>{`${user.firstName} ${user.lastName}`}</td>
-                  <td>{user.email}</td>
-                  <td>
-                    <EditButton onClick={() => selectUser(user._id)}>
-                      <span role="img" aria-label="">
-                        🖋
-                      </span>
-                    </EditButton>
-                  </td>
-                  <td>
-                    <EditButton onClick={() => deleteUser(user)}>
-                      <span role="img" aria-label="">
-                        ❌
-                      </span>
-                    </EditButton>
-                  </td>
-                </tr>
-              );
-            })}
+            {filteredUsers &&
+              filteredUsers.map((user) => {
+                return (
+                  <tr key={user._id}>
+                    <td>{user.firstName}</td>
+                    <td>{user.lastName}</td>
+                    <td>{user.email}</td>
+                    <td>
+                      <EditButton confirm onClick={() => selectUser(user._id)}>
+                        <span role="img" aria-label="">
+                          🖋
+                        </span>
+                      </EditButton>
+                    </td>
+                    <td>
+                      <EditButton onClick={() => deleteUser(user)}>
+                        <span role="img" aria-label="">
+                          ❌
+                        </span>
+                      </EditButton>
+                    </td>
+                  </tr>
+                );
+              })}
           </UserTableBody>
         </UserTable>
       </UserCard>

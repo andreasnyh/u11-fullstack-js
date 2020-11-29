@@ -3,6 +3,7 @@ const User = require('../models/user.model');
 const allUsers = (req, res) => {
   User.find()
     .select('-password')
+    .sort('lastName')
     .then((users) => res.json(users))
     .catch((err) => res.status(403).json(`Error: ${err}`));
 };
