@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 
 import { authService, roomService } from '../services';
-import { Button, CardFull, Loading, Text } from './elements';
+import { CardFull, Loading, Text } from './elements';
 import Rooms from './Rooms';
 
 class Home extends Component {
@@ -26,11 +25,6 @@ class Home extends Component {
       <Loading />
     ) : (
       <CardFull static>
-        <Link to="/admin">
-          <Button style={{ width: '100%' }} href="/admin">
-            Dash
-          </Button>
-        </Link>
         <Text
           headline={
             currentUser.user

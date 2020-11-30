@@ -3,7 +3,7 @@ import Modal from 'react-modal';
 import styled from 'styled-components';
 
 import { Colors } from '../config/ColorsShadows';
-import { /* authService, */ userService } from '../services';
+import { userService } from '../services';
 import { AccessRestricted } from '.';
 import {
   Button,
@@ -44,9 +44,7 @@ const UserTable = styled.table`
 `;
 
 const UserTableBody = styled.tbody`
-  /* display: block; */
   overflow: auto;
-  /* width: max-content; */
   margin-right: 1rem;
   background-color: ${Colors.lightLight};
 
@@ -115,7 +113,7 @@ const Users = (props) => {
         : null;
     });
     setFilteredUsers(newUsers);
-  }, [query]);
+  }, [query, users]);
 
   const closeModal = async () => {
     setShowModal(false);

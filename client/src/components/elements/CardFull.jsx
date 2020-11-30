@@ -5,9 +5,11 @@ import Card from './Card';
 
 const CardFull = styled.div`
   bottom: 0;
+  top: 4.4rem;
   width: 100%;
   display: flex;
   margin: 0 auto;
+  margin-top: ${(props) => (props.static ? '4.4rem' : '0')};
   padding: 1em;
   position: ${(props) => (props.static ? 'static' : 'absolute')};
   align-items: center;

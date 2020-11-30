@@ -187,7 +187,7 @@ export default class Calendar extends Component {
         zIndex: 10
       },
       overlay: {
-        zIndex: 10
+        zIndex: 999999999999
       }
     };
 

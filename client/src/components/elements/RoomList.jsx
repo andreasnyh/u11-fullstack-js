@@ -40,7 +40,7 @@ const RoomList = (props) => {
       backgroundColor: 'transparent'
     },
     overlay: {
-      zIndex: 10
+      zIndex: 999999999999
     }
   };
 
