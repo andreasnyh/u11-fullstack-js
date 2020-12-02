@@ -8,7 +8,7 @@ const CloseModalButton = styled(Button)`
   z-index: 11;
   right: 1rem;
   width: 2rem;
-  padding: 5px;
+  padding: 8px 4px;
 `;
 
 export default CloseModalButton;
