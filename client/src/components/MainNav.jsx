@@ -52,6 +52,8 @@ const MenuItem = styled.li`
 
 const modalStyles = {
   content: {
+    top: '0',
+    left: '0',
     inset: '0',
     position: 'relative',
     borderRadius: '0 0 20px 20px',
