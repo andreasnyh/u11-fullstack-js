@@ -8,7 +8,9 @@ import { Button, Card, CloseModalButton } from './elements';
 
 const Menu = styled(Card)`
   top: 0;
-  margin: 0;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
   display: flex;
   position: fixed;
   z-index: 99999999999;
