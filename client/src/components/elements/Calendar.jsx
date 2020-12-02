@@ -66,18 +66,21 @@ export default class Calendar extends Component {
     } = this.state;
     const { roomId, userId } = this.props;
     const calendarApi = selectInfo.view.calendar;
-    // console.log('handleSubmit Calendar', this.state);
+    let newEndTime = null;
+    let newStartTime = null;
     calendarApi.unselect(); // clear date selection
 
-    // console.log(selectInfo);
-    const startArr = startTime.split(':');
-    const endArr = endTime.split(':');
-    const newStartTime =
-      selectInfo.start &&
-      moment(selectInfo.start.setUTCHours(startArr[0], startArr[1]));
-    const newEndTime =
-      selectInfo.end &&
-      moment(selectInfo.end.setUTCHours(endArr[0], endArr[1]));
+    if (!selectInfo.view.type === 'timeGridWeek') {
+      const startArr = startTime.split(':');
+      const endArr = endTime.split(':');
+      newStartTime =
+        selectInfo.start &&
+        moment(selectInfo.start.setUTCHours(startArr[0], startArr[1]));
+      newEndTime =
+        selectInfo.end &&
+        moment(selectInfo.end.setUTCHours(endArr[0], endArr[1]));
+    }
+
     const newEvent = {
       allDay,
       title,
@@ -120,16 +123,16 @@ export default class Calendar extends Component {
     calendarApi.unselect(); // clear date selection
 
     this.setState({
-      allDay:
-        selectInfo.view.type === 'dayGridMonth' ||
-        selectInfo.start === selectInfo.end,
+      allDay: selectInfo.view.type === 'dayGridMonth',
+      // || selectInfo.start === selectInfo.end,
       modalIsOpen: true,
       selectInfo,
       date: selectInfo.date,
       // startDate: selectInfo.start,
-      startTime: selectInfo.start && moment(selectInfo.start).format('HH:mm'),
+      startTime:
+        selectInfo.start && moment(selectInfo.start).format('HH:mm:ss:ss'),
       // endDate: selectInfo.end,
-      endTime: selectInfo.end && moment(selectInfo.end).format('HH:mm')
+      endTime: selectInfo.end && moment(selectInfo.end).format('HH:mm:ss:ss')
     });
   }
 
@@ -227,7 +230,7 @@ export default class Calendar extends Component {
               <Input
                 name="startTime"
                 type="time"
-                value={startTime || moment(date).format('HH:mm')}
+                value={startTime || moment(date).format('HH:mm:ss')}
                 disabled={allDay}
                 onChange={this.handleChange}
               />
@@ -237,7 +240,7 @@ export default class Calendar extends Component {
               <Input
                 name="endTime"
                 type="time"
-                value={endTime || moment(date).format('HH:mm')}
+                value={endTime || moment(date).add('00:30').format('HH:mm:ss')}
                 disabled={allDay}
                 onChange={this.handleChange}
               />
@@ -255,17 +258,19 @@ export default class Calendar extends Component {
   render() {
     const { events, modalIsOpen } = this.state;
 
+    const businessHours = {
+      daysOfWeek: [0, 1, 2, 3, 4, 5, 6],
+      startTime: '08:00',
+      endTime: '21:00'
+    };
+
     return (
       <>
         <FullCalendar
           firstDay="1"
-          businessHours={{
-            daysOfWeek: [0, 1, 2, 3, 4, 5, 6],
-            startTime: '08:00',
-            endTime: '21:00'
-          }}
-          slotMinTime="06:00"
-          slotMaxTime="23:00"
+          businessHours={businessHours}
+          slotMinTime="07:00"
+          slotMaxTime="22:00"
           plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
           headerToolbar={{
             start: 'title',
@@ -286,6 +291,8 @@ export default class Calendar extends Component {
           eventContent={this.renderEventContent} // custom render function
           eventClick={this.handleEventClick}
           eventsSet={this.handleEvents} // called after events are initialized/added/changed/removed
+          selectConstraint={businessHours}
+          eventConstraint={businessHours}
           /*
     // you can update a remote database when these fire:
     eventAdd={function(){}}
