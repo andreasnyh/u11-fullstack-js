@@ -13,12 +13,11 @@ const StyledImageContainer = styled.div`
 `;
 
 const RoomList = (props) => {
-  const { room, bookRoom } = props;
+  const { room } = props;
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
-  const handleInfoClick = (id) => {
+  const handleInfoClick = () => {
     setModalIsOpen(true);
-    console.log(id);
   };
 
   const closeModal = () => {
@@ -58,7 +57,10 @@ const RoomList = (props) => {
           💰 {room.price}kr/h
         </span>
       </FlexRow>
-      <Text headlineSub="Location:" text={`${room.street}\n${room.town}`} />
+      <Text
+        headlineSub="Location:"
+        text={`Street: ${room.street}\nTown: ${room.town}`}
+      />
       {room.floor ? <Text text={`Floor: ${room.floor}`} /> : ''}
       {room.description ? (
         <Text headlineSub="Description:" text={room.description} />
@@ -68,16 +70,18 @@ const RoomList = (props) => {
       <FlexRow>
         <Button
           type="button"
+          style={{ width: '100%' }} // Temporary until implementation of button below
           onClick={() => {
-            // moreInfo(room._id);
-            handleInfoClick(room._id);
+            handleInfoClick();
           }}
         >
           More Info
         </Button>
+        {/*
         <Button type="button" onClick={() => bookRoom(room._id)}>
           Book
         </Button>
+         */}
       </FlexRow>
 
       <Modal
