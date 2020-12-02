@@ -7,7 +7,7 @@ import interactionPlugin from '@fullcalendar/interaction'; // needed for dayClic
 import moment from 'moment';
 import { Colors } from '../../config/ColorsShadows';
 
-import { CloseModalButton, Form, Input, Label } from '.';
+import { Button, CloseModalButton, Form, Input, Label } from '.';
 import { eventService } from '../../services';
 
 Modal.setAppElement('#root');
@@ -211,6 +211,7 @@ export default class Calendar extends Component {
             <Input
               name="allDay"
               type="checkbox"
+              style={{ width: 'auto', marginLeft: '1rem' }}
               checked={allDay}
               onChange={this.handleAllDayChange}
             />
@@ -225,28 +226,30 @@ export default class Calendar extends Component {
               placeholder="Event title"
               onChange={this.handleChange}
             />
-            <Label>
-              Start Time
-              <Input
-                name="startTime"
-                type="time"
-                value={startTime || moment(date).format('HH:mm:ss')}
-                disabled={allDay}
-                onChange={this.handleChange}
-              />
-            </Label>
-            <Label>
-              End Time
-              <Input
-                name="endTime"
-                type="time"
-                value={endTime || moment(date).add('00:30').format('HH:mm:ss')}
-                disabled={allDay}
-                onChange={this.handleChange}
-              />
-            </Label>
           </Label>
-          <button type="submit">submit</button>
+          <Label>
+            Start Time
+            <Input
+              name="startTime"
+              type="time"
+              value={startTime || moment(date).format('HH:mm:ss')}
+              disabled={allDay}
+              onChange={this.handleChange}
+            />
+          </Label>
+          <Label>
+            End Time
+            <Input
+              name="endTime"
+              type="time"
+              value={endTime || moment(date).add('00:30').format('HH:mm:ss')}
+              disabled={allDay}
+              onChange={this.handleChange}
+            />
+          </Label>
+          <Button confirm type="submit">
+            Submit
+          </Button>
         </Form>
         <CloseModalButton type="button" onClick={() => this.closeModal()}>
           X
