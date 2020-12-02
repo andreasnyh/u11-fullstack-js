@@ -64,13 +64,14 @@ const modalStyles = {
   }
 };
 
-const logOut = () => {
-  authService.logout();
-};
-
 const MainNav = () => {
   const [showMenu, setShowMenu] = useState(false);
-  const currentUser = localStorage.getItem('currentUser');
+  const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+
+  const logOut = () => {
+    authService.logout();
+  };
+
   return (
     currentUser && (
       <>
@@ -83,7 +84,13 @@ const MainNav = () => {
               </a>
             </MenuItem>
             <MenuItem>
-              <a href="/admin">
+              <a
+                href={
+                  currentUser.user.roles.includes('ROLE_ADMIN')
+                    ? '/admin'
+                    : '/user/dashboard'
+                }
+              >
                 <MenuItemButton>Dashboard</MenuItemButton>
               </a>
             </MenuItem>

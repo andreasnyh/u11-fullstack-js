@@ -5,9 +5,13 @@ import styled from 'styled-components';
 import { Button, Card, CardFull, Text } from './elements';
 
 const DashButton = styled(Button)`
-  width: 100%;
-  /* height: 8rem; */
   margin: 0;
+  width: 100%;
+`;
+
+const DashContainer = styled(CardFull)`
+  top: 4rem;
+  height: fit-content;
 `;
 
 const Grid = styled.div`
@@ -24,7 +28,7 @@ const StyledLink = styled(Link)`
 
 const AdminDashboard = () => {
   return (
-    <CardFull>
+    <DashContainer>
       <Text headline="AdminDashboard" />
       <Card>
         <Text headlineSub="Users" />
@@ -48,7 +52,7 @@ const AdminDashboard = () => {
           </StyledLink>
         </Grid>
       </Card>
-    </CardFull>
+    </DashContainer>
   );
 };
 

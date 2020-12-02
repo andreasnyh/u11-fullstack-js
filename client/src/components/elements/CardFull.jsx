@@ -14,6 +14,7 @@ const CardFull = styled.div`
   align-items: center;
   color: ${Colors.Text};
   height: calc(100% - 21px);
+  min-height: calc(100vh - 4rem);
   border-radius: 30px 30px 0 0;
   background-color: ${Colors.Dark};
   margin-top: ${(props) => (props.static ? '4rem' : '0')};
