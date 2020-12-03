@@ -211,7 +211,6 @@ export default class Calendar extends Component {
             <Input
               name="allDay"
               type="checkbox"
-              style={{ width: 'auto', marginLeft: '1rem' }}
               checked={allDay}
               onChange={this.handleAllDayChange}
             />
