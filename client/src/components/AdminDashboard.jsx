@@ -36,8 +36,8 @@ const AdminDashboard = () => {
           <StyledLink to="admin/users">
             <DashButton>Users</DashButton>
           </StyledLink>
-          <StyledLink to="admin/">
-            <DashButton disabled>Add User*</DashButton>
+          <StyledLink to="/signup">
+            <DashButton>Add User</DashButton>
           </StyledLink>
         </Grid>
       </Card>

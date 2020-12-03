@@ -97,7 +97,7 @@ class SignIn extends Component {
               <Button
                 type="button"
                 onClick={() => {
-                  history.push('/');
+                  history.goBack();
                 }}
               >
                 Back
