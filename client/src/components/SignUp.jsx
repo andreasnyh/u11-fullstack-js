@@ -26,6 +26,7 @@ class SignUp extends Component {
       passwordAgain: '',
       email: '',
       errors: [],
+      roles: ['user'],
       roleUser: true,
       roleAdmin: false,
       currentUser: JSON.parse(localStorage.getItem('currentUser'))
@@ -45,13 +46,13 @@ class SignUp extends Component {
   // fix this checkbox state "on"
   handleRoleChange() {
     this.setState((prevState) => ({
-      roleAdmin: !prevState.roleAdmin
+      roleAdmin: !prevState.roleAdmin,
+      roles: prevState.roleAdmin === true ? ['user'] : ['user', 'admin']
     }));
   }
 
   async handleSubmit(event) {
     event.preventDefault();
-    console.log('handleSubmit state', JSON.stringify(this.state, null, 2));
     await this.registerUser(this.state);
   }
 
