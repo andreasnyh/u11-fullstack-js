@@ -25,10 +25,14 @@ class SignUp extends Component {
       password: '',
       passwordAgain: '',
       email: '',
-      errors: []
+      errors: [],
+      roleUser: true,
+      roleAdmin: false,
+      currentUser: JSON.parse(localStorage.getItem('currentUser'))
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.handleRoleChange = this.handleRoleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -36,6 +40,13 @@ class SignUp extends Component {
     this.setState({
       [event.target.name]: event.target.value
     });
+  }
+
+  // fix this checkbox state "on"
+  handleRoleChange() {
+    this.setState((prevState) => ({
+      roleAdmin: !prevState.roleAdmin
+    }));
   }
 
   async handleSubmit(event) {
@@ -46,12 +57,12 @@ class SignUp extends Component {
 
   // eslint-disable-next-line class-methods-use-this
   async registerUser(user) {
+    const { currentUser } = this.state;
     axios
       .post(`${apiUrl}/auth/signup`, user)
-      .then((res) => {
+      .then(() => {
         const { history } = this.props;
-        console.log(res);
-        console.log(res.data);
+        if (currentUser) history.goBack();
         history.push('/signup/thankyou');
       })
       .catch((error) => {
@@ -94,11 +105,19 @@ class SignUp extends Component {
 
   render() {
     const { history } = this.props;
-    const { firstName, lastName, email, password, passwordAgain } = this.state;
+    const {
+      currentUser,
+      firstName,
+      lastName,
+      email,
+      password,
+      passwordAgain,
+      roleAdmin
+    } = this.state;
 
     return (
       <CardFull static>
-        <Text headline="Register" />
+        <Text headline="Register new user" />
         <Card>
           <Form handleSubmit={this.handleSubmit}>
             <Label>
@@ -164,10 +183,38 @@ class SignUp extends Component {
               />
             </Label>
 
+            {currentUser && currentUser.user.roles.includes('ROLE_ADMIN') && (
+              <Label>
+                Set Roles
+                <FlexRow style={{ textAlign: 'center', marginTop: '1rem' }}>
+                  <Label>
+                    User
+                    <Input
+                      required
+                      type="checkbox"
+                      name="roleUser"
+                      checked
+                      disabled
+                    />
+                  </Label>
+                  <Label>
+                    Admin
+                    <Input
+                      required
+                      type="checkbox"
+                      name="roleAdmin"
+                      checked={roleAdmin}
+                      onChange={this.handleRoleChange}
+                    />
+                  </Label>
+                </FlexRow>
+              </Label>
+            )}
+
             <FlexRow>
               <Button
                 onClick={() => {
-                  history.push('/');
+                  history.goBack();
                 }}
               >
                 Back
