@@ -26,6 +26,9 @@ const EditButton = styled(Button)`
   padding: 0;
   height: 2rem;
   width: 2rem;
+  &:hover {
+    border: 1px solid black;
+  }
 `;
 
 const UserTable = styled.table`
@@ -80,6 +83,7 @@ const Users = (props) => {
   const [error, setError] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [query, setQuery] = useState('');
+  const [currentUser, setCurrentUser] = useState({});
 
   const { history } = props;
 
@@ -95,6 +99,7 @@ const Users = (props) => {
 
   useEffect(() => {
     fetchUsers();
+    setCurrentUser(JSON.parse(localStorage.getItem('currentUser')));
   }, []);
 
   // Filter users
@@ -204,7 +209,7 @@ const Users = (props) => {
   };
 
   return users ? (
-    <CardFull>
+    <CardFull static>
       <Text headline="Users" />
       <UserCard>
         <Form>
@@ -232,20 +237,29 @@ const Users = (props) => {
                     <td>{user.firstName}</td>
                     <td>{user.lastName}</td>
                     <td>{user.email}</td>
-                    <td>
-                      <EditButton confirm onClick={() => selectUser(user._id)}>
-                        <span role="img" aria-label="">
-                          🖋
-                        </span>
-                      </EditButton>
-                    </td>
-                    <td>
-                      <EditButton onClick={() => deleteUser(user)}>
-                        <span role="img" aria-label="">
-                          ❌
-                        </span>
-                      </EditButton>
-                    </td>
+                    {currentUser &&
+                      currentUser.user.roles.includes('ROLE_ADMIN') && (
+                        <>
+                          <td>
+                            <EditButton
+                              confirm
+                              onClick={() => selectUser(user._id)}
+                            >
+                              <span role="img" aria-label="">
+                                🖋
+                              </span>
+                            </EditButton>
+                          </td>
+
+                          <td>
+                            <EditButton onClick={() => deleteUser(user)}>
+                              <span role="img" aria-label="">
+                                ❌
+                              </span>
+                            </EditButton>
+                          </td>
+                        </>
+                      )}
                   </tr>
                 );
               })}
