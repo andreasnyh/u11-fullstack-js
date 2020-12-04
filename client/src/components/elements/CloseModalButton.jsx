@@ -7,7 +7,8 @@ const CloseModalButton = styled(Button)`
   top: 0;
   z-index: 11;
   right: 1rem;
-  width: 2rem;
+  width: 40px;
+  height: 40px;
   padding: 8px 4px;
 `;
 

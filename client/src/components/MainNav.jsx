@@ -20,8 +20,8 @@ const Menu = styled(Card)`
 
 const ToggleMenuButton = styled(Button)`
   margin: 0;
-  width: auto;
-  height: auto;
+  width: 40px;
+  height: 40px;
   color: black;
   font-size: 1.5rem;
   margin-left: auto;
@@ -54,8 +54,11 @@ const modalStyles = {
   content: {
     top: '0',
     left: '0',
+    right: '0',
     inset: '0',
+    margin: '0 auto',
     position: 'relative',
+    maxWidth: '700px',
     borderRadius: '0 0 20px 20px',
     backgroundColor: Colors.lightDark
   },
