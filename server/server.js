@@ -5,6 +5,8 @@ const { Role, roleList } = require('./models');
 
 const { URI } = process.env;
 
+mongoose.set('useFindAndModify', false);
+
 function init() {
   Role.estimatedDocumentCount((error, count) => {
     if (error) return console.error('error', error);

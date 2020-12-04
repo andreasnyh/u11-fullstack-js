@@ -1,4 +1,3 @@
-/* eslint-disable import/no-cycle */
 import axios from 'axios';
 
 import config from '../config/config.json';
@@ -11,41 +10,73 @@ async function getAll() {
   const header = await authHeader();
   return axios
     .get(`${apiUrl}/users/allusers`, { headers: header })
-    .then(handleResponse)
+    .then((res) => handleResponse(res))
     .then((res) => {
       return res;
     })
     .catch((error) => {
-      if (error.response) {
-        const errorArray = [];
-        error.response.data.errors.forEach((err) => {
-          console.log(
-            'status:',
-            error.response.status,
-            '\nparam:',
-            err.param,
-            '\nError:',
-            err.msg
-          );
-          errorArray.push({
-            status: error.response.status,
-            param: err.param,
-            msg: err.msg
-          });
-        });
-        return errorArray;
-      }
-      if (error.request) {
-        return error.request;
-      }
-      return error.message;
+      handleResponse(error.response);
+    });
+}
 
-      // console.log(error.config);
+async function findById(id) {
+  const header = await authHeader();
+  return axios
+    .post(`${apiUrl}/users/`, { userId: id }, { headers: header })
+    .then((res) => handleResponse(res))
+    .then((res) => {
+      return res;
+    })
+    .catch((error) => {
+      handleResponse(error.response);
+    });
+}
+
+async function update(id, user) {
+  const header = await authHeader();
+  return axios
+    .put(`${apiUrl}/users/user`, { id, user }, { headers: header })
+    .then((res) => handleResponse(res))
+    .then((res) => {
+      return res;
+    })
+    .catch((error) => {
+      handleResponse(error.response);
+    });
+}
+
+async function updateOne(id, user) {
+  const header = await authHeader();
+  return axios
+    .put(`${apiUrl}/users/user/account`, { id, user }, { headers: header })
+    .then((res) => handleResponse(res))
+    .then((res) => {
+      return res;
+    })
+    .catch((error) => {
+      handleResponse(error.response);
+    });
+}
+
+async function deleteUser(id) {
+  const header = await authHeader();
+  return axios
+    .delete(`${apiUrl}/users/user/${id}`, { headers: header })
+    .then((res) => handleResponse(res))
+    .then((res) => {
+      return res;
+    })
+    .catch((error) => {
+      handleResponse(error.response);
     });
 }
 
 const userService = {
-  getAll
+  update,
+  updateOne,
+  deleteUser,
+  getAll,
+  findById
 };
 
 export default userService;

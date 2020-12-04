@@ -34,6 +34,7 @@ module.exports = {
   rules: {
     'no-console': 'off',
     'react/prop-types': 'off',
+    'import/no-cycle': 'off',
     'react/react-in-jsx-scope': 'off',
     'simple-import-sort/sort': 'error',
     'no-underscore-dangle': ['error', { allow: ['_id'] }],

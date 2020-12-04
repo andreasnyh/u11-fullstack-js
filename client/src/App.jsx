@@ -13,7 +13,7 @@ class App extends Component {
   }
 
   /*
-   componentDidMount() {
+  componentDidMount() {
     if (authService.currentUser) {
       authService.currentUser.subscribe((user) =>
         user ? this.setState({ currentUser: user }) : this.setState({ currentUser: null })
@@ -22,12 +22,11 @@ class App extends Component {
   } */
 
   render() {
-    // const { currentUser } = this.state;
     return (
       <div className="App">
         <MainNav />
         {/*  Renders the different routes */}
-        <Routes /* currentUser={currentUser} */ />
+        <Routes />
       </div>
     );
   }

@@ -1,4 +1,3 @@
-/* eslint-disable import/no-cycle */
 import React, { useState } from 'react';
 import Modal from 'react-modal';
 import styled from 'styled-components';
@@ -13,22 +12,12 @@ const StyledImageContainer = styled.div`
   overflow: hidden;
 `;
 
-const CloseModalButton = styled(Button)`
-  position: absolute;
-  top: 2rem;
-  z-index: 11;
-  right: 2rem;
-  width: 2rem;
-  padding: 5px;
-`;
-
 const RoomList = (props) => {
-  const { room, bookRoom } = props;
+  const { room } = props;
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
-  const handleInfoClick = (id) => {
+  const handleInfoClick = () => {
     setModalIsOpen(true);
-    console.log(id);
   };
 
   const closeModal = () => {
@@ -41,20 +30,16 @@ const RoomList = (props) => {
       right: '0',
       bottom: '0',
       left: '0',
+      padding: '0',
       border: 'none',
-      // // marginRight: '-50%',
-      // // backgroundColor: `${Colors.Light}`,
-      backgroundColor: 'transparent',
-      // transform: 'translate(-50%, -50%)',
-      // zIndex: 10,
-      // width: '50rem',
-      // maxWidth: 'calc(100vw - 2rem)',
-      // maxHeight: 'calc(100vh - 2rem)',
-      // overflowY: 'auto',
-      position: 'absolute'
+      margin: '0 auto',
+      maxWidth: '710px',
+      position: 'absolute',
+      scrollbarWidth: 'thin',
+      backgroundColor: 'transparent'
     },
     overlay: {
-      zIndex: 10
+      zIndex: 999999999999
     }
   };
 
@@ -72,7 +57,10 @@ const RoomList = (props) => {
           💰 {room.price}kr/h
         </span>
       </FlexRow>
-      <Text headlineSub="Location:" text={`${room.street}\n${room.town}`} />
+      <Text
+        headlineSub="Location:"
+        text={`Street: ${room.street}\nTown: ${room.town}`}
+      />
       {room.floor ? <Text text={`Floor: ${room.floor}`} /> : ''}
       {room.description ? (
         <Text headlineSub="Description:" text={room.description} />
@@ -82,16 +70,18 @@ const RoomList = (props) => {
       <FlexRow>
         <Button
           type="button"
+          style={{ width: '100%' }} // Temporary until implementation of button below
           onClick={() => {
-            // moreInfo(room._id);
-            handleInfoClick(room._id);
+            handleInfoClick();
           }}
         >
           More Info
         </Button>
+        {/*
         <Button type="button" onClick={() => bookRoom(room._id)}>
           Book
         </Button>
+         */}
       </FlexRow>
 
       <Modal
@@ -101,10 +91,7 @@ const RoomList = (props) => {
         style={modalStyles}
         contentLabel="Example Modal"
       >
-        <CloseModalButton type="button" onClick={() => closeModal()}>
-          X
-        </CloseModalButton>
-        <RoomDetail room={room} />
+        <RoomDetail room={room} closeModal={closeModal} />
       </Modal>
     </Card>
   );

@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { Component } from 'react';
 
+import config from '../config/config.json';
 import {
   Button,
   Card,
@@ -12,6 +13,9 @@ import {
   Text
 } from './elements';
 
+const apiUrl =
+  process.env.NODE_ENV !== 'production' ? config.apiUrl : config.apiUrlProd;
+
 class SignUp extends Component {
   constructor(props) {
     super(props);
@@ -21,10 +25,15 @@ class SignUp extends Component {
       password: '',
       passwordAgain: '',
       email: '',
-      errors: []
+      errors: [],
+      roles: ['user'],
+      roleUser: true,
+      roleAdmin: false,
+      currentUser: JSON.parse(localStorage.getItem('currentUser'))
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.handleRoleChange = this.handleRoleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -34,20 +43,27 @@ class SignUp extends Component {
     });
   }
 
+  // fix this checkbox state "on"
+  handleRoleChange() {
+    this.setState((prevState) => ({
+      roleAdmin: !prevState.roleAdmin,
+      roles: prevState.roleAdmin === true ? ['user'] : ['user', 'admin']
+    }));
+  }
+
   async handleSubmit(event) {
     event.preventDefault();
-    console.log('handleSubmit state', JSON.stringify(this.state, null, 2));
     await this.registerUser(this.state);
   }
 
   // eslint-disable-next-line class-methods-use-this
   async registerUser(user) {
+    const { currentUser } = this.state;
     axios
-      .post('http://localhost:5000/api/auth/signup', user)
-      .then((res) => {
+      .post(`${apiUrl}/auth/signup`, user)
+      .then(() => {
         const { history } = this.props;
-        console.log(res);
-        console.log(res.data);
+        if (currentUser) history.goBack();
         history.push('/signup/thankyou');
       })
       .catch((error) => {
@@ -90,11 +106,19 @@ class SignUp extends Component {
 
   render() {
     const { history } = this.props;
-    const { firstName, lastName, email, password, passwordAgain } = this.state;
+    const {
+      currentUser,
+      firstName,
+      lastName,
+      email,
+      password,
+      passwordAgain,
+      roleAdmin
+    } = this.state;
 
     return (
       <CardFull static>
-        <Text headline="Register" />
+        <Text headline="Register new user" />
         <Card>
           <Form handleSubmit={this.handleSubmit}>
             <Label>
@@ -160,10 +184,38 @@ class SignUp extends Component {
               />
             </Label>
 
+            {currentUser && currentUser.user.roles.includes('ROLE_ADMIN') && (
+              <Label>
+                Set Roles
+                <FlexRow style={{ textAlign: 'center', marginTop: '1rem' }}>
+                  <Label>
+                    User
+                    <Input
+                      required
+                      type="checkbox"
+                      name="roleUser"
+                      checked
+                      disabled
+                    />
+                  </Label>
+                  <Label>
+                    Admin
+                    <Input
+                      required
+                      type="checkbox"
+                      name="roleAdmin"
+                      checked={roleAdmin}
+                      onChange={this.handleRoleChange}
+                    />
+                  </Label>
+                </FlexRow>
+              </Label>
+            )}
+
             <FlexRow>
               <Button
                 onClick={() => {
-                  history.push('/');
+                  history.goBack();
                 }}
               >
                 Back

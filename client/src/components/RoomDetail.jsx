@@ -2,8 +2,14 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 import { authService } from '../services';
-// eslint-disable-next-line import/no-cycle
-import { Calendar, Card, FlexRow, Image, Text } from './elements';
+import {
+  Calendar,
+  Card,
+  CloseModalButton,
+  FlexRow,
+  Image,
+  Text
+} from './elements';
 
 const StyledImageContainer = styled.div`
   width: 100%;
@@ -12,7 +18,7 @@ const StyledImageContainer = styled.div`
 `;
 
 const RoomDetail = (props) => {
-  const { room } = props;
+  const { room, closeModal } = props;
   const [userId, setUserId] = useState(null);
 
   useEffect(() => {
@@ -42,8 +48,12 @@ const RoomDetail = (props) => {
         ''
       )}
       <FlexRow>
-        <Calendar roomId={room._id} userId={userId} />
+        <Calendar roomId={room._id} roomName={room.name} userId={userId} />
       </FlexRow>
+
+      <CloseModalButton type="button" onClick={() => closeModal()}>
+        X
+      </CloseModalButton>
     </Card>
   );
 };

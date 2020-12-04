@@ -13,6 +13,11 @@ const Input = styled.input`
   &&:focus {
     box-shadow: 0 0 2pt 2pt ${Colors.Important};
   }
+
+  &[type='checkbox'] {
+    width: auto;
+    margin-left: 1rem;
+  }
 `;
 
 export default Input;

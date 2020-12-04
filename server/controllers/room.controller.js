@@ -43,6 +43,7 @@ const detail = (req, res) => {
 const allRooms = (req, res) => {
   Room.find()
     .select('-password')
+    .sort('-updatedAt')
     .then((rooms) => res.json(rooms))
     .catch((err) => res.status(403).json(`Error: ${err}`));
 };

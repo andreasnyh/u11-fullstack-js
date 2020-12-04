@@ -5,6 +5,8 @@ const { authJwt } = require('../middleware');
 
 const router = express();
 
+router.use(express.json());
+router.use(express.urlencoded({ extended: false }));
 router.use((req, res, next) => {
   res.header(
     'Access-Control-Allow-Headers',
@@ -13,18 +15,28 @@ router.use((req, res, next) => {
   next();
 });
 
-router.use(express.json());
-router.use(express.urlencoded({ extended: false }));
+/* *** Routes *** */
 
+/* Public */
+
+/* Restricted */
+router.put('/user/account', authJwt.verifyToken, userController.update);
+router.get('/find/:email', authJwt.verifyToken, userController.detail);
+router.post('/find', authJwt.verifyToken, userController.detail);
 router.get('/user', authJwt.verifyToken, userController.currentUser);
+router.post('/', authJwt.verifyToken, userController.findById);
+
+/* Admin */
+router.put('/user', [authJwt.verifyToken, authJwt.isAdmin], userController.update);
+router.delete('/user/:id', [authJwt.verifyToken, authJwt.isAdmin], userController.deleteUser);
+
 router.get(
   '/allusers',
   [authJwt.verifyToken, authJwt.isAdmin],
   userController.allUsers,
 );
-router.get('/find/:email', authJwt.verifyToken, userController.detail);
 
-router.post('/find', authJwt.verifyToken, userController.detail);
+/* --- TESTS --- */
 
 router.get('/test/all', userController.allAccess);
 

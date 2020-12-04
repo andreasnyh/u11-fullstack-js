@@ -227,7 +227,7 @@ class AddRoom extends Component {
             <FlexRow>
               <Button
                 onClick={() => {
-                  history.push('/');
+                  history.goBack();
                 }}
               >
                 Back
