@@ -67,8 +67,8 @@ const User = (props) => {
 
   useEffect(() => {
     // eslint-disable-next-line no-unused-expressions
-    !jsonUser.user ? null : fetchUser(jsonUser.user.id);
-  }, []);
+    fetchUser(jsonUser.user.id);
+  }, [jsonUser.user]);
 
   const closeModal = async () => {
     setShowModal(false);

@@ -83,9 +83,9 @@ const Users = (props) => {
   const [error, setError] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [query, setQuery] = useState('');
-  const [currentUser, setCurrentUser] = useState({});
 
-  const { history } = props;
+  const { currentUser, history } = props;
+  const jsonUser = JSON.parse(currentUser);
 
   const fetchUsers = async () => {
     userService
@@ -98,7 +98,6 @@ const Users = (props) => {
   };
 
   useEffect(() => {
-    setCurrentUser(JSON.parse(props.currentUser));
     fetchUsers();
   }, []);
 
@@ -238,29 +237,28 @@ const Users = (props) => {
                     <td>{user.firstName}</td>
                     <td>{user.lastName}</td>
                     <td>{user.email}</td>
-                    {currentUser &&
-                      currentUser.user.roles.includes('ROLE_ADMIN') && (
-                        <>
-                          <td>
-                            <EditButton
-                              confirm
-                              onClick={() => selectUser(user._id)}
-                            >
-                              <span role="img" aria-label="">
-                                🖋
-                              </span>
-                            </EditButton>
-                          </td>
+                    {jsonUser && jsonUser.user.roles.includes('ROLE_ADMIN') && (
+                      <>
+                        <td>
+                          <EditButton
+                            confirm
+                            onClick={() => selectUser(user._id)}
+                          >
+                            <span role="img" aria-label="">
+                              🖋
+                            </span>
+                          </EditButton>
+                        </td>
 
-                          <td>
-                            <EditButton onClick={() => deleteUser(user)}>
-                              <span role="img" aria-label="">
-                                ❌
-                              </span>
-                            </EditButton>
-                          </td>
-                        </>
-                      )}
+                        <td>
+                          <EditButton onClick={() => deleteUser(user)}>
+                            <span role="img" aria-label="">
+                              ❌
+                            </span>
+                          </EditButton>
+                        </td>
+                      </>
+                    )}
                   </tr>
                 );
               })}
@@ -269,13 +267,7 @@ const Users = (props) => {
       </UserCard>
       {/* Edit User modal */}
       {showModal && (
-        <Modal
-          isOpen={showModal}
-          // onAfterOpen={this.afterOpenModal}
-          // onRequestClose={this.closeModal}
-          style={modalStyles}
-          contentLabel="Edit User"
-        >
+        <Modal isOpen={showModal} style={modalStyles} contentLabel="Edit User">
           <Card>
             <span>Editing user: </span>
             <h2>{`${editUser.firstName} ${editUser.lastName}`}</h2>
