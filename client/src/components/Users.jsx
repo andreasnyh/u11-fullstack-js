@@ -98,8 +98,8 @@ const Users = (props) => {
   };
 
   useEffect(() => {
+    setCurrentUser(JSON.parse(props.currentUser));
     fetchUsers();
-    setCurrentUser(JSON.parse(localStorage.getItem('currentUser')));
   }, []);
 
   // Filter users
@@ -177,10 +177,11 @@ const Users = (props) => {
   };
 
   const deleteUser = (user) => {
-    // eslint-disable-next-line no-restricted-globals
+    /* eslint-disable no-restricted-globals, no-alert */
     const del = confirm(
       `Are you sure you want to delete user: ${user.firstName} ${user.lastName}?`
     );
+    /* eslint-enable no-restricted-globals, no-alert */
 
     if (del) {
       userService.deleteUser(user._id).then(() => {
