@@ -20,6 +20,7 @@ router.use((req, res, next) => {
 /* Public */
 
 /* Restricted */
+router.put('/user/account', authJwt.verifyToken, userController.update);
 router.get('/find/:email', authJwt.verifyToken, userController.detail);
 router.post('/find', authJwt.verifyToken, userController.detail);
 router.get('/user', authJwt.verifyToken, userController.currentUser);

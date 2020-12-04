@@ -45,6 +45,19 @@ async function update(id, user) {
     });
 }
 
+async function updateOne(id, user) {
+  const header = await authHeader();
+  return axios
+    .put(`${apiUrl}/users/user/account`, { id, user }, { headers: header })
+    .then((res) => handleResponse(res))
+    .then((res) => {
+      return res;
+    })
+    .catch((error) => {
+      handleResponse(error.response);
+    });
+}
+
 async function deleteUser(id) {
   const header = await authHeader();
   return axios
@@ -60,6 +73,7 @@ async function deleteUser(id) {
 
 const userService = {
   update,
+  updateOne,
   deleteUser,
   getAll,
   findById
