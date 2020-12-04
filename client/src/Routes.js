@@ -3,15 +3,15 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import {
   AddRoom,
-  AdminDashboard,
   AdminRoute,
+  Dashboard,
   Home,
   ProtectedRoute,
   SignIn,
   SignOut,
   SignUp,
   SignUpThankYou,
-  UserDashboard,
+  User,
   Users,
   Welcome
 } from './components';
@@ -23,12 +23,9 @@ function Routes() {
         <AdminRoute exact path="/admin/addroom" component={AddRoom} />
         <AdminRoute exact path="/admin/users" component={Users} />
         {/* <AdminRoute exact path="/admin/rooms" component={Rooms} /> */}
-        <AdminRoute exact path="/admin" component={AdminDashboard} />
-        <ProtectedRoute
-          exact
-          path="/user/dashboard"
-          component={UserDashboard}
-        />
+        <AdminRoute exact path="/admin" component={Dashboard} />
+        <ProtectedRoute exact path="/user/account" component={User} />
+        <ProtectedRoute exact path="/user/dashboard" component={Dashboard} />
         <ProtectedRoute exact path="/home" component={Home} />
         <Route exact path="/signin" component={SignIn} />
         <Route exact path="/signup" component={SignUp} />
