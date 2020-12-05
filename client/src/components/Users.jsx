@@ -212,11 +212,12 @@ const Users = (props) => {
     <CardFull static>
       <Text headline="Users" />
       <UserCard>
-        <Form>
-          <Label>Filter Users</Label>
+        <Form handleSubmit={(event) => event.preventDefault()}>
+          <Label style={{ maxWidth: '500px' }}>Filter Users</Label>
           <Input
             type="text"
             onChange={(event) => setQuery(event.target.value)}
+            style={{ maxWidth: '500px' }}
           />
         </Form>
         <UserTable>

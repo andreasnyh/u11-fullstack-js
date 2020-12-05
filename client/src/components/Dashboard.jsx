@@ -29,24 +29,53 @@ const StyledLink = styled(Link)`
 const Dashboard = () => {
   const currentUser = JSON.parse(localStorage.getItem('currentUser'));
   const isAdmin = currentUser.user.roles.includes('ROLE_ADMIN');
-  console.log(isAdmin);
+
   return (
-    <DashContainer>
-      {isAdmin ? (
-        <>
-          <Text headline="Admin Dashboard" />
-          <Card>
-            <Text headlineSub="Users" />
-            <Grid>
-              <StyledLink to="admin/users">
-                <DashButton>Users</DashButton>
-              </StyledLink>
-              <StyledLink to="/signup">
+    currentUser && (
+      <DashContainer>
+        {isAdmin ? (
+          <>
+            <Text headline="Admin Dashboard" />
+            <Card>
+              <Text headlineSub="Users" />
+              <Grid>
+                <StyledLink to="admin/users">
+                  <DashButton>Users</DashButton>
+                </StyledLink>
+                <StyledLink to="/signup">
+                  <DashButton>Add User</DashButton>
+                </StyledLink>
+              </Grid>
+            </Card>
+            <Card>
+              <Text headlineSub="Rooms" />
+              <Grid>
+                <StyledLink to="admin/rooms">
+                  <DashButton>Rooms</DashButton>
+                </StyledLink>
+                <StyledLink to="admin/addroom">
+                  <DashButton>Add Room</DashButton>
+                </StyledLink>
+              </Grid>
+            </Card>
+          </>
+        ) : (
+          <>
+            <Text headline="User Dashboard" />
+            <Card>
+              <Text
+                headlineSub={`${currentUser.user.firstName} ${currentUser.user.lastName}`}
+              />
+              <Grid>
+                <StyledLink to="/user/account">
+                  <DashButton>My Account</DashButton>
+                </StyledLink>
+                {/* <StyledLink to="/signup">
                 <DashButton>Add User</DashButton>
-              </StyledLink>
-            </Grid>
-          </Card>
-          <Card>
+              </StyledLink> */}
+              </Grid>
+            </Card>
+            {/* <Card>
             <Text headlineSub="Rooms" />
             <Grid>
               <StyledLink to="admin/rooms">
@@ -56,36 +85,11 @@ const Dashboard = () => {
                 <DashButton>Add Room</DashButton>
               </StyledLink>
             </Grid>
-          </Card>
-        </>
-      ) : (
-        <>
-          <Text headline="User Dashboard" />
-          <Card>
-            <Text headlineSub="Users" />
-            <Grid>
-              <StyledLink to="/user/account">
-                <DashButton>My Account</DashButton>
-              </StyledLink>
-              {/* <StyledLink to="/signup">
-                <DashButton>Add User</DashButton>
-              </StyledLink> */}
-            </Grid>
-          </Card>
-          <Card>
-            <Text headlineSub="Rooms" />
-            <Grid>
-              {/* <StyledLink to="admin/rooms">
-                <DashButton>Rooms</DashButton>
-              </StyledLink>
-              <StyledLink to="admin/addroom">
-                <DashButton>Add Room</DashButton>
-              </StyledLink> */}
-            </Grid>
-          </Card>
-        </>
-      )}
-    </DashContainer>
+          </Card> */}
+          </>
+        )}
+      </DashContainer>
+    )
   );
 };
 

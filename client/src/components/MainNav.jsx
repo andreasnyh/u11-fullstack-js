@@ -18,6 +18,10 @@ const Menu = styled(Card)`
   background-color: ${Colors.Important};
 `;
 
+const MenuHeadline = styled.h2`
+  margin: 0 1rem;
+`;
+
 const ToggleMenuButton = styled(Button)`
   margin: 0;
   width: 40px;
@@ -109,6 +113,7 @@ const MainNav = () => {
         </Modal>
 
         <Menu>
+          <MenuHeadline>MeetingRoom</MenuHeadline>
           <ToggleMenuButton
             type="button"
             onClick={() => setShowMenu(!showMenu)}

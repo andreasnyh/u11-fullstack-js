@@ -22,8 +22,11 @@ const RoomDetail = (props) => {
   const [userId, setUserId] = useState(null);
 
   useEffect(() => {
-    const user = JSON.parse(authService.currentUserValue).user.id;
-    setUserId(user);
+    async function setUser() {
+      const user = await JSON.parse(authService.currentUserValue).user.id;
+      setUserId(user);
+    }
+    setUser();
   }, []);
 
   return (
@@ -40,16 +43,27 @@ const RoomDetail = (props) => {
           💰 {room.price}kr/h
         </span>
       </FlexRow>
-      <Text headlineSub="Location:" text={`${room.street}\n${room.town}`} />
-      {room.floor ? <Text text={`Floor: ${room.floor}`} /> : ''}
-      {room.description ? (
+      <Text headlineSub="Location:">
+        <strong>{`Town: `}</strong>
+        <span>{`${room.town}\n`}</span>
+        <strong>{`Street: `}</strong>
+        <span>{room.street}</span>
+        {room.floor && (
+          <>
+            <strong>{`\nFloor: `}</strong>
+            <span>{`${room.floor}\n`}</span>{' '}
+          </>
+        )}
+      </Text>
+
+      {room.description && (
         <Text headlineSub="Description:" text={room.description} />
-      ) : (
-        ''
       )}
-      <FlexRow>
-        <Calendar roomId={room._id} roomName={room.name} userId={userId} />
-      </FlexRow>
+      {room && userId && (
+        <FlexRow>
+          <Calendar roomId={room._id} roomName={room.name} userId={userId} />
+        </FlexRow>
+      )}
 
       <CloseModalButton type="button" onClick={() => closeModal()}>
         X
