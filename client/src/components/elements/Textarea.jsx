@@ -3,13 +3,16 @@ import styled from 'styled-components';
 import { Colors } from '../../config/ColorsShadows';
 
 const Textarea = styled.textarea`
-  width: 100%;
   border: 0;
-  margin: 10px 0;
+  width: 100%;
   padding: 14px;
   outline: none;
-  border-radius: 20px;
+  margin: 10px 0;
+  max-width: 100%;
+  min-width: 100%;
+  min-height: 3rem;
   font-size: 0.9rem;
+  border-radius: 20px;
   font-family: inherit;
   &&:focus {
     box-shadow: 0 0 2pt 2pt ${Colors.Important};
