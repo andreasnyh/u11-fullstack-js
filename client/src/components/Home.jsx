@@ -28,8 +28,8 @@ class Home extends Component {
         <Text
           headline={
             currentUser.user
-              ? `Need a meeting room ${currentUser.user.firstName}?`
-              : 'Need a meeting room?'
+              ? `Need a room ${currentUser.user.firstName}?`
+              : 'Need a room?'
           }
         />
         {/* <Calendar /> */}
