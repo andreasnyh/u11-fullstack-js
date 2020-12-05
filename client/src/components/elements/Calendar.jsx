@@ -29,6 +29,7 @@ export default class Calendar extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleAllDayChange = this.handleAllDayChange.bind(this);
     // this.handleEvents = this.handleEvents.bind(this);
+    this.handleEventClick = this.handleEventClick.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleDateSelect = this.handleDateSelect.bind(this);
     this.closeModal = this.closeModal.bind(this);
@@ -129,23 +130,25 @@ export default class Calendar extends Component {
       selectInfo,
       date: selectInfo.date,
       // startDate: selectInfo.start,
-      startTime:
-        selectInfo.start && moment(selectInfo.start).format('HH:mm:ss:ss'),
+      startTime: selectInfo.start && moment(selectInfo.start).format('HH:mm'),
       // endDate: selectInfo.end,
-      endTime: selectInfo.end && moment(selectInfo.end).format('HH:mm:ss:ss')
+      endTime: selectInfo.end && moment(selectInfo.end).format('HH:mm')
     });
   }
 
   // eslint-disable-next-line class-methods-use-this
   handleEventClick(clickInfo) {
+    const { userId } = this.props;
     if (
-      // eslint-disable-next-line no-restricted-globals
+      userId === clickInfo.event.user &&
+      /* eslint-disable no-restricted-globals, no-alert */
       confirm(
         `Are you sure you want to delete the event '${clickInfo.event.title}'`
       )
     ) {
       clickInfo.event.remove();
     }
+    /* eslint-enable no-restricted-globals, no-alert */
   }
 
   /*  handleEvents(events) {
@@ -231,7 +234,7 @@ export default class Calendar extends Component {
             <Input
               name="startTime"
               type="time"
-              value={startTime || moment(date).format('HH:mm:ss')}
+              value={startTime || moment(date).format('HH:mm')}
               disabled={allDay}
               onChange={this.handleChange}
             />
@@ -241,7 +244,7 @@ export default class Calendar extends Component {
             <Input
               name="endTime"
               type="time"
-              value={endTime || moment(date).add('00:30').format('HH:mm:ss')}
+              value={endTime || moment(date).add('00:30').format('HH:mm')}
               disabled={allDay}
               onChange={this.handleChange}
             />
