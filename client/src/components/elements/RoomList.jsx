@@ -12,6 +12,10 @@ const StyledImageContainer = styled.div`
   overflow: hidden;
 `;
 
+const RoomListCard = styled(Card)`
+  max-width: 500px;
+`;
+
 const RoomList = (props) => {
   const { room } = props;
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -44,7 +48,7 @@ const RoomList = (props) => {
   };
 
   return (
-    <Card key={room._id}>
+    <RoomListCard key={room._id}>
       <Text headlineSub={room.name} />
       <StyledImageContainer>
         <Image imgUrl={room.image.url} />
@@ -57,15 +61,21 @@ const RoomList = (props) => {
           💰 {room.price}kr/h
         </span>
       </FlexRow>
-      <Text
-        headlineSub="Location:"
-        text={`Street: ${room.street}\nTown: ${room.town}`}
-      />
-      {room.floor ? <Text text={`Floor: ${room.floor}`} /> : ''}
-      {room.description ? (
+      <Text headlineSub="Location:">
+        <strong>{`Town: `}</strong>
+        <span>{`${room.town}\n`}</span>
+        <strong>{`Street: `}</strong>
+        <span>{room.street}</span>
+        {room.floor && (
+          <>
+            <strong>{`\nFloor: `}</strong>
+            <span>{`${room.floor}\n`}</span>{' '}
+          </>
+        )}
+      </Text>
+
+      {room.description && (
         <Text headlineSub="Description:" text={room.description} />
-      ) : (
-        ''
       )}
       <FlexRow>
         <Button
@@ -86,14 +96,13 @@ const RoomList = (props) => {
 
       <Modal
         isOpen={modalIsOpen}
-        // onAfterOpen={this.afterOpenModal}
         onRequestClose={closeModal}
         style={modalStyles}
         contentLabel="Example Modal"
       >
         <RoomDetail room={room} closeModal={closeModal} />
       </Modal>
-    </Card>
+    </RoomListCard>
   );
 };
 
