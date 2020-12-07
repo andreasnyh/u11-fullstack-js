@@ -17,8 +17,6 @@ router.use((req, res, next) => {
 
 /* *** Routes *** */
 
-/* Public */
-
 /* Restricted */
 router.put('/user/account', authJwt.verifyToken, userController.update);
 router.get('/find/:email', authJwt.verifyToken, userController.detail);
@@ -36,6 +34,9 @@ router.get(
   userController.allUsers,
 );
 
+/* Public */
+router.get('/*', notFound); // This has to be last route
+
 /* --- TESTS --- */
 
 router.get('/test/all', userController.allAccess);
@@ -47,7 +48,5 @@ router.get(
   [authJwt.verifyToken, authJwt.isAdmin],
   userController.adminBoard,
 );
-
-router.get('/*', notFound); // This has to be last route
 
 module.exports = router;

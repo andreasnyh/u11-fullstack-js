@@ -3,10 +3,6 @@ import styled from 'styled-components';
 
 import { Form, Input, Label, RoomList, Text } from './elements';
 
-const bookRoom = (id) => {
-  console.log(id);
-};
-
 const SearchLabel = styled(Label)`
   text-align: left;
   margin-bottom: 0;
@@ -55,14 +51,7 @@ const Rooms = (props) => {
       )}
       {filteredRooms &&
         filteredRooms.map((room) => {
-          return (
-            <RoomList
-              key={room._id}
-              room={room}
-              // moreInfo={moreInfo}
-              bookRoom={bookRoom}
-            />
-          );
+          return <RoomList key={room._id} room={room} />;
         })}
     </>
   );

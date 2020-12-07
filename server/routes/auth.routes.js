@@ -1,6 +1,6 @@
 const express = require('express');
 
-const authController = require('../controllers/auth.controller');
+const { authController, notFound } = require('../controllers');
 const { validate } = require('../middleware/validate');
 const { verify } = require('../middleware');
 const {
@@ -28,5 +28,7 @@ router.post(
   [validate(validateUserCreate), verify.checkEmailExists],
   authController.signUp,
 );
+
+router.get('/*', notFound); // This has to be last route
 
 module.exports = router;

@@ -70,22 +70,8 @@ const Dashboard = () => {
                 <StyledLink to="/user/account">
                   <DashButton>My Account</DashButton>
                 </StyledLink>
-                {/* <StyledLink to="/signup">
-                <DashButton>Add User</DashButton>
-              </StyledLink> */}
               </Grid>
             </Card>
-            {/* <Card>
-            <Text headlineSub="Rooms" />
-            <Grid>
-              <StyledLink to="admin/rooms">
-                <DashButton>Rooms</DashButton>
-              </StyledLink>
-              <StyledLink to="admin/addroom">
-                <DashButton>Add Room</DashButton>
-              </StyledLink>
-            </Grid>
-          </Card> */}
           </>
         )}
       </DashContainer>

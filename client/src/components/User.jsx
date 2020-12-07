@@ -25,10 +25,10 @@ const ButtonLabel = styled(Label)`
 `;
 
 const EditButton = styled(Button)`
-  margin: 0 1rem;
   padding: 0;
-  height: 2rem;
   width: 2rem;
+  height: 2rem;
+  margin: 0 1rem;
   &:hover {
     border: 1px solid black;
   }

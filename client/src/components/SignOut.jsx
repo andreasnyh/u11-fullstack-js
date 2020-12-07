@@ -11,7 +11,7 @@ class SignOut extends Component {
   componentDidMount() {
     // Use of <Redirect /> not working
     this.timeout = setTimeout(() => {
-      window.location = `${window.location.origin}/signin`;
+      window.location = `${window.location.origin}/`;
     }, 2000);
   }
 

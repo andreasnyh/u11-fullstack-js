@@ -6,8 +6,6 @@ const getAll = (req, res) => {
   Event.find()
     // .select('-daysOfWeek')
     .then((events) => {
-      // console.log(`Events found: \n ${JSON.stringify(events, null, 2)}`);
-      // console.log(events);
       res.send(events);
     })
     .catch((err) => res.status(400).json(`Error: ${err}`));
@@ -24,7 +22,6 @@ const getRoomEvents = (req, res) => {
 
 const create = (req, res) => {
   const event = req.body;
-  console.log('req body', req.body);
   User.findById(event.user).then(
     Room.findById(event.room).then(
       Event.create(event)
@@ -34,6 +31,15 @@ const create = (req, res) => {
         }).catch((err) => res.status(400).json(`Error: ${err}`)),
     ).catch((err) => res.status(400).json(`Error: ${err}`)),
   )
+    .catch((err) => res.status(400).json(`Error: ${err}`));
+};
+
+const deleteEvent = (req, res) => {
+  const { id } = req.params;
+  Event.findByIdAndDelete(id)
+    .then((deleted) => {
+      res.status(200).json(deleted);
+    })
     .catch((err) => res.status(400).json(`Error: ${err}`));
 };
 
@@ -55,6 +61,7 @@ const adminBoard = (req, res) => {
 
 module.exports = {
   create,
+  deleteEvent,
   getAll,
   getRoomEvents,
   allAccess,

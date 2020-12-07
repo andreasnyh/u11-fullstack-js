@@ -60,18 +60,18 @@ export default class Calendar extends Component {
       allDay,
       title,
       selectInfo,
-      // startDate,
-      startTime,
-      // endDate,
-      endTime
+      startDate,
+      // startTime,
+      endDate
+      // endTime
     } = this.state;
     const { roomId, userId } = this.props;
     const calendarApi = selectInfo.view.calendar;
-    let newEndTime = null;
-    let newStartTime = null;
+    // let newEndTime = null;
+    // let newStartTime = null;
     calendarApi.unselect(); // clear date selection
 
-    if (!selectInfo.view.type === 'timeGridWeek') {
+    /* if (!selectInfo.view.type === 'timeGridWeek') {
       const startArr = startTime.split(':');
       const endArr = endTime.split(':');
       newStartTime =
@@ -80,13 +80,13 @@ export default class Calendar extends Component {
       newEndTime =
         selectInfo.end &&
         moment(selectInfo.end.setUTCHours(endArr[0], endArr[1]));
-    }
+    } */
 
     const newEvent = {
       allDay,
       title,
-      start: newStartTime || selectInfo.date,
-      end: newEndTime || selectInfo.date,
+      start: startDate || selectInfo.date,
+      end: endDate || selectInfo.date,
       room: roomId,
       user: userId
     };
@@ -100,7 +100,9 @@ export default class Calendar extends Component {
       selectInfo: null,
       date: null,
       startTime: null,
-      endTime: null
+      endTime: null,
+      startDate: null,
+      endDate: null
     });
   }
 
@@ -115,7 +117,9 @@ export default class Calendar extends Component {
       selectInfo: null,
       date: null,
       startTime: null,
-      endTime: null
+      endTime: null,
+      startDate: null,
+      endDate: null
     });
   }
 
@@ -123,39 +127,54 @@ export default class Calendar extends Component {
     const calendarApi = selectInfo.view.calendar;
     calendarApi.unselect(); // clear date selection
 
+    if (!selectInfo.start || !selectInfo.end) {
+      this.setState({
+        allDay: selectInfo.view.type === 'dayGridMonth',
+        modalIsOpen: true,
+        selectInfo,
+        date: moment(selectInfo.dateStr).format(),
+        startDate: moment(selectInfo.dateStr).format(),
+        startTime: moment(selectInfo.dateStr).format('HH:mm'),
+        endDate: moment(selectInfo.dateStr).add(30, 'minutes').format(),
+        endTime: moment(selectInfo.dateStr).add(30, 'minutes').format('HH:mm')
+      });
+    }
     this.setState({
       allDay: selectInfo.view.type === 'dayGridMonth',
-      // || selectInfo.start === selectInfo.end,
       modalIsOpen: true,
       selectInfo,
-      date: selectInfo.date,
-      // startDate: selectInfo.start,
-      startTime: selectInfo.start && moment(selectInfo.start).format('HH:mm'),
-      // endDate: selectInfo.end,
-      endTime: selectInfo.end && moment(selectInfo.end).format('HH:mm')
+      date: moment(selectInfo.dateStr).format(),
+      startDate: selectInfo.start
+        ? moment(selectInfo.start).format()
+        : moment(selectInfo.dateStr).format(),
+      startTime: !selectInfo.start
+        ? moment(selectInfo.dateStr).format('HH:mm')
+        : moment(selectInfo.start).format('HH:mm'),
+      endDate: !selectInfo.end
+        ? moment(selectInfo.dateStr).add(30, 'minutes').format()
+        : moment(selectInfo.end).format(),
+      endTime: !selectInfo.end
+        ? moment(selectInfo.dateStr).add(30, 'minutes').format('HH:mm')
+        : moment(selectInfo.end).format('HH:mm')
     });
   }
 
-  // eslint-disable-next-line class-methods-use-this
   handleEventClick(clickInfo) {
-    const { userId } = this.props;
-    if (
-      userId === clickInfo.event.user &&
-      /* eslint-disable no-restricted-globals, no-alert */
-      confirm(
-        `Are you sure you want to delete the event '${clickInfo.event.title}'`
-      )
-    ) {
-      clickInfo.event.remove();
-    }
-    /* eslint-enable no-restricted-globals, no-alert */
-  }
+    const { userId, isAdmin } = this.props;
 
-  /*  handleEvents(events) {
-    this.setState({
-      currentEvents: events
-    });
-  } */
+    if (userId === clickInfo.event.user || isAdmin) {
+      /* eslint-disable no-restricted-globals, no-alert */
+      if (
+        confirm(
+          `Are you sure you want to delete the event '${clickInfo.event.title}'`
+        )
+      ) {
+        eventService.deleteEvent(clickInfo.event.id).then(() => {
+          clickInfo.event.remove();
+        });
+      }
+    }
+  }
 
   // eslint-disable-next-line class-methods-use-this
   renderEventContent(eventInfo) {
@@ -299,11 +318,11 @@ export default class Calendar extends Component {
           selectConstraint={businessHours}
           eventConstraint={businessHours}
           /*
-    // you can update a remote database when these fire:
-    eventAdd={function(){}}
-    eventRemove={function(){}}
-    eventChange={function(){}}
-    */
+          // you can update a remote database when these fire:
+          eventAdd={function(){}}
+          eventRemove={function(){}}
+          eventChange={function(){}}
+          */
         />
         {modalIsOpen ? this.renderModal() : null}
       </>

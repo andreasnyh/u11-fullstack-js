@@ -24,18 +24,18 @@ const UserCard = styled(Card)`
 const EditButton = styled(Button)`
   margin: 0;
   padding: 0;
-  height: 2rem;
   width: 2rem;
+  height: 2rem;
   &:hover {
     border: 1px solid black;
   }
 `;
 
 const UserTable = styled.table`
+  width: 100%;
   text-align: left;
   margin: 0 auto 2rem;
   border-collapse: collapse;
-  width: 100%;
 
   > thead {
     > tr {

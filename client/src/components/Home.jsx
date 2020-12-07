@@ -32,7 +32,6 @@ class Home extends Component {
               : 'Need a room?'
           }
         />
-        {/* <Calendar /> */}
         <Rooms rooms={rooms} />
       </CardFull>
     );

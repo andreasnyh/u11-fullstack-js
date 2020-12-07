@@ -12,7 +12,7 @@ class AccessRestricted extends Component {
     const { history } = this.props;
     // Use of <Redirect /> not working
     this.timeout = setTimeout(() => {
-      return /* history.length > 2 ? history.goBack() : */ history.push('/');
+      return history.push('/');
     }, 3000);
   }
 

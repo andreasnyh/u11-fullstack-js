@@ -56,7 +56,6 @@ class SignUp extends Component {
     await this.registerUser(this.state);
   }
 
-  // eslint-disable-next-line class-methods-use-this
   async registerUser(user) {
     const { currentUser } = this.state;
     axios
@@ -72,14 +71,6 @@ class SignUp extends Component {
           // The request was made and the server responded with a status code
           // that falls out of the range of 2xx
           error.response.data.errors.forEach((err) => {
-            console.log(
-              'status:',
-              error.response.status,
-              '\nparam:',
-              err.param,
-              '\nError:',
-              err.msg
-            );
             errorArray.push({ param: err.param, mgs: err.msg });
           });
 
@@ -87,10 +78,6 @@ class SignUp extends Component {
           this.setState({
             errors: errorArray
           });
-
-          // console.log(error.response.status);
-          // console.log(error.response.data);
-          // console.log(error.response.headers);
         } else if (error.request) {
           // The request was made but no response was received
           // `error.request` is an instance of XMLHttpRequest in the browser and an instance of

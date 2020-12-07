@@ -58,8 +58,22 @@ async function getOne(id) {
     });
 }
 
+async function deleteEvent(id) {
+  const header = await authHeader();
+  return axios
+    .delete(`${apiUrl}/event/${id}`, { headers: header })
+    .then((res) => handleResponse(res))
+    .then((res) => {
+      return res;
+    })
+    .catch((error) => {
+      handleResponse(error.response);
+    });
+}
+
 const eventService = {
   create,
+  deleteEvent,
   getAll,
   getRoomEvents,
   getOne
