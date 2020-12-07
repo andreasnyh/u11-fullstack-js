@@ -20,11 +20,13 @@ const StyledImageContainer = styled.div`
 const RoomDetail = (props) => {
   const { room, closeModal } = props;
   const [userId, setUserId] = useState(null);
+  const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
     async function setUser() {
-      const user = await JSON.parse(authService.currentUserValue).user.id;
-      setUserId(user);
+      const user = await JSON.parse(authService.currentUserValue);
+      if (user.user.roles.includes('ROLE_ADMIN')) setIsAdmin(true);
+      setUserId(user.user.id);
     }
     setUser();
   }, []);
@@ -61,7 +63,12 @@ const RoomDetail = (props) => {
       )}
       {room && userId && (
         <FlexRow>
-          <Calendar roomId={room._id} roomName={room.name} userId={userId} />
+          <Calendar
+            roomId={room._id}
+            roomName={room.name}
+            userId={userId}
+            isAdmin={isAdmin}
+          />
         </FlexRow>
       )}
 

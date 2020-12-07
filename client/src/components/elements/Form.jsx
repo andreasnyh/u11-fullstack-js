@@ -1,20 +1,18 @@
 import React from 'react';
 import styled from 'styled-components';
 
-// import { Colors, Shadows } from '../../config/ColorsShadows';
-
 const StyledForm = styled.form`
   width: 100%;
   display: flex;
   padding: 15px;
-  border-radius: 10px;
   align-items: center;
+  border-radius: 10px;
   flex-direction: column;
 `;
 
 const StyledH3 = styled.h3`
-  align-self: flex-start;
   margin-left: 0.8em;
+  align-self: flex-start;
 `;
 
 const Form = ({ handleSubmit, id, children, text }) => {

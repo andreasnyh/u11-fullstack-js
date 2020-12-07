@@ -21,8 +21,6 @@ const Button = styled.button`
   }
   &&:hover {
     transform: scale(1.025);
-    // background: ${Colors.White};
-    // color: ${Colors.Black};
   }
 `;
 

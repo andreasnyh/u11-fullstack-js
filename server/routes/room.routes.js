@@ -20,17 +20,6 @@ router.get('/room/:id', authJwt.verifyToken, roomController.roomDetail);
 
 router.get('/allrooms', authJwt.verifyToken, roomController.allRooms);
 
-/* router.post(
-  '/',
-  [authJwt.verifyToken, authJwt.isAdmin],
-  roomController.create,
-); */
-
-/* router.get('/find/:email', authJwt.verifyToken, roomController.detail);
-
-router.post('/find', authJwt.verifyToken, roomController.detail);
-
-*/
 router.get('/test/all', roomController.allAccess);
 
 router.get('/test/user', authJwt.verifyToken, roomController.userBoard);

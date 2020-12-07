@@ -30,7 +30,6 @@ const detail = (req, res) => {
         if (!user) {
           return res.status(404).json('User not found');
         }
-        console.log('från params', user);
         return res.json(user);
       })
       .catch((err) => res.status(404).json(`Error: ${err}`));
@@ -40,7 +39,6 @@ const detail = (req, res) => {
         if (!user) {
           return res.status(404).json('User not found');
         }
-        console.log('från body:', user);
         return res.json(user);
       })
       .catch((err) => res.status(404).json(`Error: ${err}`));
@@ -76,6 +74,7 @@ const deleteUser = (req, res) => {
     })
     .catch((err) => res.status(400).json(`Error: ${err}`));
 };
+
 /* ***************** TESTS ***************** */
 
 const allAccess = (req, res) => {

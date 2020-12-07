@@ -29,6 +29,7 @@ function init() {
 async function connect() {
   // Run MemoryServer if the environment is "test"
   if (process.env.NODE_ENV === 'test') {
+    // This is commented to avoid errors on deploy
     /* const mongoServer = new MongoMemoryServer({ binary: { version: '4.2.0' } });
     mongoServer.getUri().then((mongoUri) => {
       mongoose.connect(mongoUri, {

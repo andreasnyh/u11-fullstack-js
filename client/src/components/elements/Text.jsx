@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { Card } from '.';
-// import { Colors } from '../../config/ColorsShadows';
 
 const StyledWrapper = styled.div`
   margin: 1rem;
@@ -12,8 +11,8 @@ const StyledWrapper = styled.div`
 
 const Content = styled(Card)`
   margin: 0 !important;
-  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2) inset;
   background-color: white;
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2) inset;
 `;
 
 const StyledHeadline = styled.h2`
@@ -22,8 +21,8 @@ const StyledHeadline = styled.h2`
 `;
 
 const StyledHeadlineSub = styled.h3`
-  margin: 1em 0 1em;
   font-weight: 600;
+  margin: 1em 0 1em;
 `;
 
 const StyledText = styled.p``;

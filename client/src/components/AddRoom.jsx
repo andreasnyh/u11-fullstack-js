@@ -44,7 +44,6 @@ class AddRoom extends Component {
   handleSubmit(event) {
     const { room } = this.state;
     event.preventDefault();
-    console.log('handleSubmit state AddRoom', JSON.stringify(room, null, 2));
     roomService.create(room);
     const { history } = this.props;
     history.push('/home');
@@ -106,7 +105,6 @@ class AddRoom extends Component {
                   name="from"
                   value={from || ''}
                   type="number"
-                  // style={{ width: '48%' }}
                   placeholder="Room size from"
                   onChange={this.handleChange}
                 />
@@ -121,7 +119,6 @@ class AddRoom extends Component {
                   required
                   type="number"
                   placeholder="To"
-                  // style={{ width: '48%' }}
                   onChange={this.handleChange}
                 />
               </Label>

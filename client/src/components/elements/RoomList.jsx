@@ -3,7 +3,6 @@ import Modal from 'react-modal';
 import styled from 'styled-components';
 
 import { RoomDetail } from '..';
-// import { Colors } from '../../config/ColorsShadows';
 import { Button, Card, FlexRow, Image, Text } from '.';
 
 const StyledImageContainer = styled.div`

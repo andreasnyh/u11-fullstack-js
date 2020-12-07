@@ -8,13 +8,10 @@ const apiUrl =
 
 async function create(room) {
   const header = await authHeader();
-  console.log(header);
   axios
     .post(`${apiUrl}/admin/addroom`, room, { headers: header })
     .then(handleResponse)
     .then((res) => {
-      console.log(res);
-      console.log(res.data);
       return res;
     })
     .catch((error) => {

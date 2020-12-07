@@ -33,13 +33,13 @@ class SignIn extends Component {
     event.preventDefault();
     this.setState({ loading: true });
     this.signIn()
-      .then((res) => {
+      .then(() => {
         this.setState({ loading: false });
-        console.log(res);
+        // console.log(res);
       })
-      .catch((err) => {
+      .catch(() => {
         this.setState({ loading: false });
-        console.log(err);
+        // console.log(err);
       });
   }
 

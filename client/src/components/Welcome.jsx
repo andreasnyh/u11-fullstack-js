@@ -12,14 +12,14 @@ const StyledWelcome = styled.div`
   bottom: 0;
   width: 100%;
   padding: 2em;
-  margin: 0 auto;
-  color: ${Colors.Text};
-  background-color: ${Colors.Dark};
-  border-radius: 30px 30px 0 0;
-  position: absolute;
   display: flex;
+  margin: 0 auto;
+  position: absolute;
   align-items: center;
+  color: ${Colors.Text};
   flex-direction: column;
+  border-radius: 30px 30px 0 0;
+  background-color: ${Colors.Dark};
 `;
 
 const StyledContainer = styled.div`
@@ -31,10 +31,10 @@ const StyledContainer = styled.div`
 
 const StyledText = styled.h1`
   width: 100vw;
-  background-color: ${Colors.Dark};
   opacity: 0.7;
   margin-top: 5rem;
   padding: 0.5rem 0;
+  background-color: ${Colors.Dark};
 `;
 
 const Welcome = () => {

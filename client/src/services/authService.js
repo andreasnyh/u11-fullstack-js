@@ -21,7 +21,7 @@ function signin(input) {
       window.location = `${window.location.origin}/home`;
     })
     .catch((error) => {
-      console.log(error.response);
+      // console.log(error.response);
       return handleResponse(error.response);
       // if (error.response) {
       // const errorArray = [];
